@@ -1,0 +1,404 @@
+Restore Archived Project report for ddl_ctrlr
+Wed Jun 19 21:28:51 2013
+Quartus II 64-Bit Version 12.0 Build 178 05/31/2012 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Restore Archived Project Summary
+  3. Restore Archived Project Messages
+  4. Files Restored
+  5. Files Not Restored
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2012 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------+
+; Restore Archived Project Summary                                        ;
++---------------------------------+---------------------------------------+
+; Restore Archived Project Status ; Successful - Wed Jun 19 21:28:51 2013 ;
+; Revision Name                   ; ddl_ctrlr                             ;
+; Top-level Entity Name           ; ddl_ctrlr                             ;
+; Family                          ; Stratix II                            ;
++---------------------------------+---------------------------------------+
+
+
++-----------------------------------+
+; Restore Archived Project Messages ;
++-----------------------------------+
+Info: Successfully restored 'C:/HMPID-FPGA/RCB_P2_23/ddl_ctrlr.qar' into the 'C:/HMPID-FPGA/RCB_P2_23/ddl_ctrlr_restored/' directory
+Info: Generated report 'ddl_ctrlr.restore.rpt'
+Info (23030): Evaluation of Tcl script c:/eda/altera/v12_0/quartus/common/tcl/apps/qpm/qar.tcl was successful
+Info: Quartus II 64-Bit Shell was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 270 megabytes
+    Info: Processing ended: Wed Jun 19 21:28:51 2013
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+
++------------------------------------+
+; Files Restored                     ;
++------------------------------------+
+; File Name                          ;
++------------------------------------+
+; DDL_SOFT_RESET_MODULE.bsf          ;
+; DDL_SOFT_RESET_MODULE.tdf          ;
+; Generatore_Clock.bdf               ;
+; Generatore_Clock.bsf               ;
+; Generatore_Clock_Temp.bsf          ;
+; L0_DELAY.bsf                       ;
+; L0_DELAY.tdf                       ;
+; L0_TO_COLUMN_GEN.bsf               ;
+; L0_TO_COLUMN_GEN.tdf               ;
+; LED_COUNTER.bsf                    ;
+; LED_COUNTER.vhd                    ;
+; LO_DELAY.tdf                       ;
+; PLL0.bsf                           ;
+; PLL0.ppf                           ;
+; PLL0.tdf                           ;
+; PLL1.bsf                           ;
+; PLL1.ppf                           ;
+; PLL1.vhd                           ;
+; TTCRX_RESETn_COUNTER.bsf           ;
+; TTCRX_RESETn_COUNTER.vhd           ;
+; TTCRX_SOFT_RESET_MODULE.bsf        ;
+; TTCRX_SOFT_RESET_MODULE.tdf        ;
+; TTCRX_SOFT_RESET_MODULE_1.bsf      ;
+; TTCRX_SOFT_RESET_MODULE_1.tdf      ;
+; TTC_COMMUNICATION.bsf              ;
+; TTC_COMMUNICATION.tdf              ;
+; alt_remote.bsf                     ;
+; alt_remote.inc                     ;
+; alt_remote.vhd                     ;
+; assignment_defaults.qdf            ;
+; db/a_dpfifo_in01.tdf               ;
+; db/a_dpfifo_rn01.tdf               ;
+; db/altsyncram_00j2.tdf             ;
+; db/altsyncram_0qi2.tdf             ;
+; db/altsyncram_0vi2.tdf             ;
+; db/altsyncram_10j2.tdf             ;
+; db/altsyncram_1qi2.tdf             ;
+; db/altsyncram_1si2.tdf             ;
+; db/altsyncram_1vi2.tdf             ;
+; db/altsyncram_20j2.tdf             ;
+; db/altsyncram_2613.tdf             ;
+; db/altsyncram_2qi2.tdf             ;
+; db/altsyncram_30j2.tdf             ;
+; db/altsyncram_3qi2.tdf             ;
+; db/altsyncram_3vi2.tdf             ;
+; db/altsyncram_40j2.tdf             ;
+; db/altsyncram_4913.tdf             ;
+; db/altsyncram_4qi2.tdf             ;
+; db/altsyncram_4vi2.tdf             ;
+; db/altsyncram_50j2.tdf             ;
+; db/altsyncram_52j2.tdf             ;
+; db/altsyncram_5913.tdf             ;
+; db/altsyncram_5h03.tdf             ;
+; db/altsyncram_5qi2.tdf             ;
+; db/altsyncram_5vi2.tdf             ;
+; db/altsyncram_60j2.tdf             ;
+; db/altsyncram_6qi2.tdf             ;
+; db/altsyncram_6vi2.tdf             ;
+; db/altsyncram_70j2.tdf             ;
+; db/altsyncram_72j2.tdf             ;
+; db/altsyncram_7413.tdf             ;
+; db/altsyncram_7qi2.tdf             ;
+; db/altsyncram_7vi2.tdf             ;
+; db/altsyncram_80j2.tdf             ;
+; db/altsyncram_8913.tdf             ;
+; db/altsyncram_8nb2.tdf             ;
+; db/altsyncram_8ne1.tdf             ;
+; db/altsyncram_8qi2.tdf             ;
+; db/altsyncram_8vi2.tdf             ;
+; db/altsyncram_90j2.tdf             ;
+; db/altsyncram_92j2.tdf             ;
+; db/altsyncram_9nb2.tdf             ;
+; db/altsyncram_9qi2.tdf             ;
+; db/altsyncram_9vi2.tdf             ;
+; db/altsyncram_a0j2.tdf             ;
+; db/altsyncram_anb2.tdf             ;
+; db/altsyncram_aqi2.tdf             ;
+; db/altsyncram_avi2.tdf             ;
+; db/altsyncram_b0j2.tdf             ;
+; db/altsyncram_b413.tdf             ;
+; db/altsyncram_bnb2.tdf             ;
+; db/altsyncram_bqi2.tdf             ;
+; db/altsyncram_bvi2.tdf             ;
+; db/altsyncram_c0j2.tdf             ;
+; db/altsyncram_c313.tdf             ;
+; db/altsyncram_ckb2.tdf             ;
+; db/altsyncram_clc1.tdf             ;
+; db/altsyncram_cnb2.tdf             ;
+; db/altsyncram_cqi2.tdf             ;
+; db/altsyncram_cvi2.tdf             ;
+; db/altsyncram_d0j2.tdf             ;
+; db/altsyncram_d2j2.tdf             ;
+; db/altsyncram_d413.tdf             ;
+; db/altsyncram_dnb2.tdf             ;
+; db/altsyncram_dqi2.tdf             ;
+; db/altsyncram_dvi2.tdf             ;
+; db/altsyncram_e0j2.tdf             ;
+; db/altsyncram_e913.tdf             ;
+; db/altsyncram_ekb2.tdf             ;
+; db/altsyncram_enb2.tdf             ;
+; db/altsyncram_eqi2.tdf             ;
+; db/altsyncram_evi2.tdf             ;
+; db/altsyncram_f0j2.tdf             ;
+; db/altsyncram_f2j2.tdf             ;
+; db/altsyncram_fnb2.tdf             ;
+; db/altsyncram_fpi2.tdf             ;
+; db/altsyncram_fvi2.tdf             ;
+; db/altsyncram_g0j2.tdf             ;
+; db/altsyncram_gnb2.tdf             ;
+; db/altsyncram_gvi2.tdf             ;
+; db/altsyncram_h0j2.tdf             ;
+; db/altsyncram_ha13.tdf             ;
+; db/altsyncram_hnb2.tdf             ;
+; db/altsyncram_hpi2.tdf             ;
+; db/altsyncram_hvi2.tdf             ;
+; db/altsyncram_i0j2.tdf             ;
+; db/altsyncram_i913.tdf             ;
+; db/altsyncram_inb2.tdf             ;
+; db/altsyncram_ivi2.tdf             ;
+; db/altsyncram_j0j2.tdf             ;
+; db/altsyncram_jnb2.tdf             ;
+; db/altsyncram_jpi2.tdf             ;
+; db/altsyncram_jvi2.tdf             ;
+; db/altsyncram_k0j2.tdf             ;
+; db/altsyncram_k3e1.tdf             ;
+; db/altsyncram_kkb2.tdf             ;
+; db/altsyncram_knb2.tdf             ;
+; db/altsyncram_kpi2.tdf             ;
+; db/altsyncram_kvi2.tdf             ;
+; db/altsyncram_l0j2.tdf             ;
+; db/altsyncram_lvi2.tdf             ;
+; db/altsyncram_m0j2.tdf             ;
+; db/altsyncram_mpi2.tdf             ;
+; db/altsyncram_mvi2.tdf             ;
+; db/altsyncram_n0j2.tdf             ;
+; db/altsyncram_na13.tdf             ;
+; db/altsyncram_nvi2.tdf             ;
+; db/altsyncram_o0j2.tdf             ;
+; db/altsyncram_ob13.tdf             ;
+; db/altsyncram_okb2.tdf             ;
+; db/altsyncram_opi2.tdf             ;
+; db/altsyncram_opl1.tdf             ;
+; db/altsyncram_ovi2.tdf             ;
+; db/altsyncram_p0j2.tdf             ;
+; db/altsyncram_p313.tdf             ;
+; db/altsyncram_ppi2.tdf             ;
+; db/altsyncram_pui2.tdf             ;
+; db/altsyncram_pvi2.tdf             ;
+; db/altsyncram_q0j2.tdf             ;
+; db/altsyncram_qb13.tdf             ;
+; db/altsyncram_qpi2.tdf             ;
+; db/altsyncram_qvi2.tdf             ;
+; db/altsyncram_r0j2.tdf             ;
+; db/altsyncram_r1j2.tdf             ;
+; db/altsyncram_r313.tdf             ;
+; db/altsyncram_rpi2.tdf             ;
+; db/altsyncram_rsb2.tdf             ;
+; db/altsyncram_rui2.tdf             ;
+; db/altsyncram_rvi2.tdf             ;
+; db/altsyncram_s513.tdf             ;
+; db/altsyncram_sg03.tdf             ;
+; db/altsyncram_spi2.tdf             ;
+; db/altsyncram_svi2.tdf             ;
+; db/altsyncram_t313.tdf             ;
+; db/altsyncram_t3e1.tdf             ;
+; db/altsyncram_thq1.tdf             ;
+; db/altsyncram_tpi2.tdf             ;
+; db/altsyncram_tsb2.tdf             ;
+; db/altsyncram_tui2.tdf             ;
+; db/altsyncram_tvi2.tdf             ;
+; db/altsyncram_u513.tdf             ;
+; db/altsyncram_upi2.tdf             ;
+; db/altsyncram_uvi2.tdf             ;
+; db/altsyncram_v1j2.tdf             ;
+; db/altsyncram_v313.tdf             ;
+; db/altsyncram_vpi2.tdf             ;
+; db/altsyncram_vri2.tdf             ;
+; db/altsyncram_vsb2.tdf             ;
+; db/altsyncram_vui2.tdf             ;
+; db/altsyncram_vvi2.tdf             ;
+; db/cmpr_40i.tdf                    ;
+; db/cmpr_50i.tdf                    ;
+; db/cmpr_60i.tdf                    ;
+; db/cmpr_70i.tdf                    ;
+; db/cntr_04i.tdf                    ;
+; db/cntr_0oh.tdf                    ;
+; db/cntr_0ph.tdf                    ;
+; db/cntr_1oh.tdf                    ;
+; db/cntr_1ph.tdf                    ;
+; db/cntr_2oh.tdf                    ;
+; db/cntr_2ph.tdf                    ;
+; db/cntr_3hi.tdf                    ;
+; db/cntr_4oh.tdf                    ;
+; db/cntr_4ri.tdf                    ;
+; db/cntr_5ij.tdf                    ;
+; db/cntr_5oh.tdf                    ;
+; db/cntr_5ri.tdf                    ;
+; db/cntr_6ij.tdf                    ;
+; db/cntr_6oh.tdf                    ;
+; db/cntr_6ri.tdf                    ;
+; db/cntr_7ij.tdf                    ;
+; db/cntr_7oh.tdf                    ;
+; db/cntr_7ri.tdf                    ;
+; db/cntr_8ij.tdf                    ;
+; db/cntr_8m7.tdf                    ;
+; db/cntr_8oh.tdf                    ;
+; db/cntr_8pk.tdf                    ;
+; db/cntr_9hi.tdf                    ;
+; db/cntr_9oh.tdf                    ;
+; db/cntr_aoh.tdf                    ;
+; db/cntr_aqi.tdf                    ;
+; db/cntr_bhi.tdf                    ;
+; db/cntr_boh.tdf                    ;
+; db/cntr_c8j.tdf                    ;
+; db/cntr_coh.tdf                    ;
+; db/cntr_d5i.tdf                    ;
+; db/cntr_dnk.tdf                    ;
+; db/cntr_doh.tdf                    ;
+; db/cntr_eoh.tdf                    ;
+; db/cntr_foh.tdf                    ;
+; db/cntr_gmh.tdf                    ;
+; db/cntr_goh.tdf                    ;
+; db/cntr_hoh.tdf                    ;
+; db/cntr_im8.tdf                    ;
+; db/cntr_ioh.tdf                    ;
+; db/cntr_jnk.tdf                    ;
+; db/cntr_joh.tdf                    ;
+; db/cntr_kkb.tdf                    ;
+; db/cntr_koh.tdf                    ;
+; db/cntr_lnk.tdf                    ;
+; db/cntr_loh.tdf                    ;
+; db/cntr_moh.tdf                    ;
+; db/cntr_noh.tdf                    ;
+; db/cntr_ooh.tdf                    ;
+; db/cntr_opi.tdf                    ;
+; db/cntr_poh.tdf                    ;
+; db/cntr_qn8.tdf                    ;
+; db/cntr_qoh.tdf                    ;
+; db/cntr_roh.tdf                    ;
+; db/cntr_slb.tdf                    ;
+; db/cntr_soh.tdf                    ;
+; db/cntr_tnh.tdf                    ;
+; db/cntr_toh.tdf                    ;
+; db/cntr_uii.tdf                    ;
+; db/cntr_unh.tdf                    ;
+; db/cntr_uoh.tdf                    ;
+; db/cntr_vnh.tdf                    ;
+; db/cntr_voh.tdf                    ;
+; ddl_ctrlr.cbx.xml                  ;
+; db/ddl_ctrlr.sim.cvwf              ;
+; db/decode_3pa.tdf                  ;
+; db/decode_6pa.tdf                  ;
+; db/decode_bpa.tdf                  ;
+; db/decode_cpi.tdf                  ;
+; db/decode_tqe.tdf                  ;
+; db/mux_0lb.tdf                     ;
+; db/mux_3lb.tdf                     ;
+; db/mux_4lb.tdf                     ;
+; db/mux_5lb.tdf                     ;
+; db/mux_6lb.tdf                     ;
+; db/mux_7lb.tdf                     ;
+; db/mux_8lb.tdf                     ;
+; db/mux_9lb.tdf                     ;
+; db/mux_alb.tdf                     ;
+; db/mux_blb.tdf                     ;
+; db/mux_clb.tdf                     ;
+; db/mux_dlb.tdf                     ;
+; db/mux_elb.tdf                     ;
+; db/mux_flb.tdf                     ;
+; db/mux_glb.tdf                     ;
+; db/mux_hlb.tdf                     ;
+; db/mux_ilb.tdf                     ;
+; db/mux_jlb.tdf                     ;
+; db/mux_klb.tdf                     ;
+; db/mux_llb.tdf                     ;
+; db/mux_mlb.tdf                     ;
+; db/mux_umb.tdf                     ;
+; db/mux_vmb.tdf                     ;
+; rcb_ctrlr.qpf                      ;
+; db/scfifo_fh01.tdf                 ;
+; db/scfifo_kh01.tdf                 ;
+; db/scfifo_oh01.tdf                 ;
+; ddl_ctrlr.acf                      ;
+; ddl_ctrlr.asm.rpt                  ;
+; ddl_ctrlr.auto_signaltap_0.map.eqn ;
+; ddl_ctrlr.bdf                      ;
+; ddl_ctrlr.cdf                      ;
+; ddl_ctrlr.done                     ;
+; ddl_ctrlr.dpf                      ;
+; ddl_ctrlr.fit.eqn                  ;
+; ddl_ctrlr.fit.rpt                  ;
+; ddl_ctrlr.fit.smsg                 ;
+; ddl_ctrlr.fit.summary              ;
+; ddl_ctrlr.fld                      ;
+; ddl_ctrlr.flow.rpt                 ;
+; ddl_ctrlr.jdi                      ;
+; ddl_ctrlr.map                      ;
+; ddl_ctrlr.map.eqn                  ;
+; ddl_ctrlr.map.rpt                  ;
+; ddl_ctrlr.map.summary              ;
+; ddl_ctrlr.merge.rpt                ;
+; ddl_ctrlr.pin                      ;
+; ddl_ctrlr.ppl                      ;
+; ddl_ctrlr.qarlog                   ;
+; ddl_ctrlr.qsf                      ;
+; ddl_ctrlr.qws                      ;
+; ddl_ctrlr.sim.rpt                  ;
+; ddl_ctrlr.sld_hub_inst.map.eqn     ;
+; ddl_ctrlr.tan.rpt                  ;
+; ddl_ctrlr.tan.summary              ;
+; ddl_ctrlr.ttf                      ;
+; ddl_ctrlr.vwf                      ;
+; ddl_ctrlr_assignment_defaults.qdf  ;
+; ddl_ctrlr_data_transfer.qarlog     ;
+; ddl_ctrlr_epc.svf                  ;
+; ddl_ctrlr_loc.map                  ;
+; ddl_ctrlr_tmp_archive.qarlog       ;
+; ddl_data_transfer_header.qarlog    ;
+; ddl_fifo.bsf                       ;
+; ddl_fifo.inc                       ;
+; ddl_fifo.tdf                       ;
+; ddlctrlr.bsf                       ;
+; ddlctrlr.tdf                       ;
+; header.bsf                         ;
+; header.tdf                         ;
+; pin.tcl                            ;
+; rcb3-28may.qarlog                  ;
+; rcb_ctrlr.qarlog                   ;
+; rcb_ctrlr.qws                      ;
+; rcb_ctrlr_tmp_archive.qarlog       ;
+; undo_redo.txt                      ;
++------------------------------------+
+
+
++--------------------+
+; Files Not Restored ;
++--------------------+
+; File Name          ;
++--------------------+
+
+

@@ -1,0 +1,3336 @@
+--  
+-- DDL controller/SIU Interface for the HMPID DDL, ALICE Project
+-- Copyright (c) JC Silva ,May, CERN 2006
+--
+
+-- NOTA: il reset software da DDL ha la funzione principale di resettare il TTCRX ma, poiche' e' implemementato resetta anche il resto del firmware
+
+SUBDESIGN ddlctrlr
+(
+		CLOCK: INPUT; -- clk40_g, e' il clock della RCB_SM  (40 MHz)
+		CLOCK10: INPUT; -- (10 MHz), e' il clock della LOCAL_SM
+		CLOCK20: INPUT; --(20 MHz)
+		
+		RESETn: INPUT;
+--		L0_EXT, L1_EXT: input; -- non utilizzati
+		L2_EXT :INPUT;
+		fiDIR, fiBENn, fiLFn: INPUT; -- dal SIU
+		fb_CTRLn, fb_TENn :INPUT;	-- dal SIU, sono negati prima di entrare
+		FIFO_NMBR[9..0], EMPTY_FIFO: INPUT; -- dalla FIFO interna
+		END_HEADER_WR : INPUT;  			-- dal blocco HEADER
+		SEQ_ERROR_FLAG: INPUT; -- dal modulo TTC_COMMUNICATION: indica che si deve inviare il solo CDH senza dati
+		CLR_DDL_SOFT_RESET_MODULE: INPUT; -- dal modulo DDL_SOFT_RESET_MODULE: indica alla MAIN_SM che il reset del TTC e' terminato che puo' tornare in IDLE
+		
+		fbD[31..0] : BIDIR;
+		
+		foCLK: OUTPUT; 		-- SIU CONTROL, e' uguale a CLOCK (40 MHZ) ma non e' utilizzato
+		fo_BSYn: OUTPUT;           --SIU CONTROL, fuori e' negato per poi divenire fo_BSYn
+		SIU_TRI_ctrl: OUTPUT; 			 --SIU CONTROL, controlla i buffer tristate sugli I/O bidir del SIU
+		int_fbCTRLn, int_fbTENn: OUTPUT; --SIU CONTROL
+		LOC_CSn, LOC_Rn/W: OUTPUT; 
+
+
+--		BUSY: OUTPUT;-- non utilizzato 								
+--		SEG_TRIG: OUTPUT; --non utilizzato			--SEGMENT CONTROL
+--		SEG_CLOCK: OUTPUT;-- non utilizzato			--SEGMENT CONTROL
+
+		DATABUS_ADD[12..0] : OUTPUT;				--SEGMENT CONTROL
+		WR_FIFO, RD_FIFO , FIFO_CLK, FIFO_CLR, FIFO_DATA_ENABLE: OUTPUT; --FIFO CONTROL
+		CPT_L2A: OUTPUT;   -- al blocco HEADER
+		CLEAR_BUSY: OUTPUT;  -- fa il clear del segnale di BUSY che e' andato alto a causa dell'arrivo di un L0
+		
+		RESET_SEQ_ERROR_FLAG: OUTPUT; -- va al modulo TTC_COMMUNICATION: fa il clear dei registri dell'header
+		
+		DDL_SOFT_RESET_MODULE: OUTPUT; -- abilita il funzionamento del modulo di gestione del reset per il TCC
+		DDL_SOFT_RESET_LENGHT[7..0]: OUTPUT; -- indica al modulo di gestione del TTC_RESET la durata dell'impulso di RESET
+		
+		LOCAL_CYCLE_START ,LOCAL_CYCLE_END: OUTPUT; -- sembra OUTPUT di TEST 
+		FECTRL: OUTPUT;			-- sembra OUTPUT di TEST
+		FESTRD: OUTPUT;			-- sembra OUTPUT di TEST
+		COLUMN_ENA: OUTPUT;		-- sembra OUTPUT di TEST	
+		loc_state_id:  OUTPUT; 	-- sembra OUTPUT di TEST
+
+		L1A_LATENCY[7..0]: OUTPUT; -- va al TTC_COMMUNICATION module
+		ERROR_BIT_ENA: OUTPUT;
+		CDH_NEW_ENA: OUTPUT;
+		
+		TEST_LOCAL_STATO[7..0]: OUTPUT;		-- OUTPUT di TEST, stato della LOCAL_SM
+		TEST_MAIN_STATO[7..0]: OUTPUT; -- TEST: STATO DELLA RCB_SM
+		
+		SEGMENT_COUNTER[1..0]: OUTPUT;
+		
+		ANALOG_READOUT_SR: OUTPUT;
+		
+		WRITE_fbTEN_pulse: OUTPUT;
+		
+		DDL_SOFT_BUSY_RESET: OUTPUT; -- e' il segnale di reset (da DDL) del resto del firmware e dei segment ma non del TTCRX
+									 -- la sua principale funzionalita' e' quella di resettare in particolare il BUSY
+
+		ENA_L2LOOP: OUTPUT; -- abilita l'arrivo dei trigger
+		
+		SEGMENT_WORD_COUNTER[11..0]: OUTPUT; 
+		
+		DISABLE_CLOCK_20: OUTPUT;
+		
+		L0_DELAY_VALUE[7..0]: OUTPUT;
+		
+		ZERO_SUPP_MEMO: OUTPUT;
+		ZERO_SUPP_ON_SR: OUTPUT;
+		ZERO_SUPP_COLUMN[3..0]: OUTPUT;
+		LOCAL_START: OUTPUT;
+		
+		
+%		
+		SEG_SEL_SR: OUTPUT;				
+ 		S_SEG_SEL_SR: OUTPUT;			
+		R_SEG_SEL_SR: OUTPUT;  			
+		
+		SEGMENT_COUNTER[1..0]: OUTPUT;  
+		ENA_SEGMENT_COUNTER: OUTPUT;  	
+		CLRN_SEGMENT_COUNTER: OUTPUT;  	
+		
+		ANALOG_READOUT_SR: OUTPUT; 
+		S_ANALOG_READOUT_SR: OUTPUT; 
+		R_ANALOG_READOUT_SR: OUTPUT; 	
+	
+		
+		
+		WRITE_fbTEN: OUTPUT;
+%
+		
+)
+		
+
+variable
+FE_REG[31..0]: DFFE;
+LOCAL_BUS_REG[18..0]: DFFE; 
+RCB_STATUS[8..0]: DFFE;
+CMD_DEC_REG[7..0]: DFFE;
+WORD_NMBER_COMP[9..0]: DFFE;
+WRD_NMBER[9..0]: DFFE;
+ID_CODE[3..0]: DFFE;
+CONFIG_REG[3..0]: DFFE;
+COLUMN_NMBER[3..0]: DFFE;
+
+SEGMENT_COUNTER[1..0]: DFFE; -- consente di selezionare i diversi  segment nel readout legato all'arrivo di un L2
+SEGMENT_WORD_COUNTER[11..0]: DFFE; -- conta il num di segment word inviate sul link a seguito dell'arrivo di un L2
+
+DDL_SOFT_RESET_LENGHT[7..0]: DFFE; -- conserva il valore relativo alla durata del TTC_RESET che arriva con lo stesso comando di RESET 
+
+L1A_LATENCY[7..0]: DFFE; -- conserva il valore della L1A latency inviato sul ddl
+ERROR_BIT_ENA: DFFE; -- bit di abilitazione invio bit di errore nella locazione di default del CDH, 
+ 					 --	� il bit 28 del comando di set latency
+
+CDH_NEW_ENA: DFFE; -- bit di abilitazione per l'invio del CDH allungato ovvero quello custom da noi implementato
+				  -- � il bit 29 del comando di set latency
+				
+-- ERROR_BIT: DFF;
+CMD_CLR[1..0]: DFF;
+WRITE_fbTEN_pulse: DFF;
+-- L2_COUNTER[3..0]: DFF;
+
+LOCAL_START: SRFF;
+READ_STATUS: SRFF;
+LOC_DATA_LOOP: SRFF;
+ENA_L2LOOP: SRFF;
+
+SEG_SEL_SR: SRFF;    -- indica alla LOCAL_SM di attivare la procedura di selezione dei diversi segment a seguito
+					 --	dell'arrivo di un L2
+					
+ANALOG_READOUT_SR: SRFF; -- indica alla RCB_SM che si � in readout a causa dell'arrivo di un L2
+
+DDL_SOFT_RESET_MODULE: DFFE; -- indica che si e' in fase di reset del TTC 
+-- DDL_SOFT_RESET_MODULE: SRFF; -- indica che si e' in fase di reset del TTC 
+
+fbDtri[31..0] : TRI;
+
+DDL_SOFT_BUSY_RESET: SRFF; -- fornisce il segnale di reset (da DDL) del resto del firmware e dei segment ma non del TTCRX
+
+L0_DELAY_VALUE[7..0]: DFFE;
+
+WAIT_CLEAR_BUSY[5..0]: DFFE; -- contatore di attesa prima di effettuare il CLEAR_BUSY
+
+ZERO_SUPP_MEMO: DFFE; -- mantiene memoria del fatto che la zero suppression sia stata attivata
+
+ZERO_SUPP_ON_SR: SRFF; -- abilita la macchina locale a forzare la zero suppression
+
+ZERO_SUPP_COLUMN[3..0]: DFFE; -- contatore dei column nella zero suppression routine
+
+
+
+DATA_BLK_ENA : NODE ;  -- non serve, e' fisso a massa
+
+RDYRX ,EOBTR, STBWR, STBRD, FECTRL, FESTRD : NODE; -- linee di abilitazione del comando
+
+CLR_LOCAL_START: NODE; -- non serve, e' fisso a massa
+
+START_LOCAL_DATA_LOOP: NODE;   -- input S del SRFF LOC_DATA_LOOP
+CLEAR_LOC_LOOP: NODE;			-- input R del SRFF LOC_DATA_LOOP
+
+
+S_READ_STATUS: NODE; 		-- input S del SRFF READ_STATUS
+
+WORD_COMPARE_ENA: NODE;		-- enable del DFFE WORD_NMBR_CMP[]
+CLEAR_WRD_NMBR: NODE;		-- clear del DFFE WORD_NMBR_CMP[]
+
+WRITE_fbTEN: NODE;			-- clock del DFF WRITE_fbTEN_pulse
+WRITE_PULSE_CLR: NODE;		-- clr del DFF WRITE_fbTEN_pulse
+
+ENA_CLMN_CNTR: NODE;		-- ena del DFFE COLUMN_NMBER[]
+CLEAR_COLUMN: NODE;			-- clr del DFFE COLUMN_NMBER[]
+
+CLEAR_COMMAND: NODE;   -- clr del DFFE CMD_DEC_REG[]
+
+RCB_CONFIG: NODE;		--enable del DFFE CONFIG_REG[3..0]
+
+START_WRITE_LOOP: NODE;
+TRANSFER_END: NODE;
+DISABLE_L2: NODE;
+
+S_SEG_SEL_SR: NODE;	
+R_SEG_SEL_SR: NODE;	
+
+ENA_SEGMENT_COUNTER: NODE;  
+CLRN_SEGMENT_COUNTER: NODE;  
+
+S_ANALOG_READOUT_SR: NODE; 
+R_ANALOG_READOUT_SR: NODE; 
+
+CLRN_SEGMENT_WORD_COUNTER: NODE; 
+ENA_SEGMENT_WORD_COUNTER: NODE;
+
+ENA_DDL_SOFT_RESET_LENGHT: NODE; 
+SET_DDL_SOFT_RESET_MODULE: NODE; 
+
+SET_L1A_LATENCY_REG: NODE; 
+
+SET_DDL_SOFT_BUSY_RESET: NODE; --: sono i segnali di controllo del SRFF DDL_SOFT_BUSY_RESET 
+CLR_DDL_SOFT_BUSY_RESET: NODE; 
+
+ENA_WAIT_CLEAR_BUSY: NODE; -- : enable del contatore per l'attesa prima del CEAR_BUSY
+CLR_WAIT_CLEAR_BUSY: NODE; -- : clear del ....
+
+ZERO_SUPP_MEMO_ENA: NODE; --: abilita il relativo registro
+
+DISABLE_CLOCK_20: NODE;
+
+SET_L0_DELAY_REG: NODE;
+
+S_ZERO_SUPP_ON_SR: NODE; -- set e reset del relativo registro
+R_ZERO_SUPP_ON_SR: NODE;
+
+ZERO_SUPP_COLUMN_ENA: NODE; -- abilitazione del relativo contatore
+ZERO_SUPP_COLUMN_CLRN: NODE; -- clr del relativo contatore
+
+
+	RCB_SM :	MACHINE OF BITS (QB[7..0]) WITH STATES (
+
+					IDLE_RCB,							--00
+					READ_DIR_WAIT,						--01
+					READ_BEN_WAIT,						--02
+					READ_L2A_WAITING,					--03
+					READ_WAIT_FOR_EOBTR,				--04
+					READ_HEADER_START,					--05
+					READ_WAITFORHEADER,					--06
+					READ_SEQ_ERROR_FLAG, 				--27								
+					SEG_SEL_ANTONIO, 					--07
+					SEG_SEL_ANTONIO_1, 					--08
+					SEG_SEL_ANTONIO_2, 					--09
+					
+					READ_DATA_STATE,					--0A
+					READ_DATA_TRANSFER,					--0B
+					
+					READ_PULSE_fbTEN_TEMP,				--2C
+					
+					READ_PULSE_fbTEN, 					--0C
+					
+					CHECK_ANALOG_READOUT, 				--0D
+					SEND_LAST_SEGMENT_WORD_1, 			--0E
+					SEND_LAST_SEGMENT_WORD_2, 			--0F
+					
+					READ_EOB,							--10
+					READ_EOB1,							--11
+					READ_PEDLOOP,						--12
+					BLOCK_WRITE_START,					--13
+					BLOCK_WRITE_FIFO,					--14
+					BLOCK_WRITE_FIFO_COMPARE,			--15
+					BLOCK_WRITE_LOOP,					--16
+					BLOCK_WRITE_END,					--17
+					BLOCK_READ_START,					--18
+					BLOCK_READ_WAIT1,					--19
+					BLOCK_READ_WAIT2,					--1A
+					BLOCK_READ_STATE1,					--1B
+					BLOCK_READ_WAIT3,					--1C
+					BLOCK_READ_END,						--1D
+					BLOCK_EOBTR,						--1E
+					STRD_DIR_WAIT,						--1F
+					WAIT_STATE1,						--20
+					STRD_WAIT_STATE2,					--21
+					STRD_WAIT_STATE2a,					--22
+					RCB_STATUS_LOOP ,					--23
+					RCB_END_LOOP ,						--24	
+					END_LOOP,							--25
+					END_ALL,							--26
+					TTC_RESET_STATE,					--28
+					TTC_RESET_STATE1,					--29
+					TTC_RESET_STATE2,					--2A
+					SET_L1A_LATENCY_STATE,				--2B
+					BUSY_RESET_STATE1,					--2C
+					BUSY_RESET_STATE2,					--2D
+					BUSY_RESET_STATE3,					--2E
+					BUSY_RESET_STATE4,					--2F
+					SET_L0_DELAY_STATE,					--30
+					WAIT_FOR_CLEAR_BUSY,				--31
+					CLEAR_BUSY_STATE,					--32
+					ZERO_SUPP_ON_1,						--33
+					ZERO_SUPP_ON_2,						--34
+					ZERO_SUPP_ON_3,						--35
+					ZERO_SUPP_ON_4,						--36
+					ZERO_SUPP_ON_5,						--37
+					ZERO_SUPP_ON_6,						--38
+					ZERO_SUPP_ON_7,						--39
+					ZERO_SUPP_ON_8,						--3A
+					ZERO_SUPP_ON_9,						--3B
+					ZERO_SUPP_ON_10,					--3C
+					ZERO_SUPP_ON_11,					--3D
+					ZERO_SUPP_ON_12						--3E
+					
+					
+				);
+				
+				
+	LOCAL_SM :	MACHINE OF BITS (QA[7..0]) WITH STATES (
+
+					IDLE_LOCAL,					--00
+					SEL_FUNCTION,				--01
+					SEL_COLUMN,					--02
+					CLMN_READ_STATUS,			--03
+					CLMN_READ_STATUS_1,			--04	
+					CLMN_READ_STATUS_2,			--05
+			--		CLMN_READ_STATUS_3,			--06
+			--		CLMN_READ_STATUS_4, 		--07
+					OPEN_DATA,					--08	
+					OPEN_DATA_1,				--09		
+					LOOP_DATA,					--0A
+					LOOP_DATA_1,				--0B
+					LOOP_DATA_2,				--0C
+					LOOP_DATA_3,				--0D	
+			--		LOOP_DATA_WAIT,				--0E
+					
+			--		PED_LOOP_DATA_1,			--FB
+			--		PED_LOOP_DATA_2,			--FC
+			--		PED_LOOP_DATA_3,			--FD
+			--		PED_LOOP_DATA_4,			--FE
+			--		PED_LOOP_DATA_5,			--FF
+					
+					CLMN_READ_END,				--0F
+					DATA_CONF,					--10
+					DATA_CONF1,					--11
+					DATA_CONF2,					--12
+					DATA_CONF3,					--13
+					DATA_WR1,					--14
+					DATA_WR2,					--15
+					DATA_WR3,					--16
+					DATA_LOOP,					--17
+					DATA_LOOP_END,				--18
+					STATEWR_1,					--19
+					STATEWR_2,					--1A
+					STATEWR_2A,					--1B
+					STATEWR_2B,					--1C
+					STATE_CHANGE,				--1D
+					STATE_CHANGE1,				--1E
+					STATE_CHANGE2,				--1F
+					STATUS_READ1,				--20
+					STATUS_READ2,				--21
+					SEND_END, 					--22
+					SEND_END1,					--23
+					SEL_SEG_1a,					--24
+					SEL_SEG_1b,					--25
+					SEL_SEG_1c,					--26
+					SEL_SEG_1d,					--27
+					SEL_SEG_1e,					--28
+					END_SEL_SEG,				--29
+					
+					OPEN_DATA_2,				--91
+		--			OPEN_DATA_3,				--92
+		--			OPEN_DATA_4,				--93
+	
+					LOC_ZERO_SUPP_ON_1,			--2A
+					LOC_ZERO_SUPP_ON_2,			--2B
+					LOC_ZERO_SUPP_ON_3,			--2C	
+					LOC_ZERO_SUPP_ON_4,			--2D
+					LOC_ZERO_SUPP_ON_5,			--2E
+					LOC_ZERO_SUPP_ON_6,			--2F
+					LOC_ZERO_SUPP_ON_7			--30	
+					
+					
+					-- OTHERS -- 30
+					
+				);
+				
+------------------------------------------------------------------
+------------------------------------------------------------------				
+BEGIN		
+------------------------------------------------------------------
+DEFAULTS
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		LOC_CSn = VCC;--OE BUS ---CS DECODED ON SEGMENT
+		LOC_Rn/W = GND; 
+--		SEG_TRIG = GND;
+		LOCAL_BUS_REG[9..0].ena = GND;
+		WRD_NMBER[9..0].ena = GND;
+		WR_FIFO = GND;
+		RD_FIFO = GND;
+		FIFO_CLR = GND;
+		FIFO_DATA_ENABLE = GND;
+		SIU_TRI_ctrl = GND;
+		CLR_LOCAL_START= GND;
+		START_LOCAL_DATA_LOOP = GND;
+		ENA_CLMN_CNTR= GND;
+		WORD_COMPARE_ENA = GND;
+		S_READ_STATUS = GND; 
+		DATABUS_ADD[3..0] = H"0";
+		DATABUS_ADD[7..4] = H"0";
+		CLEAR_BUSY = GND;
+		CLEAR_LOC_LOOP = GND;
+		CLEAR_COMMAND= GND;
+		WRITE_fbTEN= GND;
+		WRITE_PULSE_CLR = GND; 
+		TRANSFER_END = GND; 
+		fo_BSYn = GND;
+		DISABLE_L2 = GND;
+		CLEAR_WRD_NMBR = GND;
+		CLEAR_COLUMN= GND;
+		loc_state_id = GND;
+		
+		S_SEG_SEL_SR = GND;	
+		R_SEG_SEL_SR = GND;	
+		
+		ENA_SEGMENT_COUNTER = GND;  
+		CLRN_SEGMENT_COUNTER = VCC;  
+		
+		S_ANALOG_READOUT_SR = GND; 
+		R_ANALOG_READOUT_SR = GND; 
+		
+		CLRN_SEGMENT_WORD_COUNTER = VCC;
+		ENA_SEGMENT_WORD_COUNTER = GND;
+		
+		RESET_SEQ_ERROR_FLAG = GND;
+		
+		SET_DDL_SOFT_RESET_MODULE = GND;
+		
+		ENA_DDL_SOFT_RESET_LENGHT = GND;
+		
+		SET_L1A_LATENCY_REG = GND;
+		
+		SET_DDL_SOFT_BUSY_RESET = GND;
+		CLR_DDL_SOFT_BUSY_RESET = GND;
+		
+		DISABLE_CLOCK_20 = GND;
+		
+		SET_L0_DELAY_REG = GND;
+		
+		ENA_WAIT_CLEAR_BUSY = GND;
+		CLR_WAIT_CLEAR_BUSY = GND;
+		
+		ZERO_SUPP_MEMO_ENA = GND;
+		
+		S_ZERO_SUPP_ON_SR = GND; 
+		R_ZERO_SUPP_ON_SR = GND;
+		
+		ZERO_SUPP_COLUMN_ENA = GND;
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+	
+		
+END DEFAULTS;
+
+
+WRD_NMBER[9..0].clk = CLOCK20;
+WRD_NMBER[9..0].clrn = !CLEAR_WRD_NMBR AND RESETn;
+
+LOCAL_BUS_REG[].clk= CLOCK10;
+LOCAL_BUS_REG[].clrn = !END_ALL AND RESETn;
+
+RCB_STATUS[].clk = !CLOCK;
+RCB_STATUS[].clrn = RESETn;
+
+RCB_SM.clk = !CLOCK;
+RCB_SM.reset=  !RESETn;
+
+LOCAL_SM.clk = CLOCK10;
+LOCAL_SM.reset=  !RESETn;
+
+foCLK = CLOCK;
+fo_BSYn = GND;
+DATABUS_ADD[12..8] = H"0000";
+
+-- BUSY = GND;
+-----------------------------------------------
+---CLOCK DIVIDER 
+-----------------------------------------------
+
+-- SEG_CLOCK = CLOCK20;  --SEGMENT CLOCK @ 20MHz
+
+-- L2_COUNTER[3..0].d = L2_COUNTER[3..0].q + 1;
+-- L2_COUNTER[3..0].clk = L2_EXT;
+-- L2_COUNTER[3..0].clrn= !RDYRX;
+
+
+COLUMN_NMBER[3..0].clk = CLOCK10 ;-- ;
+COLUMN_NMBER[3..0].d = COLUMN_NMBER[3..0].q + 1;-- ;
+COLUMN_NMBER[3..0].ena = ENA_CLMN_CNTR;
+COLUMN_NMBER[3..0].clrn =  !LOCAL_CYCLE_END AND RESETn AND !CLEAR_COLUMN;
+
+WORD_NMBER_COMP[9..0].d = WORD_NMBER_COMP[9..0].q+ 1;
+WORD_NMBER_COMP[].clk = !CLOCK10;
+WORD_NMBER_COMP[].ena = WORD_COMPARE_ENA;
+WORD_NMBER_COMP[].clrn = !CLEAR_WRD_NMBR AND RESETn;
+
+WRITE_fbTEN_pulse.d = VCC;
+WRITE_fbTEN_pulse.clk = WRITE_fbTEN ;
+WRITE_fbTEN_pulse.clrn = !WRITE_PULSE_CLR AND RESETn;
+
+-------------------------------------------------
+-------------------------------------------------
+DATA_BLK_ENA = GND;
+
+fbD[31..0] = fbDtri[31..0].out;
+
+LOC_DATA_LOOP.s = START_LOCAL_DATA_LOOP ;
+LOC_DATA_LOOP.clk =  !CLOCK;
+LOC_DATA_LOOP.r = CLEAR_LOC_LOOP ;
+LOC_DATA_LOOP.clrn = RESETn;
+
+ENA_L2LOOP.s = RDYRX;
+ENA_L2LOOP.clk =  !CLOCK;
+ENA_L2LOOP.r =  EOBTR ;
+ENA_L2LOOP.clrn = RESETn;
+
+LOCAL_START.s = LOCAL_CYCLE_START;
+LOCAL_START.clk =  !CLOCK;
+LOCAL_START.r = LOCAL_CYCLE_END ;
+LOCAL_START.clrn = RESETn;
+
+
+READ_STATUS.s = S_READ_STATUS ;
+READ_STATUS.clk =  !CLOCK;
+READ_STATUS.r = END_ALL ;
+READ_STATUS.clrn = RESETn;
+
+FE_REG[31..0].d = fbD[31..0];
+FE_REG[31..0].ena = !SIU_TRI_ctrl AND fb_TENn AND fb_CTRLn;
+FE_REG[31..0].clk = clock; -- era CLOCK nel progetto di Carlos 
+FE_REG[31..0].clrn = RESETn;
+
+CONFIG_REG[3..0].d = FE_REG[15..12];
+CONFIG_REG[3..0].clk = clock;
+CONFIG_REG[3..0].ena = RCB_CONFIG;
+CONFIG_REG[3..0].clrn = RESETn;
+
+CMD_CLR[0].d = !SIU_TRI_ctrl AND fb_TENn AND fb_CTRLn; 
+CMD_CLR[0].clk = CLOCK;
+
+CMD_CLR[1].d = CMD_CLR[0].q ;
+CMD_CLR[1].clk = CLOCK;
+
+CMD_DEC_REG[7..0].d = fbD[7..0]; --REGISTER FOR COMMAND DECODER
+CMD_DEC_REG[7..0].clk = lcell ( CLOCK );
+CMD_DEC_REG[7..0].ena = !SIU_TRI_ctrl AND fb_TENn AND fb_CTRLn ;
+CMD_DEC_REG[7..0].clrn = RESETn AND !CMD_CLR[1].q AND !CLEAR_COMMAND;
+
+ID_CODE[3..0].d =fbD[11..8];
+ID_CODE[3..0].clk = CLOCK;
+ID_CODE[3..0].ena = !SIU_TRI_ctrl AND fb_TENn AND fb_CTRLn;
+ID_CODE[3..0].clrn = RESETn;
+
+SEG_SEL_SR.s = S_SEG_SEL_SR;	
+SEG_SEL_SR.clk = CLOCK;			
+SEG_SEL_SR.r = R_SEG_SEL_SR;	
+SEG_SEL_SR.clrn = RESETn;			
+
+SEGMENT_COUNTER[1..0].d = SEGMENT_COUNTER[1..0].q + 1;
+SEGMENT_COUNTER[1..0].clk = CLOCK;
+SEGMENT_COUNTER[1..0].ena = ENA_SEGMENT_COUNTER;
+SEGMENT_COUNTER[1..0].clrn = CLRN_SEGMENT_COUNTER AND RESETn;
+
+ANALOG_READOUT_SR.s = S_ANALOG_READOUT_SR;
+ANALOG_READOUT_SR.clk = CLOCK;
+ANALOG_READOUT_SR.r = R_ANALOG_READOUT_SR;
+ANALOG_READOUT_SR.clrn = RESETn;
+
+SEGMENT_WORD_COUNTER[11..0].d = SEGMENT_WORD_COUNTER[11..0].q + 1;
+SEGMENT_WORD_COUNTER[11..0].clk = CLOCK;
+SEGMENT_WORD_COUNTER[11..0].ena = ANALOG_READOUT_SR AND !int_fbTENn AND ENA_SEGMENT_WORD_COUNTER;
+SEGMENT_WORD_COUNTER[11..0].clrn = CLRN_SEGMENT_WORD_COUNTER AND RESETn;
+
+DDL_SOFT_RESET_LENGHT[7..0].d = FE_REG[19..12];
+DDL_SOFT_RESET_LENGHT[7..0].clk = CLOCK;
+DDL_SOFT_RESET_LENGHT[7..0].ena = ENA_DDL_SOFT_RESET_LENGHT;
+DDL_SOFT_RESET_LENGHT[7..0].clrn = RESETn;
+
+DDL_SOFT_RESET_MODULE.d = VCC;
+DDL_SOFT_RESET_MODULE.clk = CLOCK;
+DDL_SOFT_RESET_MODULE.ena = SET_DDL_SOFT_RESET_MODULE; 
+DDL_SOFT_RESET_MODULE.clrn = !CLR_DDL_SOFT_RESET_MODULE AND RESETn;
+
+-- DDL_SOFT_RESET_MODULE.s = SET_DDL_SOFT_RESET_MODULE;
+-- DDL_SOFT_RESET_MODULE.clk = CLOCK;
+-- DDL_SOFT_RESET_MODULE.r = CLR_DDL_SOFT_RESET_MODULE;
+-- DDL_SOFT_RESET_MODULE.clrn = RESETn;
+
+L1A_LATENCY[7..0].d = FE_REG[19..12];
+L1A_LATENCY[7..0].clk = CLOCK;
+L1A_LATENCY[7..0].ena = SET_L1A_LATENCY_REG;
+L1A_LATENCY[7..0].clrn = VCC;
+
+ERROR_BIT_ENA.d = FE_REG[28];
+ERROR_BIT_ENA.clk = CLOCK;
+ERROR_BIT_ENA.ena = SET_L1A_LATENCY_REG;
+ERROR_BIT_ENA.clrn = VCC;
+
+CDH_NEW_ENA.d = FE_REG[29];
+CDH_NEW_ENA.clk = CLOCK;
+CDH_NEW_ENA.ena = SET_L1A_LATENCY_REG;
+CDH_NEW_ENA.clrn = VCC;
+
+DDL_SOFT_BUSY_RESET.s = SET_DDL_SOFT_BUSY_RESET;
+DDL_SOFT_BUSY_RESET.clk = CLOCK;
+DDL_SOFT_BUSY_RESET.r = CLR_DDL_SOFT_BUSY_RESET;
+DDL_SOFT_BUSY_RESET.clrn = RESETn;
+
+L0_DELAY_VALUE[7..0].d = FE_REG[19..12];
+L0_DELAY_VALUE[7..0].clk = CLOCK;
+L0_DELAY_VALUE[7..0].ena = SET_L0_DELAY_REG;
+L0_DELAY_VALUE[7..0].clrn = VCC;
+
+WAIT_CLEAR_BUSY[5..0].d = WAIT_CLEAR_BUSY[5..0].q + 1; -- contatore per l'attesa prima del CLEAR BUSY
+WAIT_CLEAR_BUSY[5..0].clk = CLOCK;
+WAIT_CLEAR_BUSY[5..0].ena = ENA_WAIT_CLEAR_BUSY;
+WAIT_CLEAR_BUSY[5..0].clrn = !CLR_WAIT_CLEAR_BUSY AND RESETn;
+
+ZERO_SUPP_MEMO.d = FE_REG[20];
+ZERO_SUPP_MEMO.clk = CLOCK10;
+ZERO_SUPP_MEMO.ena = ZERO_SUPP_MEMO_ENA;
+ZERO_SUPP_MEMO.clrn = RESETn;
+
+ZERO_SUPP_ON_SR.s = S_ZERO_SUPP_ON_SR;
+ZERO_SUPP_ON_SR.clk = CLOCK;
+ZERO_SUPP_ON_SR.r = R_ZERO_SUPP_ON_SR;
+ZERO_SUPP_ON_SR.clrn = RESETn;
+
+ZERO_SUPP_COLUMN[3..0].d = ZERO_SUPP_COLUMN[3..0].q + 1;
+ZERO_SUPP_COLUMN[3..0].clk = CLOCK;
+ZERO_SUPP_COLUMN[3..0].ena = ZERO_SUPP_COLUMN_ENA;
+ZERO_SUPP_COLUMN[3..0].clrn = ZERO_SUPP_COLUMN_CLRN AND RESETn;
+
+--- IMPLEMENT RCB CONFIGURATION REGISTER...
+--- F MEANS DISABLE L2 FOR RDYRX LOOPS
+
+-- ERROR_BIT.d = GND;
+-- ERROR_BIT.clk = CLOCK;
+
+COLUMN_ENA = WORD_COMPARE_ENA;
+
+--------------------------------------------------------------
+---- RCB COMMAND DECODER 
+--------------------------------------------------------------
+---- PAR Decoder
+--------------------------------------------------------------
+
+CASE CONFIG_REG[3..0] is 
+
+	WHEN H"F" =>
+	
+		DISABLE_L2 = VCC;
+		
+	WHEN OTHERS =>
+	
+		DISABLE_L2 = GND;
+END CASE;
+
+
+	
+--------------------------------------------------------------
+---- RBC DECODER TABLE 
+--------------------------------------------------------------
+
+CASE CMD_DEC_REG[7..0] is
+%
+		WHEN H"14" => RDYRX = VCC;--Ready to receive
+		WHEN H"B4" => EOBTR = VCC;--End of block transfer
+	  	WHEN H"D4" => STBWR = VCC;--Start block write
+		WHEN H"54" => STBRD = VCC;--Start pedestals block read
+		WHEN H"C4" => FECTRL= VCC;--Control
+		WHEN H"44" => FESTRD= VCC;--STATUS READ
+%
+		
+		WHEN H"14" => RDYRX = VCC;--Ready to receive
+					  EOBTR = GND;
+	  	 			  STBWR = GND;
+					  STBRD = GND;
+					  FECTRL= GND;
+					  FESTRD= GND;
+					
+		WHEN H"B4" => RDYRX = GND;
+					  EOBTR = VCC; -- END OF BLOCK TRANSFER
+	  	 			  STBWR = GND;
+					  STBRD = GND;
+					  FECTRL= GND;
+					  FESTRD= GND;			
+		
+		WHEN H"D4" => RDYRX = GND;
+					  EOBTR = GND;
+	  	 			  STBWR = VCC; --START BLOCK WRITE
+					  STBRD = GND;
+					  FECTRL= GND;
+					  FESTRD= GND;
+					
+		WHEN H"54" => RDYRX = GND;
+					  EOBTR = GND;
+	  	 			  STBWR = GND;
+					  STBRD = VCC; -- START PEDESTALS BLOCK READ 
+					  FECTRL= GND;
+					  FESTRD= GND;
+					
+		WHEN H"C4" => RDYRX = GND;
+					  EOBTR = GND;
+	  	 			  STBWR = GND;
+					  STBRD = GND;
+					  FECTRL= VCC; -- CONTROL
+					  FESTRD= GND;			
+		
+		WHEN H"44" => RDYRX = GND;
+					  EOBTR = GND;
+	  	 			  STBWR = GND;
+					  STBRD = GND;
+					  FECTRL= GND;
+					  FESTRD= VCC; -- STATUS READ
+					
+		WHEN OTHERS =>
+				RDYRX = GND;
+				EOBTR = GND;
+				STBWR = GND;
+				STBRD = GND;
+				FECTRL= GND;
+				FESTRD= GND;
+END CASE;
+
+
+-----------------------------------------------
+-- RCB STATE MACHINE
+----------------------------------------------
+CASE RCB_SM is 
+
+	WHEN IDLE_RCB => 
+		SIU_TRI_ctrl = GND;
+		fbDTRI[31..0].oe = GND ;
+		fo_BSYn = GND;
+		TEST_MAIN_STATO[7..0] = H"00"; 
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+
+				
+		IF FESTRD THEN  --- DECODE COMMAND AND LATCHS DATA FROM BUS
+				RCB_SM = STRD_DIR_WAIT;
+				S_READ_STATUS = VCC; 
+
+		ELSIF FECTRL THEN  --- DECODE COMMAND AND LATCHS DATA FROM BUS
+				RCB_SM = WAIT_STATE1; 
+				S_READ_STATUS = GND;
+				
+		ELSIF STBWR THEN 
+				RCB_SM = BLOCK_WRITE_START;
+				
+		ELSIF STBRD THEN 
+				RCB_SM = BLOCK_READ_START; --read block of data on rcb..
+	
+		ELSIF  RDYRX THEN --Ready to receive, READ ALL COLUMNS DATA
+				RCB_SM = READ_DIR_WAIT;
+		
+		ELSE RCB_SM = IDLE_RCB;
+		
+		END IF;
+-----------------------------------------------------------------------
+--- READ DATA LOOP
+-----------------------------------------------------------------------		
+		
+	WHEN READ_DIR_WAIT =>
+		--START = VCC;		
+		TEST_MAIN_STATO[7..0] = H"01"; 
+			
+			IF fiDIR == VCC THEN 
+				RCB_SM = READ_BEN_WAIT;
+			ELSE 
+				RCB_SM = READ_DIR_WAIT;
+			END IF;
+
+	WHEN READ_BEN_WAIT =>
+		--START = GND;		
+		TEST_MAIN_STATO[7..0] = H"02"; 
+		
+			IF !fiBENn THEN
+				RCB_SM = READ_L2A_WAITING ;
+
+			END IF;
+
+	WHEN READ_L2A_WAITING =>  -- stato di avvio della sequenza per il download dei dati nel caso di 
+		TEST_MAIN_STATO[7..0] = H"03"; -- ricezione di L2a
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND; -- sono utili quando la macchina rientra dall'ultimo stato del processo 
+		CLEAR_BUSY = GND; -- di acquisizione evento ovvero READ_PEDLOOP
+
+			IF  ENA_L2LOOP AND L2_EXT THEN
+				SIU_TRI_ctrl = VCC;
+				int_fbCTRLn = VCC;
+				int_fbTENn = VCC;
+				RCB_SM = READ_HEADER_START;		
+			
+			ELSIF fiBENn THEN
+				SIU_TRI_ctrl = VCC;
+				int_fbCTRLn = VCC;
+				int_fbTENn = VCC;
+				RCB_SM = READ_WAIT_FOR_EOBTR;
+				
+			END IF;
+			
+	WHEN READ_WAIT_FOR_EOBTR =>  -- esce dallo processo di attesa di un L2a
+		TEST_MAIN_STATO[7..0] = H"04";
+		SIU_TRI_ctrl =GND;
+		fbDTRI[31..0].oe = GND;
+				
+		IF EOBTR THEN  
+			RCB_SM = IDLE_RCB;
+		END IF;
+
+							
+	WHEN READ_HEADER_START =>
+		TEST_MAIN_STATO[7..0] = H"05"; 
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+	
+		CPT_L2A = VCC; -- abilita il blocco per l'invio dell'header
+		
+		CLRN_SEGMENT_COUNTER = GND;  -- clear del contatore di segment
+			
+		RCB_SM = READ_WAITFORHEADER ;
+		
+	WHEN READ_WAITFORHEADER =>
+		TEST_MAIN_STATO[7..0] = H"06"; 
+		
+		CPT_L2A = GND; -- lo riporta a livello di default
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		
+		CLRN_SEGMENT_COUNTER = VCC;   -- lo riporta a livello di default
+
+--		IF END_HEADER_WR THEN
+--			RCB_SM = READ_DATA_STATE;
+--			
+--		SIU_TRI_ctrl = VCC;
+--		int_fbCTRLn = VCC;
+--		int_fbTENn =VCC;
+		
+		IF END_HEADER_WR THEN  -- aspetta per la fine dell'invio dell' HEADER
+			RCB_SM = READ_SEQ_ERROR_FLAG;
+		END IF;
+		
+	WHEN READ_SEQ_ERROR_FLAG => -- controlla il valore del SEQ_ERROR_FLAG per verificare se mandare il solo 
+		TEST_MAIN_STATO[7..0] = H"27";--HEADER: cosa che avviene nel caso di errore
+		
+		IF SEQ_ERROR_FLAG THEN 
+			RCB_SM = READ_EOB;
+		ELSE 
+			RCB_SM = SEG_SEL_ANTONIO;
+		END IF;	
+		
+	WHEN SEG_SEL_ANTONIO =>
+		TEST_MAIN_STATO[7..0] = H"07";
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		
+		ENA_SEGMENT_COUNTER = VCC; -- abilita il contatore dei segment
+		
+		S_ANALOG_READOUT_SR = VCC; -- abilita il flag che indica che si � in stato di readout dei fotocatodi e 
+								   -- non in lettura pedestal
+									
+		CLRN_SEGMENT_WORD_COUNTER = GND; -- fa il clear del contatore di parole di segment
+		
+		RESET_SEQ_ERROR_FLAG = VCC; -- anche se non manda il solo HEADER, fa cmq il reset del flag degli errori  
+									-- per il clear della parola relativa agli errori nel modulo TTC_COMMUNICATION
+									
+		fbDTRI[31..0].oe = GND; -- utile per il ritorno da SEND_LAST_SEGMENT_WORD_2
+									
+		RCB_SM = SEG_SEL_ANTONIO_1;	
+		
+
+	WHEN SEG_SEL_ANTONIO_1 =>
+		TEST_MAIN_STATO[7..0] = H"08";
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		
+		ENA_SEGMENT_COUNTER = GND; --ritoro al default
+		
+		S_ANALOG_READOUT_SR = GND; -- ritorno al default
+		
+		S_SEG_SEL_SR = VCC; -- abilita la selezione del segment
+		
+		CLRN_SEGMENT_WORD_COUNTER = VCC; -- ritorno al default
+		
+		RESET_SEQ_ERROR_FLAG = VCC;
+		
+		fbDTRI[31..0].oe = VCC; -- abilito il controllo del bus per forzarlo a zero e, in un certo qual 
+		fbDTRI[31..0].in = H"00000000"; -- modo inizializzarlo
+		
+		RCB_SM = SEG_SEL_ANTONIO_2;
+		
+		
+	WHEN SEG_SEL_ANTONIO_2 =>
+		TEST_MAIN_STATO[7..0] = H"09";
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		
+		S_SEG_SEL_SR = GND; -- ritorno al default
+		
+		RESET_SEQ_ERROR_FLAG = GND; -- ritorno al default
+		
+		fbDTRI[31..0].oe = GND; -- rilascio il controllo del bus 
+		fbDTRI[31..0].in = H"00000000"; 
+		
+		IF SEG_SEL_SR THEN -- aspetta che la selezione del segmente sia terminata
+			RCB_SM = SEG_SEL_ANTONIO_2; --nella versione 20 era 1 ma ritengo sia un errore
+		ELSE
+			RCB_SM = READ_DATA_STATE;
+		END IF;
+		
+
+	WHEN READ_DATA_STATE =>
+		TEST_MAIN_STATO[7..0] = H"0A"; 
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		
+		START_LOCAL_DATA_LOOP = VCC; -- abilita la LOCAL
+		
+		ENA_SEGMENT_WORD_COUNTER = VCC; -- abilita il contatore delle parole inviate relative al segment
+		 
+		RCB_SM = READ_DATA_TRANSFER ;
+		
+	WHEN READ_DATA_TRANSFER =>
+		TEST_MAIN_STATO[7..0] = H"0B"; 
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC ;
+		
+		WRITE_PULSE_CLR = GND; -- lo riporta al default dopo READ_PULSE_fbTEN
+
+		ENA_SEGMENT_WORD_COUNTER = VCC; -- il contatore delle parole inviate relative al segment � abilitato
+		
+			IF 	WRITE_fbTEN_pulse  THEN -- sul bus � presente una parola letta da column
+				SIU_TRI_ctrl = VCC;
+				int_fbCTRLn = VCC;
+				int_fbTENn = VCC;
+				
+				RCB_SM = READ_PULSE_fbTEN;
+				--RCB_SM = READ_PULSE_fbTEN_TEMP;
+				
+			ELSIF LOCAL_CYCLE_END THEN -- la local ha terminato, tutti i dati di un segment inviati
+				SIU_TRI_ctrl = VCC;
+				int_fbCTRLn = VCC;
+				int_fbTENn = VCC;
+	
+				RCB_SM = CHECK_ANALOG_READOUT;		
+				--RCB_SM = READ_EOB;
+			END IF;	
+			
+			
+	WHEN READ_PULSE_fbTEN_TEMP => -- la parola da column � presente sul bus e deve essere inviata al SIU
+		TEST_MAIN_STATO[7..0] = H"2C"; 		
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		 
+		WRITE_PULSE_CLR = GND;
+		
+		ENA_SEGMENT_WORD_COUNTER = VCC;
+		
+		RCB_SM = READ_PULSE_fbTEN;
+	
+	WHEN READ_PULSE_fbTEN =>
+		TEST_MAIN_STATO[7..0] = H"0C"; 		
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = GND; -- la parola sul bus � inviata al SIU e il contatore delle parole inviate � incrementato
+		 
+		ENA_SEGMENT_WORD_COUNTER = VCC;
+		
+		WRITE_PULSE_CLR = VCC;
+		
+		RCB_SM = READ_DATA_TRANSFER;
+		
+	WHEN CHECK_ANALOG_READOUT => --avendo terminato l'invio dei dati di un segment si verifica se si � in readout
+		TEST_MAIN_STATO[7..0] = H"0D"; -- di evento o in lettura pedestal
+		
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC ;	
+		
+		CLEAR_LOC_LOOP = VCC; -- cleal del registro, prima attivato, di abilitazione della LOCAL 
+		
+		ENA_SEGMENT_WORD_COUNTER = GND; -- disabilito il contatore delle parole inviate relative al segment
+		
+		IF !ANALOG_READOUT_SR THEN 
+			RCB_SM = READ_EOB; -- se non sono in readout mode ma in lettura pedestal, deve essere letto solo
+							   -- il segment indirizzato; tra l'altro in tal caso manca l'ultima parola 
+							
+--		ELSIF SEGMENT_COUNTER[1..0] == B"11" THEN
+--			RCB_SM = READ_EOB;
+--		ELSE
+--		 	RCB_SM = SEG_SEL_ANTONIO;
+
+		ELSE 
+			RCB_SM = SEND_LAST_SEGMENT_WORD_1; -- sono in readout mode per cui devo aggiungere la parola finale 
+		END IF; 
+			
+			
+	WHEN SEND_LAST_SEGMENT_WORD_1 =>
+		TEST_MAIN_STATO[7..0] = H"0E"; 
+		
+		CLEAR_LOC_LOOP = VCC; -- cleal del registro, prima attivato, di abilitazione della LOCAL
+		
+		fbDTRI[1..0].in = SEGMENT_COUNTER[1..0];
+		fbDTRI[7..2].in = B"000000";
+		fbDTRI[19..8].in = SEGMENT_WORD_COUNTER[11..0];
+		fbDTRI[23..20].in = B"0000";
+		fbDTRI[31..24].in = H"AB";
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = GND; --invio dell'ultima parola di segment nel caso di reaodut da evento
+		
+		fbDTRI[31..0].oe = VCC; -- abilitazione del bus
+
+		RCB_SM = SEND_LAST_SEGMENT_WORD_2 ;
+
+	WHEN SEND_LAST_SEGMENT_WORD_2 =>
+		TEST_MAIN_STATO[7..0] = H"0F"; 
+		
+		fbDTRI[1..0].in = SEGMENT_COUNTER[1..0];
+		fbDTRI[7..2].in = B"000000";
+		fbDTRI[19..8].in = SEGMENT_WORD_COUNTER[11..0];
+		fbDTRI[23..20].in = B"0000";
+		fbDTRI[31..24].in = H"AB";
+
+		SIU_TRI_ctrl =VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC; -- ritorno al default
+		
+		fbDTRI[31..0].oe = VCC; -- ritorno al default
+		
+		IF SEGMENT_COUNTER[1..0] == B"11" THEN
+			RCB_SM = READ_EOB;
+		ELSE 
+			RCB_SM = SEG_SEL_ANTONIO;
+		END IF; 							
+		
+	WHEN READ_EOB =>
+		TEST_MAIN_STATO[7..0] = H"10"; 
+		
+		R_ANALOG_READOUT_SR = VCC; 
+		CLRN_SEGMENT_COUNTER = GND;
+		RESET_SEQ_ERROR_FLAG = VCC; -- avendo inviato il solo HEADER fa il clear del FLAG e degli errori
+		
+		CLEAR_LOC_LOOP = VCC;
+		
+		fbDTRI[7..0].in = H"64" ;--EOB CODE
+		fbDTRI[11..8].in = H"2";--TRANSACTION ID
+		fbDTRI[29..12].in = RCB_STATUS[8..0]; 
+		fbDTRI[30].in = VCC;
+		fbDTRI[31].in = GND;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = GND;
+		int_fbTENn = GND;
+		fbDTRI[31..0].oe = VCC;
+		
+		RCB_SM = READ_EOB1;
+
+	WHEN READ_EOB1 =>
+		TEST_MAIN_STATO[7..0] = H"11"; 
+		
+		R_ANALOG_READOUT_SR = GND; 
+		CLRN_SEGMENT_COUNTER = VCC; 
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[7..0].in = H"64" ;--EOB CODE
+		fbDTRI[11..8].in = ID_CODE[3..0];--TRANSACTION ID
+		fbDTRI[29..12].in = RCB_STATUS[8..0]; 
+		fbDTRI[30].in = VCC;
+		fbDTRI[31].in = GND;
+
+		SIU_TRI_ctrl =VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		fbDTRI[31..0].oe = VCC;--
+		
+		CLR_WAIT_CLEAR_BUSY = VCC;
+		CLEAR_BUSY = GND;
+		
+		IF ZERO_SUPP_MEMO THEN
+			RCB_SM = ZERO_SUPP_ON_1; -- si accorge che la zero suppressione � stata settata
+		ELSE
+			RCB_SM = WAIT_FOR_CLEAR_BUSY;
+		END IF;	
+				
+	WHEN ZERO_SUPP_ON_1 => -- avvio procedura di resetting della zero suppression on
+		TEST_MAIN_STATO[7..0] = H"33"; 
+		
+		ENA_SEGMENT_COUNTER = VCC; --incremento il contatore di segment
+		CLRN_SEGMENT_COUNTER = VCC;
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND;
+		ZERO_SUPP_COLUMN_CLRN = GND; -- clr del contatore di column
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = H"00000000";
+		fbDTRI[31..0].oe = GND;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = ZERO_SUPP_ON_2;	
+		
+	WHEN ZERO_SUPP_ON_2 => 
+		TEST_MAIN_STATO[7..0] = H"34"; 
+		
+		ENA_SEGMENT_COUNTER = GND; -- disabilito il contatore di segment che ora � 1
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = VCC; -- abilito la selezione del segment
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = VCC; -- abilito il contatore di column che si porta su 1
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = H"00000000";
+		fbDTRI[31..0].oe = GND;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = ZERO_SUPP_ON_3;
+		
+	WHEN ZERO_SUPP_ON_3 => 
+		TEST_MAIN_STATO[7..0] = H"35"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = GND; -- riporto a gnd il set di SEG_SEL_SR
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND; --disabilito il contatore dei column che ora � 1
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC;
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100"); -- preparo il dato da mettere sul bus
+		fbDTRI[31..0].oe = GND;									--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		IF SEG_SEL_SR THEN -- aspetto che la selezione del segment sia completa
+			RCB_SM = ZERO_SUPP_ON_3;
+		ELSE
+			RCB_SM = ZERO_SUPP_ON_4;
+		END IF;	
+		
+	WHEN ZERO_SUPP_ON_4 => 
+		TEST_MAIN_STATO[7..0] = H"36"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND; 
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100"); -- configuro per il column 
+		fbDTRI[31..0].oe = VCC;   -- setto il bus verso i segment		--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = ZERO_SUPP_ON_5;
+	
+	WHEN ZERO_SUPP_ON_5 => 
+		TEST_MAIN_STATO[7..0] = H"37"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = VCC; -- abilito la suppression ON del column selezionato con la procedura implementata
+		ZERO_SUPP_COLUMN_ENA = GND; 
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100");
+		fbDTRI[31..0].oe = VCC;									--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = ZERO_SUPP_ON_6;
+		
+	WHEN ZERO_SUPP_ON_6 => 
+		TEST_MAIN_STATO[7..0] = H"38"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND; -- riporto a gnd il set del ZERO_SUPP_ON_SR
+		ZERO_SUPP_COLUMN_ENA = GND; 
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100");
+		fbDTRI[31..0].oe = VCC;									--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		IF ZERO_SUPP_ON_SR THEN  -- aspetto che la zero suppressione del column selezionato sia completa
+			RCB_SM = ZERO_SUPP_ON_6;
+		ELSE
+			RCB_SM = ZERO_SUPP_ON_7;
+		END IF;
+		
+	WHEN ZERO_SUPP_ON_7 =>  -- wait 1 per sincronismo tra le due macchine
+		TEST_MAIN_STATO[7..0] = H"39"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC;
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND; 
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100");
+		fbDTRI[31..0].oe = VCC;									--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = ZERO_SUPP_ON_8;
+	
+	WHEN ZERO_SUPP_ON_8 =>  -- wait 2 per il sincronismo tra le due macchine
+		TEST_MAIN_STATO[7..0] = H"3A"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND; 
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100");
+		fbDTRI[31..0].oe = VCC;									--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = ZERO_SUPP_ON_9;
+		
+	WHEN ZERO_SUPP_ON_9 =>  -- wait 3 per il sincronismo tra le due macchine
+		TEST_MAIN_STATO[7..0] = H"3B"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = VCC; -- incremento il contatore di colonna 
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100");
+		fbDTRI[31..0].oe = VCC;									--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = ZERO_SUPP_ON_10;
+		
+		
+	WHEN ZERO_SUPP_ON_10 =>  -- wait 4 per il sincronismo tra le due macchine
+		TEST_MAIN_STATO[7..0] = H"3C"; 
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC; 
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND; -- diabilito il contatore di colonna
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100");
+		fbDTRI[31..0].oe = VCC;										--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		IF (ZERO_SUPP_COLUMN[3..0] > 8) THEN -- verifico che ho terminato le colonne di un segment
+			RCB_SM = ZERO_SUPP_ON_11;
+		ELSE
+			RCB_SM = ZERO_SUPP_ON_4;
+		END IF;
+		
+	WHEN ZERO_SUPP_ON_11 =>  -- verifico di aver completato tutti i segment
+		TEST_MAIN_STATO[7..0] = H"3D";
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = VCC;
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND; 
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC;
+		
+		fbDTRI[31..0].in = (B"0011",ZERO_SUPP_COLUMN[3..0],B"010110101000000011000100");
+		fbDTRI[31..0].oe = VCC;									--0x5A80C4
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		IF (SEGMENT_COUNTER[1..0] == B"11") THEN --verifico che ho completato tutti i segment
+			RCB_SM = ZERO_SUPP_ON_12;
+		ELSE
+			RCB_SM = ZERO_SUPP_ON_1;
+		END IF;	
+		
+	WHEN ZERO_SUPP_ON_12 =>  -- ho completato tutti i segment
+		TEST_MAIN_STATO[7..0] = H"3E";
+		
+		ENA_SEGMENT_COUNTER = GND;
+		CLRN_SEGMENT_COUNTER = GND; --reset del segment counter
+		S_SEG_SEL_SR = GND;
+		S_ZERO_SUPP_ON_SR = GND;
+		ZERO_SUPP_COLUMN_ENA = GND; 
+		ZERO_SUPP_COLUMN_CLRN = GND; -- reset del column counter
+		RESET_SEQ_ERROR_FLAG = VCC; 
+		
+		fbDTRI[31..0].in = (H"00000000");
+		fbDTRI[31..0].oe = GND;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		
+		CLR_WAIT_CLEAR_BUSY = GND;
+		CLEAR_BUSY = GND;
+		
+		RCB_SM = WAIT_FOR_CLEAR_BUSY;
+		
+		
+--------------------------------------------------------------------------------------------------		
+
+	WHEN WAIT_FOR_CLEAR_BUSY => --  dopo che ha terminato l'invio dati aspetta un delay prima di resettare 
+		TEST_MAIN_STATO[7..0] = H"30"; -- il BUSY
+		
+		R_ANALOG_READOUT_SR = GND; 
+		CLRN_SEGMENT_COUNTER = VCC;  
+		ZERO_SUPP_COLUMN_CLRN = VCC;
+		RESET_SEQ_ERROR_FLAG = VCC;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		fbDTRI[31..0].oe = GND;--
+
+		CLEAR_BUSY = GND;
+		CLR_WAIT_CLEAR_BUSY = GND;
+		ENA_WAIT_CLEAR_BUSY = VCC;
+		
+		IF WAIT_CLEAR_BUSY[5..0] == B"101000" THEN -- aspetta fino a 40 ovvero 1 usec
+			RCB_SM = CLEAR_BUSY_STATE;
+		ELSE 
+			RCB_SM = WAIT_FOR_CLEAR_BUSY;
+		END IF; 							
+		
+	WHEN CLEAR_BUSY_STATE =>
+		TEST_MAIN_STATO[7..0] = H"31"; 
+		
+		R_ANALOG_READOUT_SR = GND; 
+		CLRN_SEGMENT_COUNTER = VCC; 
+		RESET_SEQ_ERROR_FLAG = VCC; 
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn = VCC;
+		fbDTRI[31..0].oe = GND;--
+
+		CLEAR_BUSY = VCC;
+		ENA_WAIT_CLEAR_BUSY = GND;
+		CLR_WAIT_CLEAR_BUSY = VCC;
+		
+		RCB_SM = READ_PEDLOOP; 								
+		
+	WHEN READ_PEDLOOP =>
+		TEST_MAIN_STATO[7..0] = H"12"; 
+		RESET_SEQ_ERROR_FLAG = GND; 
+		
+		fbDTRI[31..0].oe = GND;--
+		
+		CLEAR_BUSY = VCC;
+		ENA_WAIT_CLEAR_BUSY = GND;
+		CLR_WAIT_CLEAR_BUSY = VCC;
+		
+		IF DISABLE_L2 THEN
+			RCB_SM = IDLE_RCB;
+		ELSE
+			RCB_SM= READ_L2A_WAITING;
+		END IF;
+
+
+----------------------------------------------------
+--- BLOCK TRANSFER STATE MACHINE --WRITE CYCLE
+-------------------------------------------------------
+	WHEN BLOCK_WRITE_START=>
+		FIFO_CLK = !CLOCK; 
+		FIFO_CLR = VCC;
+		--START = VCC;		
+		TEST_MAIN_STATO[7..0] = H"13"; 
+		IF !fb_TENn AND !fb_CTRLn THEN
+			RCB_SM = BLOCK_WRITE_FIFO ;
+		ELSE 
+			RCB_SM = BLOCK_WRITE_START;
+				
+		END IF;
+				
+	WHEN BLOCK_WRITE_FIFO =>--  USES fbTEN AS WR_FIFO
+		FIFO_CLK = !CLOCK; 
+			fo_BSYn = GND;
+			
+		--START = GND;		
+		TEST_MAIN_STATO[7..0] = H"14"; 			
+		START_WRITE_LOOP =GND;
+		
+			IF fb_TENn AND !fb_CTRLn THEN --write loop on fifo (640 words)
+				WR_FIFO = VCC;
+				RCB_SM = BLOCK_WRITE_FIFO_COMPARE ;
+		
+			ELSE 
+			   WR_FIFO = GND;
+			   RCB_SM = BLOCK_WRITE_FIFO;
+
+			END IF;
+
+	WHEN BLOCK_WRITE_FIFO_COMPARE =>--  USES fbTEN AS WR_FIFO --- wait to the end of write loop to compare
+		TEST_MAIN_STATO[7..0] = H"15"; 							
+		FIFO_CLK = !CLOCK; 
+			fo_BSYn = GND;
+			
+		START_WRITE_LOOP =GND;
+		
+		IF fb_TENn THEN
+			RCB_SM = BLOCK_WRITE_FIFO_COMPARE ;	
+			WR_FIFO = VCC;
+			
+		ELSIF (FIFO_NMBR[9..0]== FbD[21..12]) THEN -- nel caso di scrittura pedestal relativi ad un column
+			RCB_SM = BLOCK_WRITE_END ;			   -- esce dal ciclo quando le parole in FIFO sono
+			fo_BSYn = VCC;						   -- pari a 640
+			
+		ELSE 
+			RCB_SM = BLOCK_WRITE_FIFO_COMPARE ;	
+			WR_FIFO = GND;
+			
+		END IF;
+		
+	
+	%			
+			IF !fb_TENn AND !fb_CTRLn  AND (FIFO_NMBR[9..0]== FbD[21..12]) THEN				
+ 								--write loop on fifo (640 words)
+					
+				fo_BSYn = VCC; --INVERTED OUTSIDE
+				RCB_SM = BLOCK_WRITE_END ;
+			
+			ELSE 
+			  RCB_SM = BLOCK_WRITE_FIFO_COMPARE ;
+				WR_FIFO = VCC;
+
+			END IF;
+	%		
+
+	WHEN BLOCK_WRITE_END =>
+	TEST_MAIN_STATO[7..0] = H"16"; 
+		WR_FIFO = GND;
+		fo_BSYn = GND;
+		
+		IF EOBTR THEN ---  WAITS FOR EOBTR
+			RCB_SM = IDLE_RCB;
+		END IF;
+
+
+-------------------------------------------------------
+-- TRANSFER FIFO DATA TO COLUMN, Using SIU READ DIRECTION (to avoid bus conflict)
+------------------------------------------------------
+
+WHEN BLOCK_WRITE_LOOP =>
+		TEST_MAIN_STATO[7..0] = H"17"; 
+		CLEAR_COMMAND= VCC;
+		fo_BSYn = VCC; --INVERTED OUTSIDE
+		WR_FIFO = GND;
+		FIFO_CLK = !CLOCK10; 
+		
+		loc_state_id  = VCC ;
+				
+		START_WRITE_LOOP =VCC; --VCC ; --TRANSFER DATA TO COLUMNS
+		
+
+		IF TRANSFER_END THEN  --END OF DATA  TRANSFER
+			fo_BSYn = GND;			
+			RCB_SM = RCB_STATUS_LOOP;	
+		ELSE 
+			RCB_SM = BLOCK_WRITE_LOOP ;
+		END IF;
+%
+
+		IF TRANSFER_END THEN  --END OF DATA  TRANSFER
+			RCB_SM = BLOCK_WRITE_LOOP_TEMP;	
+		ELSE 
+			RCB_SM = BLOCK_WRITE_LOOP ;
+		END IF;
+		
+WHEN BLOCK_WRITE_LOOP_TEMP =>
+		TEST_MAIN_STATO[7..0] = H"47"; 
+		CLEAR_COMMAND= GND;
+		fo_BSYn = VCC; --INVERTED OUTSIDE
+		WR_FIFO = GND;
+		FIFO_CLK = !CLOCK10; 
+				
+		START_WRITE_LOOP = GND; --VCC ; --TRANSFER DATA TO COLUMNS
+
+		IF TEST_LOCAL_STATO[7..0] != H"00"  THEN  --END OF DATA  TRANSFER
+			RCB_SM = BLOCK_WRITE_LOOP_TEMP;	
+		ELSE 
+			RCB_SM = RCB_STATUS_LOOP ;
+		END IF;
+%		
+		
+-------------------------------------------------------
+-------------------------------------------------------
+-- BLOCK TRANSFER STATE MACHINE --READ CYCLE
+------------------------------------------------------
+	WHEN BLOCK_READ_START=>
+		TEST_MAIN_STATO[7..0] = H"18"; 
+		FIFO_CLK = !CLOCK; 
+		--START = VCC;		
+		
+			IF fiDIR THEN 
+				RCB_SM = BLOCK_READ_WAIT1 ;
+			END IF;
+
+	WHEN BLOCK_READ_WAIT1 =>
+	TEST_MAIN_STATO[7..0] = H"19"; 
+		FIFO_CLK = !CLOCK; 
+		--START = GND;		
+		
+			IF !fiBENn THEN
+				RCB_SM = BLOCK_READ_WAIT2 ;
+
+			END IF;
+
+	WHEN BLOCK_READ_WAIT2 =>
+	TEST_MAIN_STATO[7..0] = H"1A"; 
+		FIFO_CLK = !CLOCK; 
+		RD_FIFO = GND;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		
+		IF disable_l2 THEN --use DISABLE L2 as a BLOCK type selector
+				RCB_SM = READ_DATA_STATE; --read block of pedestals...
+				CLEAR_COMMAND= VCC;
+				
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+
+		ELSE   
+			RCB_SM = BLOCK_READ_STATE1 ;
+		
+		END IF;
+		
+	WHEN BLOCK_READ_STATE1 =>
+	TEST_MAIN_STATO[7..0] = H"1B"; 
+		FIFO_CLK = !CLOCK; 
+		RD_FIFO = VCC;
+		FIFO_DATA_ENABLE = VCC;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =  LCELL (!RD_FIFO) ; -- IMPORTANT ON TIMING OF READ DATA
+
+		IF EMPTY_FIFO THEN
+			RCB_SM = BLOCK_READ_WAIT3 ;	
+			int_fbTENn = VCC;
+		
+		END IF;
+
+	WHEN BLOCK_READ_WAIT3 =>
+	TEST_MAIN_STATO[7..0] = H"1C"; 
+		FIFO_CLK = !CLOCK; 
+		RD_FIFO = GND;
+		FIFO_DATA_ENABLE = GND;
+
+
+		fbDTRI[7..0].in = H"64" ;--EOB CODE
+		fbDTRI[11..8].in = H"1";--TRANSACTION ID
+		fbDTRI[29..12].in = RCB_STATUS[8..0]; 
+		fbDTRI[30].in = VCC;
+		fbDTRI[31].in = GND;
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = GND;
+		int_fbTENn =GND;
+		fbDTRI[31..0].oe = VCC;
+
+		RCB_SM = BLOCK_READ_END  ;
+
+
+	WHEN BLOCK_READ_END  =>
+	TEST_MAIN_STATO[7..0] = H"1D"; 
+		FIFO_CLK = !CLOCK; 
+
+		fbDTRI[7..0].in = H"64" ;--EOB CODE
+		fbDTRI[11..8].in = H"1";--TRANSACTION ID
+		fbDTRI[29..12].in = RCB_STATUS[8..0]; 
+		fbDTRI[30].in = VCC;
+		fbDTRI[31].in = GND;
+
+		SIU_TRI_ctrl =VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		fbDTRI[31..0].oe = VCC;
+--		FIFO_CLR = VCC;  --CLEAR FIFO
+
+		RCB_SM = BLOCK_EOBTR  ;
+
+	WHEN BLOCK_EOBTR  => 
+	TEST_MAIN_STATO[7..0] = H"1E"; 
+		SIU_TRI_ctrl = GND;
+		fbDTRI[31..0].oe = GND;
+				
+		IF EOBTR THEN  
+			RCB_SM = IDLE_RCB;
+		END IF;
+
+-------------------------------------------------------
+--
+------------------------------------------------------
+	WHEN STRD_DIR_WAIT =>
+	TEST_MAIN_STATO[7..0] = H"1F"; 
+		SIU_TRI_ctrl = GND; --- VCC
+		fbDTRI[31..0].oe = GND;
+		--START = VCC;		
+			
+		FIFO_DATA_ENABLE = GND;
+	
+			IF fiDIR THEN 
+				RCB_SM = WAIT_STATE1 ;
+			END IF;
+
+	WHEN WAIT_STATE1 =>
+	TEST_MAIN_STATO[7..0] = H"20"; 
+		SIU_TRI_ctrl = GND;
+		--START = VCC;		
+
+			IF !fiBENn THEN
+				RCB_SM = STRD_WAIT_STATE2 ;
+			END IF;
+
+	WHEN STRD_WAIT_STATE2 =>
+	TEST_MAIN_STATO[7..0] = H"21"; 
+
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+
+
+		IF FE_REG[27..22] == B"000100" THEN
+		--IF FE_REG[27..22] == H"04" THEN  --DDL ACCESS, STATUS REGISTER (27..24= 0001 - 23..22 = 00) SAR-PAR 
+			LOCAL_CYCLE_START= GND;
+			RCB_SM = RCB_STATUS_LOOP ;
+				
+		ELSIF FE_REG[27..22] == B"000000" THEN
+		--ELSIF FE_REG[27..22] == H"00" THEN
+			RCB_CONFIG = VCC;
+			CLEAR_COMMAND= VCC;
+			RCB_SM = IDLE_RCB;
+			
+		ELSIF FE_REG[23..21] == B"011" THEN
+		--ELSIF FE_REG[23..21] == H"3" THEN -- "read" loop to allow writing from RCB to Columns using the bus....
+			RCB_CONFIG = GND;
+			RCB_SM = BLOCK_WRITE_LOOP;
+			
+		ELSIF FE_REG[27..22] == B"000001" THEN  --: RESET SOTFWARE (DAL DDL) DEL TTC, DEL RESTO DEL FIRMWARE E DEI SEGMENT. 
+			RCB_SM = TTC_RESET_STATE;			-- COMANDO: H"004XX0C4"
+		
+		ELSIF FE_REG[27..22] == B"000011" THEN  --: SET L1A LATENCY. COMANDO: H"00CXX0C4"
+			RCB_SM = SET_L1A_LATENCY_STATE;	-- inoltre il bit 28 abilita i bit error nel CDH
+											-- mentre il bit 29 abilita l'invio del CDH modificato
+			
+		ELSIF FE_REG[27..22] == B"000010" THEN  --: RESET SOFTWARE (DAL DDL) DEL BUSY, DEL RESTO DEL FIRWARE, DEI SEGMENT MA 
+			RCB_SM = BUSY_RESET_STATE1;			-- NON DEL TTCRX. COMANDO: H"008000C4"			
+		
+		ELSIF FE_REG[27..22] == B"000110" THEN  --: SET DEL RITARDO PROGRAMMABILE SU L0 AI COLUMN
+			RCB_SM = SET_L0_DELAY_STATE;				-- COMANDO: H"018XX0C4"	
+					
+		ELSE  -- LOCAL_CYCLE_START = VCC ;--START LOCAL STATE MACHINE
+			RCB_SM = STRD_WAIT_STATE2a;
+			
+		END IF;
+
+	WHEN STRD_WAIT_STATE2a =>
+	TEST_MAIN_STATO[7..0] = H"22"; 
+		
+		LOCAL_CYCLE_START = VCC; -- prima era settato gi� nello stato precedente
+		SIU_TRI_ctrl = VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+
+		FIFO_DATA_ENABLE = GND;
+		
+			IF LOCAL_CYCLE_END  THEN 
+			
+				IF READ_STATUS THEN 
+					RCB_SM = END_LOOP ;	
+				ELSE 
+					RCB_SM = END_ALL ;
+				END IF;
+			END IF;
+			
+	WHEN RCB_STATUS_LOOP => --LATCH FIFO VALUE TO REGISTER
+	TEST_MAIN_STATO[7..0] = H"23"; 
+			RCB_STATUS[3..0].d = FE_REG[27..24] ;
+			RCB_STATUS[8..4].d = gnd;
+			RCB_STATUS[8..0].ena = VCC;
+			SIU_TRI_ctrl = VCC;
+			int_fbCTRLn = VCC;
+			int_fbTENn =VCC;
+			FIFO_DATA_ENABLE = GND;
+			RCB_SM= RCB_END_LOOP ;
+
+	WHEN RCB_END_LOOP =>
+		TEST_MAIN_STATO[7..0] = H"24"; 
+		fbDTRI[7..0].in = FE_REG[7..0];--CODE-SOURCE FIELD
+		fbDTRI[11..8].in = B"1101";--TRANSACTION ID --era H"D"
+		fbDTRI[20..12].in = RCB_STATUS[8..0]; 
+		fbDTRI[29..21].in = B"000000000";
+		fbDTRI[30].in = B"1"; -- era vcc
+		fbDTRI[31].in = B"0"; -- era gnd	
+
+		SIU_TRI_ctrl =VCC;
+		int_fbCTRLn = GND;
+		int_fbTENn =GND;
+		fbDTRI[31..0].oe = VCC;
+
+		RCB_SM = END_ALL;
+
+	WHEN END_LOOP =>
+		TEST_MAIN_STATO[7..0] = H"25"; 
+
+		fbDTRI[7..0].in = FE_REG[7..0];--CODE-SOURCE FIELD
+		fbDTRI[11..8].in = H"C";--TRANSACTION ID
+		fbDTRI[30..12].in = LOCAL_BUS_REG[18..0]; 
+		fbDTRI[31].in = GND;
+
+		SIU_TRI_ctrl =VCC;
+		int_fbCTRLn = GND;
+		int_fbTENn =GND;
+		fbDTRI[31..0].oe = VCC;
+		
+		RCB_SM = END_ALL ;
+		
+	WHEN END_ALL =>
+	--DELAY TO GIVE TIME TO CLEAR CODE
+		TEST_MAIN_STATO[7..0] = H"26"; 
+		SIU_TRI_ctrl =VCC;
+		int_fbCTRLn = VCC;
+		int_fbTENn =VCC;
+		fbDTRI[31..0].oe = GND;
+		
+		RCB_SM = IDLE_RCB ;
+		
+	WHEN TTC_RESET_STATE =>				
+		TEST_MAIN_STATO[7..0] = H"28"; 
+		
+		ENA_DDL_SOFT_RESET_LENGHT = VCC;
+		
+		RCB_SM = TTC_RESET_STATE1;	
+		
+	WHEN TTC_RESET_STATE1 =>				
+		TEST_MAIN_STATO[7..0] = H"29"; 
+		
+		ENA_DDL_SOFT_RESET_LENGHT = GND;
+		SET_DDL_SOFT_RESET_MODULE = VCC;
+		
+		RCB_SM = TTC_RESET_STATE2;
+		
+	WHEN TTC_RESET_STATE2 =>				
+		TEST_MAIN_STATO[7..0] = H"2A"; 
+		
+		SET_DDL_SOFT_RESET_MODULE = GND;
+		
+		IF DDL_SOFT_RESET_MODULE THEN 
+			RCB_SM = TTC_RESET_STATE2;
+		ELSE
+			RCB_SM = IDLE_RCB;
+		END IF;								
+		
+	WHEN SET_L1A_LATENCY_STATE =>
+		TEST_MAIN_STATO[7..0] = H"2B";
+		
+		SET_L1A_LATENCY_REG = VCC;
+		
+		RCB_SM = IDLE_RCB;	
+		
+	WHEN BUSY_RESET_STATE1 =>  -- CON I PROX 4 STATI EFFETTUO (DA DDL)IL RESET DEL RESTO DEL FIRMWARE E DEI SEGMENT MA NON DEL TTCRX 
+		TEST_MAIN_STATO[7..0] = H"2C";
+		
+		SET_DDL_SOFT_BUSY_RESET = VCC;
+		
+		RCB_SM = BUSY_RESET_STATE2;	
+		
+	WHEN BUSY_RESET_STATE2 =>
+		TEST_MAIN_STATO[7..0] = H"2D";
+		
+		SET_DDL_SOFT_BUSY_RESET = VCC;
+		
+		RCB_SM = BUSY_RESET_STATE3;	
+		
+	WHEN BUSY_RESET_STATE3 =>
+		TEST_MAIN_STATO[7..0] = H"2E";
+		
+		SET_DDL_SOFT_BUSY_RESET = VCC;
+		
+		RCB_SM = BUSY_RESET_STATE4;
+		
+	WHEN BUSY_RESET_STATE4 =>
+		TEST_MAIN_STATO[7..0] = H"2F";
+		
+		SET_DDL_SOFT_BUSY_RESET = GND;
+		CLR_DDL_SOFT_BUSY_RESET = VCC;
+		
+		RCB_SM = IDLE_RCB;	
+		
+	WHEN SET_L0_DELAY_STATE =>
+		TEST_MAIN_STATO[7..0] = H"30";
+		
+		SET_L0_DELAY_REG = VCC;
+		
+		RCB_SM = IDLE_RCB;		
+										
+		
+	%
+	WHEN OTHERS =>
+		LOCAL_CYCLE_START = GND;	
+		CPT_L2A = GND;
+	%
+	END CASE;
+	
+	
+	
+--------------------------------------------------------------------
+--****************************************************************************************************************
+--------------------------------------------------------------------
+
+---LOCAL STATE MACHINE
+
+--------------------------------------------------------------------
+--**************************************************************************************************************88
+--------------------------------------------------------------------
+
+
+
+CASE LOCAL_SM IS
+
+	WHEN IDLE_LOCAL => 
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			WORD_COMPARE_ENA = GND;
+			ENA_CLMN_CNTR = GND;
+			DATABUS_ADD[3..0] = H"0";
+			DATABUS_ADD[7..4] = H"0";
+			WRITE_fbTEN= GND;
+			--fbDtri[31..0].oe = GND;
+			FIFO_DATA_ENABLE = GND;
+			TEST_LOCAL_STATO[7..0] = H"00";
+			R_SEG_SEL_SR = GND;	
+			ZERO_SUPP_MEMO_ENA = GND; 
+			R_ZERO_SUPP_ON_SR = GND;
+						
+		IF LOCAL_START THEN
+			LOCAL_SM = SEL_FUNCTION;	
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			DATABUS_ADD[3..0] = H"0";
+			
+		ELSIF LOC_DATA_LOOP THEN
+			LOCAL_SM = SEL_COLUMN; -- LOOP TO READ PEDS
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			DATABUS_ADD[3..0] = H"0";
+			CLEAR_COLUMN= VCC;
+			
+		ELSIF START_WRITE_LOOP THEN
+			LOCAL_SM = DATA_CONF; -- LOOP TO LOAD PEDS
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			DATABUS_ADD[3..0] = H"0";
+			
+		ELSIF SEG_SEL_SR THEN 
+			LOCAL_SM = SEL_SEG_1a;
+			
+		ELSIF ZERO_SUPP_ON_SR THEN
+			LOCAL_SM = LOC_ZERO_SUPP_ON_1;	
+			
+		END IF;
+
+	WHEN SEL_FUNCTION =>
+			TEST_LOCAL_STATO[7..0] = H"01";
+			
+			IF FE_REG[30..28].q == B"011" THEN
+			--IF FE_REG[30..28].q == H"3" THEN-- CONFIG, DILO_CMD OR RESET
+				LOCAL_SM = STATEWR_1;
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			DATABUS_ADD[3..0] = H"0";
+			
+			ELSIF FE_REG[30].q == B"1" THEN
+			--ELSIF FE_REG[30].q == H"1" THEN-- SEGMENT PRE-SELECTION
+				LOCAL_SM = STATEWR_1;
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			DATABUS_ADD[3..0] = H"0";
+			
+			ELSIF FE_REG[30..28].q == B"001" THEN
+			--ELSIF FE_REG[30..28].q == H"1" THEN
+					LOCAL_SM = STATE_CHANGE;
+			DATABUS_ADD[3..0] = H"0";
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			END IF;
+	
+--------------------------------------------------------------------------------
+-----  LOCAL DATA LOOP
+--------------------------------------------------------------------------------
+	WHEN SEL_COLUMN =>
+		TEST_LOCAL_STATO[7..0] = H"02";
+
+			LOC_CSn = VCC ;
+			LOC_Rn/W = GND; 
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[3..0] = H"1";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = H"0";-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT --
+			WRITE_fbTEN= GND;
+
+			ENA_CLMN_CNTR = VCC;
+			
+			IF fiLFn THEN  ---  LINK FLAG IS NOT FULL
+				LOCAL_SM = CLMN_READ_STATUS;	
+			END IF;
+%
+	WHEN INCREMENT_COLUMN =>
+			
+			TEST_LOCAL_STATO[7..0] = H"03";
+	
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			fbDtri[31..0].oe = GND;
+			WRITE_fbTEN= GND;
+			
+			DATABUS_ADD[3..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+								
+			LOCAL_SM = INCREMENT_COLUMN2;
+
+
+			ENA_CLMN_CNTR = VCC; --INCREMENT COLUMN NMBR "1 TO 8"
+			
+	WHEN INCREMENT_COLUMN2 => -- DO NOTHING
+	
+			TEST_LOCAL_STATO[7..0] = H"04";
+			
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			fbDtri[31..0].oe = GND;
+			WRITE_fbTEN= GND;
+			
+			DATABUS_ADD[3..0] = H"1";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+								
+			LOCAL_SM = CLMN_READ_STATUS;
+
+			ENA_CLMN_CNTR = VCC; --INCREMENT COLUMN NMBR "1 TO 8",  ERA IN INCREMENT COLUMN
+			--ENA_CLMN_CNTR = GND; 
+	%		
+	WHEN CLMN_READ_STATUS =>
+	
+			TEST_LOCAL_STATO[7..0] = H"03";
+
+			ENA_CLMN_CNTR = GND;
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+			
+			--fbDtri[31..0].oe = GND;
+			WRITE_fbTEN= GND;
+			
+			DATABUS_ADD[3..0] = H"1";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+				
+			LOCAL_SM = CLMN_READ_STATUS_1;					
+
+	WHEN CLMN_READ_STATUS_1 =>
+	
+			TEST_LOCAL_STATO[7..0] = H"04";
+
+			ENA_CLMN_CNTR = GND;
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = GND;
+		 
+			
+			--fbDtri[31..0].oe = GND;
+			WRITE_fbTEN= GND;
+			
+			DATABUS_ADD[3..0] = H"1";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+								
+			IF !fiLFn THEN
+				LOCAL_SM = CLMN_READ_STATUS_1;
+			ELSE
+				LOCAL_SM = CLMN_READ_STATUS_2;
+			END IF;
+
+	WHEN CLMN_READ_STATUS_2=> --READ STATUS FROM COLUMN TO REGISTER
+
+			TEST_LOCAL_STATO[7..0] = H"05";
+			
+			WRD_NMBER[9..0].d = fbD[25..16]; --NUMBER OF WORDS TO READ
+			WRD_NMBER[9..0].ena = VCC;
+
+			--fbDtri[31..0].oe = GND;
+			
+			DATABUS_ADD[3..0] = H"1";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			WRITE_fbTEN= VCC;
+			
+			ENA_CLMN_CNTR = GND; 
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+	
+			--LOCAL_SM = CLMN_READ_STATUS_3;
+			LOCAL_SM = OPEN_DATA_1;
+-----------------------------------------------------------------------------------------------------------------
+-- I SEGUENTI 3 STATI ERANO UTILIZZATI PRIMA DEL DEBBUG DEL PROBLEMA RELATIVO AL CLOCK20 SUL SEGMENT
+-- IN CLMN_READ_STATUS_3 CI SI ANDAVA TRAMITE CLMN_READ_STATUS_2			
+%			
+	WHEN CLMN_READ_STATUS_3=> --READ STATUS FROM COLUMN TO REGISTER
+
+			TEST_LOCAL_STATO[7..0] = H"06";
+			
+			WRD_NMBER[9..0].ena = GND;
+
+			fbDtri[31..0].oe = GND;
+			
+			DATABUS_ADD[3..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			WRITE_fbTEN= GND;
+			
+			ENA_CLMN_CNTR = GND; 
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+	
+			LOCAL_SM = CLMN_READ_STATUS_4;
+			
+	WHEN CLMN_READ_STATUS_4 => --READ STATUS FROM COLUMN TO REGISTER
+
+			TEST_LOCAL_STATO[7..0] = H"07";
+			
+			WRD_NMBER[9..0].ena = GND;
+
+			fbDtri[31..0].oe = GND;
+			
+			DATABUS_ADD[3..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			WRITE_fbTEN= GND;
+			
+			ENA_CLMN_CNTR = GND; 
+			
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			
+			WORD_COMPARE_ENA = GND;
+	
+			LOCAL_SM = OPEN_DATA;				
+			
+
+			
+	WHEN OPEN_DATA => --SELECT DATA READ FUNCTION with FCODE 4
+			
+			TEST_LOCAL_STATO[7..0] = H"08";
+			
+			WRD_NMBER[9..0].ena = GND;	
+			fbDtri[31..0].oe = GND;
+
+
+			DATABUS_ADD[3..0] = H"4";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			LOC_CSn = VCC; -- era GND
+			LOC_Rn/W = GND; 
+			
+			--LOCAL_SM = LOOP_DATA; 
+			LOCAL_SM = OPEN_DATA_1;
+%			
+----------------------------------------------------------------------------------
+	-----------OPEN DATA (DATA READ)
+			
+	WHEN OPEN_DATA_1=> --READ DATA FROM COLUMN TO REGISTER
+	
+			TEST_LOCAL_STATO[7..0] = H"09";
+			
+			WRD_NMBER[9..0].ena = GND;
+	 		--fbDtri[31..0].oe = GND;
+
+			DATABUS_ADD[3..0] = H"4";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+			--LOCAL_SM = LOOP_DATA;
+			LOCAL_SM = OPEN_DATA_2;
+
+			
+	WHEN OPEN_DATA_2=> --READ DATA FROM COLUMN TO REGISTER
+	
+			TEST_LOCAL_STATO[7..0] = H"91";
+			
+			WRD_NMBER[9..0].ena = GND;
+	 		--fbDtri[31..0].oe = GND;
+
+			DATABUS_ADD[3..0] = H"4";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+			--LOCAL_SM = OPEN_DATA_3;	
+			LOCAL_SM = LOOP_DATA;
+			
+---------------------------------------------------------------------------------------------------------------
+-- I SEGUENTI 2 STATI ERANO UTILIZZATI PRIMA DEL DEBBUG DEL PROBLEMA RELATIVO AL CLOCK20 SUL SEGMENT
+-- IN OPENA_DATA_3 CI SI ANDAVA TRAMITE OPEN_DATA_2			
+%
+	WHEN OPEN_DATA_3=> --READ DATA FROM COLUMN TO REGISTER
+	
+			TEST_LOCAL_STATO[7..0] = H"92";
+			
+			WRD_NMBER[9..0].ena = GND;
+	 		fbDtri[31..0].oe = GND;
+
+			DATABUS_ADD[3..0] = H"4";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+			LOCAL_SM = OPEN_DATA_4;
+			
+	WHEN OPEN_DATA_4=> --READ DATA FROM COLUMN TO REGISTER
+	
+			TEST_LOCAL_STATO[7..0] = H"93";
+			
+			WRD_NMBER[9..0].ena = GND;
+	 		fbDtri[31..0].oe = GND;
+
+			DATABUS_ADD[3..0] = H"4";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+			LOCAL_SM = LOOP_DATA;		
+%			
+-----------------------------------------------------------------------------------
+--- TRANSFER DATA FROM COLUMNS TO SIU USING fbTENn
+-----------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+-- IL SEGUENTE STATO ERA UTILIZZATO PRIMA DEL DEBBUG DEL PROBLEMA RELATIVO AL CLOCK20 SUL SEGMENT
+-- ERA LO STAO DI APPOGGIO NEL CASO DI LINK FULL			
+%
+WHEN LOOP_DATA_WAIT =>
+			
+			TEST_LOCAL_STATO[7..0] = H"0E";
+			
+			WRD_NMBER[9..0].ena = GND;
+			fbDtri[31..0].oe = GND;
+			
+			WORD_COMPARE_ENA = GND;
+			CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+			
+			WRITE_fbTEN= GND;
+			
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			
+			DATABUS_ADD[3..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			
+			
+			IF fiLFn THEN  ---  LINK FLAG IS NOT FULL
+				LOCAL_SM = LOOP_DATA;
+			ELSE
+				LOCAL_SM = LOOP_DATA_WAIT;
+			END IF;
+%
+----------------------------------------------------------------------------------------------------------------			
+				
+WHEN LOOP_DATA =>
+			
+			TEST_LOCAL_STATO[7..0] = H"0A";
+			WRITE_fbTEN= GND;
+			
+			WORD_COMPARE_ENA = GND;
+		
+			DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = GND;			
+
+			LOCAL_SM = LOOP_DATA_1;
+			
+WHEN LOOP_DATA_1 =>
+			
+			TEST_LOCAL_STATO[7..0] = H"0B";
+			WRITE_fbTEN= GND;
+			
+			WORD_COMPARE_ENA = GND;
+		
+			DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = GND;			
+			
+			DISABLE_CLOCK_20 = VCC;
+
+			IF !fiLFn THEN 
+				LOCAL_SM = LOOP_DATA_1;
+			ELSE 
+				LOCAL_SM = LOOP_DATA_2;		
+			END IF;
+			
+WHEN LOOP_DATA_2 =>
+			
+			TEST_LOCAL_STATO[7..0] = H"0C";
+			
+			WRITE_fbTEN = VCC;
+			--WRITE_fbTEN = !CLOCK;
+			--WRITE_fbTEN= GND;
+			
+			--WORD_COMPARE = GND:
+			WORD_COMPARE_ENA = VCC;
+		
+			DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = GND;			
+			
+			DISABLE_CLOCK_20 = GND;
+			
+			
+			IF WORD_NMBER_COMP[9..0] == WRD_NMBER[9..0] THEN
+				LOCAL_SM = CLMN_READ_END ;
+			ELSE 
+				LOCAL_SM = LOOP_DATA_1;
+			END IF;		
+			
+			
+---------------------------------------------------------------------------------------------------			
+-- i tre stati, commentati, che seguono, rappresentano la sezione relativa alla fase di lettura
+-- delle acquisizioni prima del debbug del problema sul CLOCK20 del segment
+-- nel seguente LOOP_DATA_1 si arrivava da LOOP_DATA quando ANALOG_READOUT era attivo 
+%			
+WHEN LOOP_DATA_1 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"0B";
+		
+		CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+					
+		WRITE_fbTEN = !CLOCK10; 
+								
+		fbDtri[31..0].oe = GND;
+					
+		--DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+		DATABUS_ADD[3..0] = H"2"; 
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+		--LOC_CSn = VCC;
+		LOC_CSn = GND;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = VCC;
+		
+		DISABLE_CLOCK_20 = GND;
+			
+		IF !fiLFn THEN 
+			LOCAL_SM = LOOP_DATA_WAIT;
+		ELSE 
+			LOCAL_SM = LOOP_DATA_2;
+		END IF;			
+			
+			
+WHEN LOOP_DATA_2 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"0C";
+		
+		CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+				
+		WRITE_fbTEN = !CLOCK10; --era GND 
+								
+		fbDtri[31..0].oe = GND;
+					
+		DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+	
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+		--LOC_CSn = VCC;
+		LOC_CSn = GND;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = VCC; --gnd
+		
+		LOCAL_SM = LOOP_DATA_3;
+		
+WHEN LOOP_DATA_3 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"0D";
+		
+		CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+				
+		WRITE_fbTEN = !CLOCK10;
+								
+		fbDtri[31..0].oe = GND;
+					
+		DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+	
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+		--LOC_CSn = VCC;
+		LOC_CSn = GND;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = VCC;
+		
+		IF !fiLFn THEN 
+			LOCAL_SM = LOOP_DATA_WAIT;
+		ELSIF WORD_NMBER_COMP[9..0] == WRD_NMBER[9..0] THEN
+			LOCAL_SM = CLMN_READ_END ;
+		ELSE 
+			LOCAL_SM = LOOP_DATA_3;
+		END IF;			
+%		
+-------------------------------------------------------------------------------------------------------------------------------------------------		
+%
+-- 5 STATI DELLA VECCHIA SEZIONE LETTURA PEDESTALS
+
+WHEN PED_LOOP_DATA_1 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"FB";
+		
+		CLEAR_WRD_NMBR = GND; 
+				
+		WRITE_fbTEN = !CLOCK10; 
+					
+		fbDtri[31..0].oe = GND;
+					
+		DATABUS_ADD[3..0] = H"0"; 
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;
+
+		LOC_CSn = GND;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = VCC;
+		
+				
+    --	IF !fiLFn THEN 
+	--		LOCAL_SM = LOOP_DATA_WAIT;
+	--	ELSE 
+			LOCAL_SM = PED_LOOP_DATA_2;
+	--	END IF;			
+			
+			
+WHEN PED_LOOP_DATA_2 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"FC";
+		
+		CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+				
+		WRITE_fbTEN = GND; 
+								
+		fbDtri[31..0].oe = GND;
+					
+		DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+	
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+		LOC_CSn = GND;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = GND; 
+		
+				
+		LOCAL_SM = PED_LOOP_DATA_3;
+		
+WHEN PED_LOOP_DATA_3 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"FD";
+		
+		CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+			
+		WRITE_fbTEN = !CLOCK10;
+								
+		fbDtri[31..0].oe = GND;
+					
+		DATABUS_ADD[3..0] = H"0";  -- FUNCTION FOR LOCAL DECODING ON COLUMN
+	
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+		LOC_CSn = GND;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = VCC;
+		
+			
+		IF !fiLFn THEN 
+			LOCAL_SM = LOOP_DATA_WAIT;
+		ELSIF WORD_NMBER_COMP[9..0] == WRD_NMBER[9..0] THEN
+			LOCAL_SM = CLMN_READ_END ;
+		ELSE 
+		--	LOCAL_SM = PED_LOOP_DATA_2;
+			LOCAL_SM = PED_LOOP_DATA_4;
+		END IF;									
+		
+
+		
+WHEN PED_LOOP_DATA_4 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"FE";
+		
+		CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+				
+		WRITE_fbTEN = GND;
+								
+		fbDtri[31..0].oe = GND;
+					
+		DATABUS_ADD[3..0] = H"0";  -- FUNCTION FOR LOCAL DECODING ON COLUMN
+	
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+		LOC_CSn = VCC;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = GND;
+		
+		LOCAL_SM = PED_LOOP_DATA_5;		
+		
+WHEN PED_LOOP_DATA_5 =>
+			
+		TEST_LOCAL_STATO[7..0] = H"FF";
+		
+		CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+				
+		WRITE_fbTEN = GND;
+								
+		fbDtri[31..0].oe = GND;
+					
+		DATABUS_ADD[3..0] = H"2";  -- FUNCTION FOR LOCAL DECODING ON COLUMN
+	
+		DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+		LOC_CSn = VCC;
+		LOC_Rn/W = GND; 
+				
+		WORD_COMPARE_ENA = GND;
+		
+		LOCAL_SM = PED_LOOP_DATA_2;				
+%	
+------------------------------------------------------------------------------------------------------------------------------------------------
+%
+CODICE VECCHIO CARLOS
+
+WHEN LOOP_DATA =>
+			
+			TEST_LOCAL_STATO[7..0] = H"09";
+			
+			WRD_NMBER[9..0].ena = GND;
+			fbDtri[31..0].oe = GND;
+			
+			WORD_COMPARE_ENA = GND;
+			CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+
+			IF fiLFn THEN  ---  LINK FLAG IS NOT FULL
+		  		WRITE_fbTEN= GND;
+		
+				DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+				DATABUS_ADD[7..4] = COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			
+				LOC_CSn = GND;
+				LOC_Rn/W = GND;
+				LOCAL_SM = LOOP_DATA_WAIT;
+				
+			ELSIF !fiLFn THEN
+				LOCAL_SM = LOOP_DATA;
+				
+				DATABUS_ADD[3..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+				DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+				
+				LOC_CSn = VCC;
+				LOC_Rn/W = GND; 
+
+			END IF;
+
+			WRITE_fbTEN= GND;
+			
+			
+--- Link FIFO FULL LOOP
+
+	WHEN LOOP_DATA_WAIT =>
+			
+		TEST_LOCAL_STATO[7..0] = H"0A";
+
+			
+		IF !fiLFn THEN -- LINK FULL FLAG ON
+				
+				WRITE_fbTEN= !CLOCK10;
+				WORD_COMPARE_ENA = VCC;
+				
+				DATABUS_ADD[3..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+				DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+				LOCAL_SM = LOOP_DATA;
+						
+				LOC_CSn = VCC;
+				LOC_Rn/W = GND; 
+		
+		ELSIF WORD_NMBER_COMP[9..0] == WRD_NMBER[9..0] THEN
+		
+		  		WRITE_fbTEN= GND;
+				WORD_COMPARE_ENA = GND;
+		
+				LOC_CSn = GND;
+				LOC_Rn/W = GND; 
+				LOCAL_SM = CLMN_READ_END ;
+				
+		ELSE
+		
+				CLEAR_WRD_NMBR = GND; -- Clear word comparator counter and word_numbr
+				
+				WRITE_fbTEN=!CLOCK10;
+								
+				fbDtri[31..0].oe = GND;
+					
+				DATABUS_ADD[3..0] = H"2";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+				DATABUS_ADD[7..4] =  COLUMN_NMBER[3..0].Q ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+				LOC_CSn = GND;
+				LOC_Rn/W = GND; 
+				
+				WORD_COMPARE_ENA = VCC;
+				LOCAL_SM = LOOP_DATA_WAIT ;
+
+		END IF;		
+%		
+-------------------------------------------------------------------------------------------------------------------------------------------------			
+		
+	WHEN CLMN_READ_END =>  --- END OF READ OF ALL COLUNS
+	
+			TEST_LOCAL_STATO[7..0] = H"0F";
+			
+			WRD_NMBER[9..0].ena = GND;
+			LOC_CSn = GND;
+			--LOC_CSn = VCC;
+			LOC_Rn/W = GND ; 
+			DATABUS_ADD[3..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[7..4] = H"0";-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			--fbDtri[31..0].oe = GND;
+			WRITE_fbTEN= GND;
+			WORD_COMPARE_ENA = GND;
+			
+			CLEAR_WRD_NMBR = VCC; -- Clear word comparator counter and word_numbr
+			
+			DISABLE_CLOCK_20 = GND;
+
+			IF COLUMN_NMBER[3..0] == H"8" THEN
+					LOCAL_SM = SEND_END;
+			ELSE 
+				LOCAL_SM = SEL_COLUMN;
+	
+			END IF;
+
+-------------------------------------------------------------------------------------
+---- DATA WRITE TO COLUMNS
+-------------------------------------------------------------------------------------			
+
+	
+	WHEN DATA_CONF => --WRITE CONFIGURATION OF COLUMN
+
+			DATABUS_ADD[2..0] = FE_REG[30..28] ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0" ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;		  -- FIFO READ ENABLE
+			FIFO_DATA_ENABLE = GND;-- FIFO TRI CONTROL
+			
+			TEST_LOCAL_STATO[7..0] = H"10";
+			
+			LOCAL_SM = DATA_CONF1;
+
+	WHEN DATA_CONF1=> --WRITE CONFIGURATION OF COLUMN
+
+			DATABUS_ADD[2..0] = FE_REG[30..28] ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"11";
+			
+			LOCAL_SM = DATA_CONF2;
+			
+	WHEN DATA_CONF2 => --WRITE CONFIGURATION OF COLUMN
+
+			DATABUS_ADD[2..0] = FE_REG[30..28] ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24];--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"12";
+			
+			LOCAL_SM = DATA_CONF3;
+
+	WHEN DATA_CONF3 => --WRITE CONFIGURATION OF COLUMN
+
+			DATABUS_ADD[3..0] = H"6" ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[7..4] = H"0" ;--SAR (COLUMN NUMBER)
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"13";
+			
+			LOCAL_SM = DATA_WR1;
+			
+	--------------------------------------------------------------------
+	---- READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	--------------------------------------------------------------------
+	
+	WHEN DATA_WR1 => --
+	
+			DATABUS_ADD[3..0] = H"0" ;--REG 
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC; --OPEN FIFO OUTPUT TO BUS
+			TRANSFER_END = GND;
+-- 			SEG_TRIG = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"14";
+			
+			LOCAL_SM = DATA_WR3;
+			
+	
+	WHEN DATA_WR2 => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[3..0] = H"2" ;--REG (DATA BUS COMMAND "2")
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC;
+			TRANSFER_END = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"15";
+			
+			LOCAL_SM = DATA_LOOP;
+			--LOCAL_SM = DATA_WR3; -- FORSE CARLOS
+			--LOCAL_SM = DATA_WR2_TEMP; --?
+			
+---------------------------------------------------------------------------------------------------			
+	%	
+	WHEN DATA_WR2_TEMP => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[3..0] = H"2" ;--REG (DATA BUS COMMAND "2")
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC;
+			TRANSFER_END = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"31";
+			
+			LOCAL_SM = DATA_LOOP;		
+			
+			
+	WHEN DATA_WR2_TEMP1 => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[3..0] = H"2" ;--REG (DATA BUS COMMAND "2")
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC;
+			TRANSFER_END = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"32";
+			
+			LOCAL_SM = DATA_WR3;		
+%			
+		----------------------------------------------------------------------------------------			
+			
+	
+	WHEN DATA_WR3 => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[3..0] = H"0" ;--REG 
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = VCC;
+			FIFO_DATA_ENABLE = VCC;
+			TRANSFER_END = GND;
+
+			TEST_LOCAL_STATO[7..0] = H"16";
+			
+			LOCAL_SM = DATA_WR2;
+			--LOCAL_SM = DATA_LOOP;
+			--LOCAL_SM = DATA_LOOP_TEMP;
+			
+	--------------------------------------------------------------------------------------------MIO
+%	WHEN DATA_LOOP_TEMP => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[2..0] = H"0" ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0" ;--FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"31";
+			
+			--LOCAL_SM = DATA_LOOP;
+			LOCAL_SM = DATA_LOOP_TEMP_1;
+			
+	WHEN DATA_LOOP_TEMP_1 => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[2..0] = H"0" ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0" ;--FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"32";
+			
+			LOCAL_SM = DATA_LOOP;
+	
+	WHEN DATA_LOOP_TEMP_2 => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[2..0] = H"0" ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0" ;--FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"33";
+			
+			LOCAL_SM = DATA_LOOP;				
+	%		
+	------------------------------------------------------------------------------------------------------------------		
+			
+		WHEN DATA_LOOP => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[2..0] = H"0" ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0" ;--FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"17";
+			
+			IF EMPTY_FIFO THEN 
+				--TRANSFER_END = VCC;
+				--LOCAL_SM = IDLE_LOCAL;
+				LOCAL_SM = DATA_LOOP_END;
+			ELSE
+				LOCAL_SM = DATA_WR1;
+			END IF;
+		
+		WHEN DATA_LOOP_END => --READ RCB FIFO AND TRANSFER DATA TO COLUMN...
+	
+			DATABUS_ADD[2..0] = H"0" ;--REG (WRITE DATA COMMAND "6")
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0" ;--FE_REG[27..24] ;--SAR (COLUMN NUMBER)
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 	
+			--fbDtri[31..0].oe = GND;
+			
+			FIFO_CLK = !CLOCK10; 
+			RD_FIFO = GND;
+			FIFO_DATA_ENABLE = GND; -- era VCC
+			TRANSFER_END = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"18";
+						
+			LOCAL_SM = IDLE_LOCAL;
+			
+		
+
+-------------------------------------------------------------------------------------
+---- CONFIGURATION WRITE TO COLUMNS
+-------------------------------------------------------------------------------------			
+
+
+	WHEN STATEWR_1 => --WRITE CONFIGURATION OF COLUMN
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			-- 
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[2..0] =  FE_REG[30..28] ;--REG
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;
+
+			LOC_CSn = GND;--
+			LOC_Rn/W = VCC; 
+			
+			ZERO_SUPP_MEMO_ENA = GND; 
+			
+			TEST_LOCAL_STATO[7..0] = H"19";
+					
+			LOCAL_SM = STATEWR_2;
+
+	WHEN STATEWR_2 => 
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[2..0] = FE_REG[30..28] ;--REG
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 
+			
+			ZERO_SUPP_MEMO_ENA = VCC; --abilita la memoria della zero suppression 
+
+			TEST_LOCAL_STATO[7..0] = H"1A";	
+				
+			LOCAL_SM = STATEWR_2A ;
+			
+	WHEN STATEWR_2A => 
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[2..0] = FE_REG[30..28] ;--REG
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 
+			
+			ZERO_SUPP_MEMO_ENA = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"1B";
+			
+			LOCAL_SM = STATEWR_2B ;
+			
+	WHEN STATEWR_2B => 
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[2..0] = FE_REG[30..28] ;--REG
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR
+			LOC_CSn = VCC;
+			LOC_Rn/W = VCC; 
+			
+			ZERO_SUPP_MEMO_ENA = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"1C";
+			
+			LOCAL_SM = STATE_CHANGE ;
+
+	WHEN STATE_CHANGE =>
+	
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND;
+			DATABUS_ADD[2..0] = FE_REG[30..28] ;--REG
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;--SAR
+			
+			ZERO_SUPP_MEMO_ENA = GND; -- diabilito la memoria della zero suppression
+			
+			TEST_LOCAL_STATO[7..0] = H"1D";
+	
+			IF READ_STATUS THEN
+				LOCAL_SM = STATE_CHANGE1 ;
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+
+			ELSE
+				LOCAL_SM = SEND_END ;
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			END IF;
+
+	WHEN STATE_CHANGE1 => 
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			DATABUS_ADD[2..0] = H"0";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0" ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			--fbDtri[31..0].oe = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"1E";
+			
+			LOCAL_SM = STATE_CHANGE2 ;
+
+	WHEN STATE_CHANGE2 =>
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+			DATABUS_ADD[2..0] = H"1";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = H"0"  ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+			--fbDtri[31..0].oe = GND;
+						
+			TEST_LOCAL_STATO[7..0] = H"1F";
+			
+			LOCAL_SM = STATUS_READ1 ;
+
+
+	WHEN STATUS_READ1=> --READ STATUS FROM COLUMN TO REGISTER
+
+			LOCAL_BUS_REG[7..0].d = fbD[7..0];
+			LOCAL_BUS_REG[17..8].d = fbD[25..16];
+			LOCAL_BUS_REG[18].d = GND;
+			LOCAL_BUS_REG[17..0].ena = GND;
+			--fbDtri[31..0].oe = GND;
+
+			DATABUS_ADD[2..0] = H"1";-- FUNCTION FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			LOC_CSn = GND; -- VCC
+			LOC_Rn/W = GND; 
+			
+			TEST_LOCAL_STATO[7..0] = H"20";
+			
+			LOCAL_SM = STATUS_READ2;
+
+	WHEN STATUS_READ2=> 
+			LOCAL_BUS_REG[7..0].d = fbD[7..0];
+			LOCAL_BUS_REG[17..8].d = fbD[25..16];
+			LOCAL_BUS_REG[18].d = GND;
+			LOCAL_BUS_REG[17..0].ena = VCC;
+
+			--fbDtri[31..0].oe = GND;
+
+			DATABUS_ADD[2..0] = H"1";-- ADDRESS FOR LOCAL DECODING ON COLUMN
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = FE_REG[27..24] ;-- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
+
+			LOC_CSn = GND;
+			LOC_Rn/W = GND; 
+			
+			TEST_LOCAL_STATO[7..0] = H"21";
+
+			LOCAL_SM = SEND_END ;
+			
+	
+
+	WHEN SEND_END =>
+			LOCAL_CYCLE_END  = GND ;
+			DATABUS_ADD[3..0] = H"0";
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			--fbDtri[31..0].oe = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"22";
+			
+			LOCAL_SM = SEND_END1 ;
+			
+	WHEN SEND_END1 =>
+			LOCAL_CYCLE_END  = VCC ;
+			DATABUS_ADD[3..0] = H"0";
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			--fbDtri[31..0].oe = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"23";
+			
+			LOCAL_SM = IDLE_LOCAL ;
+			
+			
+-------------------------------------------------------------------------------------------------
+-- segment selection nel caso di RDYRX	
+
+WHEN SEL_SEG_1a => --WRITE CONFIGURATION OF COLUMN
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[1..0] =  SEGMENT_COUNTER[1..0];
+			DATABUS_ADD[2] =  B"1";
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = B"1010" ;
+
+			LOC_CSn = GND;--
+			LOC_Rn/W = VCC; 
+			
+			TEST_LOCAL_STATO[7..0] = H"24";
+			
+			LOCAL_SM = SEL_SEG_1b;
+
+	WHEN SEL_SEG_1b => 
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[1..0] =  SEGMENT_COUNTER[1..0];
+			DATABUS_ADD[2] =  B"1";
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = B"1010" ;--SAR
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 
+
+			TEST_LOCAL_STATO[7..0] = H"25";
+			
+			LOCAL_SM = SEL_SEG_1c ;
+			
+	WHEN SEL_SEG_1c => 
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[1..0] =  SEGMENT_COUNTER[1..0];
+			DATABUS_ADD[2] =  B"1";
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = B"1010" ;--SAR
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 
+			
+			TEST_LOCAL_STATO[7..0] = H"26";
+			
+			LOCAL_SM = SEL_SEG_1d ;
+			
+	WHEN SEL_SEG_1d => 
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[1..0] =  SEGMENT_COUNTER[1..0];
+			DATABUS_ADD[2] =  B"1";
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = B"1010" ;--SAR
+			LOC_CSn = VCC;
+			LOC_Rn/W = VCC; 
+			
+			TEST_LOCAL_STATO[7..0] = H"27";
+			
+			LOCAL_SM = SEL_SEG_1e ;
+
+	WHEN SEL_SEG_1e => 
+
+			---DIRECT SIU TO LOCAL BUS  TO WRITE ON COLUMNS
+			--fbDtri[31..0].oe = GND;
+			DATABUS_ADD[1..0] =  SEGMENT_COUNTER[1..0];
+			DATABUS_ADD[2] =  B"1";
+			DATABUS_ADD[3] = GND;
+			DATABUS_ADD[7..4] = B"1010" ;--SAR
+			LOC_CSn = VCC;
+			LOC_Rn/W = VCC; 
+			
+			TEST_LOCAL_STATO[7..0] = H"28";
+			
+			LOCAL_SM = END_SEL_SEG ;
+	
+
+	WHEN END_SEL_SEG =>
+			DATABUS_ADD[3..0] = H"0";
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			--fbDtri[31..0].oe = GND;
+			
+			R_SEG_SEL_SR = VCC;
+			
+			TEST_LOCAL_STATO[7..0] = H"29";
+			
+			LOCAL_SM = IDLE_LOCAL;
+
+------------------------------------------------------------------------------------------------------------------
+
+-- setting della zero suppression dopo ogni acquisizione completa
+
+WHEN LOC_ZERO_SUPP_ON_1 => 
+			
+			DATABUS_ADD[3..0] = B"0011";
+			DATABUS_ADD[7..4] = ZERO_SUPP_COLUMN[3..0];
+
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 
+			
+			R_ZERO_SUPP_ON_SR = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"2A";
+					
+			LOCAL_SM = LOC_ZERO_SUPP_ON_2;
+
+	WHEN LOC_ZERO_SUPP_ON_2 => 
+
+			DATABUS_ADD[3..0] = B"0011";
+			DATABUS_ADD[7..4] = ZERO_SUPP_COLUMN[3..0];
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 
+			
+			R_ZERO_SUPP_ON_SR = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"2B";	
+				
+			LOCAL_SM = LOC_ZERO_SUPP_ON_3;
+			
+	WHEN LOC_ZERO_SUPP_ON_3 => 
+
+			DATABUS_ADD[3..0] = B"0011";
+			DATABUS_ADD[7..4] = ZERO_SUPP_COLUMN[3..0];
+			
+			LOC_CSn = GND;
+			LOC_Rn/W = VCC; 
+
+			R_ZERO_SUPP_ON_SR = GND;
+			
+			TEST_LOCAL_STATO[7..0] = H"2C";	
+				
+			LOCAL_SM = LOC_ZERO_SUPP_ON_4;
+			
+	WHEN LOC_ZERO_SUPP_ON_4 => 
+
+			DATABUS_ADD[3..0] = B"0011";
+			DATABUS_ADD[7..4] = ZERO_SUPP_COLUMN[3..0];
+			
+			LOC_CSn = VCC;
+			LOC_Rn/W = VCC; 
+			
+			R_ZERO_SUPP_ON_SR = GND;
+
+			TEST_LOCAL_STATO[7..0] = H"2D";	
+				
+			LOCAL_SM = LOC_ZERO_SUPP_ON_5;
+		
+	WHEN LOC_ZERO_SUPP_ON_5 => 
+
+			DATABUS_ADD[3..0] = B"0011";
+			DATABUS_ADD[7..4] = ZERO_SUPP_COLUMN[3..0];
+			
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			
+			R_ZERO_SUPP_ON_SR = GND;
+
+			TEST_LOCAL_STATO[7..0] = H"2E";	
+				
+			LOCAL_SM = LOC_ZERO_SUPP_ON_6;		
+
+		WHEN LOC_ZERO_SUPP_ON_6 => 
+
+			DATABUS_ADD[3..0] = B"0000";
+			DATABUS_ADD[7..4] = ZERO_SUPP_COLUMN[3..0];
+			
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			
+			R_ZERO_SUPP_ON_SR = GND;
+
+			TEST_LOCAL_STATO[7..0] = H"2F";	
+				
+			LOCAL_SM = LOC_ZERO_SUPP_ON_7;		
+			
+		WHEN LOC_ZERO_SUPP_ON_7 => 
+
+			DATABUS_ADD[3..0] = B"0000";
+			DATABUS_ADD[7..4] = ZERO_SUPP_COLUMN[3..0];
+			
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			
+			R_ZERO_SUPP_ON_SR = VCC;
+
+			TEST_LOCAL_STATO[7..0] = H"30";	
+				
+			LOCAL_SM = IDLE_LOCAL;
+		
+			
+
+
+	
+
+			
+			
+			
+			
+			
+			
+			
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+	WHEN OTHERS =>
+	
+			LOCAL_CYCLE_END = GND;
+			ENA_CLMN_CNTR = GND;
+			WORD_COMPARE_ENA = GND;
+			LOC_CSn = VCC;
+			LOC_Rn/W = GND; 
+			WRD_NMBER[9..0].ena = GND;
+			DATABUS_ADD[3..0] = H"0";
+			WRITE_fbTEN= GND;
+			--fbDtri[31..0].oe = GND;
+			CLEAR_WRD_NMBR = GND;
+			TEST_LOCAL_STATO[7..0] = H"2A";
+
+END CASE;
+-------------------------------------------------------------------------
+
+END;

@@ -1,0 +1,15 @@
+CHECK_APP_POF=false
+INTENDED_DEVICE_FAMILY="Stratix II"
+OPERATION_MODE=LOCAL
+SIM_INIT_CONFIG=APPLICATION
+SIM_INIT_PAGE_SELECT=1
+SIM_INIT_STATUS=15
+DEVICE_FAMILY="Stratix II"
+clock
+param
+read_param
+reconfig
+reset
+busy
+data_out
+pgmout

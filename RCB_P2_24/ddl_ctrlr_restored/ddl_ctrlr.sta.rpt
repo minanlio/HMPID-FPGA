@@ -1,0 +1,697 @@
+TimeQuest Timing Analyzer report for ddl_ctrlr
+Wed Jun 19 21:49:02 2013
+Quartus II 64-Bit Version 12.0 Build 178 05/31/2012 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. TimeQuest Timing Analyzer Summary
+  3. Parallel Compilation
+  4. Clocks
+  5. Slow Model Fmax Summary
+  6. Slow Model Setup Summary
+  7. Slow Model Hold Summary
+  8. Slow Model Recovery Summary
+  9. Slow Model Removal Summary
+ 10. Slow Model Minimum Pulse Width Summary
+ 11. Propagation Delay
+ 12. Minimum Propagation Delay
+ 13. Fast Model Setup Summary
+ 14. Fast Model Hold Summary
+ 15. Fast Model Recovery Summary
+ 16. Fast Model Removal Summary
+ 17. Fast Model Minimum Pulse Width Summary
+ 18. Propagation Delay
+ 19. Minimum Propagation Delay
+ 20. Multicorner Timing Analysis Summary
+ 21. Progagation Delay
+ 22. Minimum Progagation Delay
+ 23. Clock Transfers
+ 24. Report TCCS
+ 25. Report RSKM
+ 26. Unconstrained Paths
+ 27. TimeQuest Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2012 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++------------------------------------------------------------------------+
+; TimeQuest Timing Analyzer Summary                                      ;
++--------------------+---------------------------------------------------+
+; Quartus II Version ; Version 12.0 Build 178 05/31/2012 SJ Full Version ;
+; Revision Name      ; ddl_ctrlr                                         ;
+; Device Family      ; Stratix II                                        ;
+; Device Name        ; EP2S15F484C5                                      ;
+; Timing Models      ; Final                                             ;
+; Delay Model        ; Combined                                          ;
+; Rise/Fall Delays   ; Unavailable                                       ;
++--------------------+---------------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2-4 processors         ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                                    ;
++---------------------+------+---------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-------------------------+
+; Clock Name          ; Type ; Period  ; Frequency ; Rise  ; Fall   ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets                 ;
++---------------------+------+---------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-------------------------+
+; altera_reserved_tck ; Base ; 100.000 ; 10.0 MHz  ; 0.000 ; 50.000 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { altera_reserved_tck } ;
++---------------------+------+---------+-----------+-------+--------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-------------------------+
+
+
+---------------------------
+; Slow Model Fmax Summary ;
+---------------------------
+No paths to report.
+
+
+----------------------------
+; Slow Model Setup Summary ;
+----------------------------
+No paths to report.
+
+
+---------------------------
+; Slow Model Hold Summary ;
+---------------------------
+No paths to report.
+
+
+-------------------------------
+; Slow Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Slow Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++----------------------------------------------+
+; Slow Model Minimum Pulse Width Summary       ;
++---------------------+--------+---------------+
+; Clock               ; Slack  ; End Point TNS ;
++---------------------+--------+---------------+
+; altera_reserved_tck ; 97.778 ; 0.000         ;
++---------------------+--------+---------------+
+
+
++--------------------------------------------------------------+
+; Propagation Delay                                            ;
++------------+-------------+--------+--------+--------+--------+
+; Input Port ; Output Port ; RR     ; RF     ; FR     ; FF     ;
++------------+-------------+--------+--------+--------+--------+
+; CLK40DES1  ; SEG_CLOCK   ; 8.004  ;        ;        ; 8.004  ;
+; CLK40DES1  ; foCLK       ;        ; 3.136  ; 3.136  ;        ;
+; EXT_RESET  ; Dout        ; 8.685  ;        ;        ; 8.685  ;
+; L0_EXT_NIM ; Aout        ; 8.689  ;        ;        ; 8.689  ;
+; L2_EXT     ; Cout        ; 8.682  ;        ;        ; 8.682  ;
+; fbD[12]    ; foBSYn      ; 11.693 ; 11.693 ; 11.693 ; 11.693 ;
+; fbD[13]    ; foBSYn      ; 12.721 ; 12.721 ; 12.721 ; 12.721 ;
+; fbD[14]    ; foBSYn      ; 11.728 ; 11.728 ; 11.728 ; 11.728 ;
+; fbD[15]    ; foBSYn      ; 12.784 ; 12.784 ; 12.784 ; 12.784 ;
+; fbD[16]    ; foBSYn      ; 11.622 ; 11.622 ; 11.622 ; 11.622 ;
+; fbD[17]    ; foBSYn      ; 12.119 ; 12.119 ; 12.119 ; 12.119 ;
+; fbD[18]    ; foBSYn      ; 11.906 ; 11.906 ; 11.906 ; 11.906 ;
+; fbD[19]    ; foBSYn      ; 12.086 ; 12.086 ; 12.086 ; 12.086 ;
+; fbD[20]    ; foBSYn      ; 11.974 ; 11.974 ; 11.974 ; 11.974 ;
+; fbD[21]    ; foBSYn      ; 12.891 ; 12.891 ; 12.891 ; 12.891 ;
+; fbTENn     ; foBSYn      ;        ; 12.662 ; 12.662 ;        ;
+; fiBENn     ; fbCTRLn     ; 12.989 ; 12.989 ; 12.989 ; 12.989 ;
+; fiBENn     ; fbTENn      ; 12.989 ; 12.989 ; 12.989 ; 12.989 ;
++------------+-------------+--------+--------+--------+--------+
+
+
++--------------------------------------------------------------+
+; Minimum Propagation Delay                                    ;
++------------+-------------+--------+--------+--------+--------+
+; Input Port ; Output Port ; RR     ; RF     ; FR     ; FF     ;
++------------+-------------+--------+--------+--------+--------+
+; CLK40DES1  ; SEG_CLOCK   ; 8.004  ;        ;        ; 8.004  ;
+; CLK40DES1  ; foCLK       ;        ; 3.136  ; 3.136  ;        ;
+; EXT_RESET  ; Dout        ; 8.685  ;        ;        ; 8.685  ;
+; L0_EXT_NIM ; Aout        ; 8.689  ;        ;        ; 8.689  ;
+; L2_EXT     ; Cout        ; 8.682  ;        ;        ; 8.682  ;
+; fbD[12]    ; foBSYn      ; 11.693 ; 11.693 ; 11.693 ; 11.693 ;
+; fbD[13]    ; foBSYn      ; 12.721 ; 12.721 ; 12.721 ; 12.721 ;
+; fbD[14]    ; foBSYn      ; 11.728 ; 11.728 ; 11.728 ; 11.728 ;
+; fbD[15]    ; foBSYn      ; 12.784 ; 12.784 ; 12.784 ; 12.784 ;
+; fbD[16]    ; foBSYn      ; 11.622 ; 11.622 ; 11.622 ; 11.622 ;
+; fbD[17]    ; foBSYn      ; 12.119 ; 12.119 ; 12.119 ; 12.119 ;
+; fbD[18]    ; foBSYn      ; 11.906 ; 11.906 ; 11.906 ; 11.906 ;
+; fbD[19]    ; foBSYn      ; 12.086 ; 12.086 ; 12.086 ; 12.086 ;
+; fbD[20]    ; foBSYn      ; 11.974 ; 11.974 ; 11.974 ; 11.974 ;
+; fbD[21]    ; foBSYn      ; 12.891 ; 12.891 ; 12.891 ; 12.891 ;
+; fbTENn     ; foBSYn      ;        ; 12.662 ; 12.662 ;        ;
+; fiBENn     ; fbCTRLn     ; 12.989 ; 12.989 ; 12.989 ; 12.989 ;
+; fiBENn     ; fbTENn      ; 12.989 ; 12.989 ; 12.989 ; 12.989 ;
++------------+-------------+--------+--------+--------+--------+
+
+
+----------------------------
+; Fast Model Setup Summary ;
+----------------------------
+No paths to report.
+
+
+---------------------------
+; Fast Model Hold Summary ;
+---------------------------
+No paths to report.
+
+
+-------------------------------
+; Fast Model Recovery Summary ;
+-------------------------------
+No paths to report.
+
+
+------------------------------
+; Fast Model Removal Summary ;
+------------------------------
+No paths to report.
+
+
++----------------------------------------------+
+; Fast Model Minimum Pulse Width Summary       ;
++---------------------+--------+---------------+
+; Clock               ; Slack  ; End Point TNS ;
++---------------------+--------+---------------+
+; altera_reserved_tck ; 98.000 ; 0.000         ;
++---------------------+--------+---------------+
+
+
++----------------------------------------------------------+
+; Propagation Delay                                        ;
++------------+-------------+-------+-------+-------+-------+
+; Input Port ; Output Port ; RR    ; RF    ; FR    ; FF    ;
++------------+-------------+-------+-------+-------+-------+
+; CLK40DES1  ; SEG_CLOCK   ; 3.427 ;       ;       ; 3.427 ;
+; CLK40DES1  ; foCLK       ;       ; 1.469 ; 1.469 ;       ;
+; EXT_RESET  ; Dout        ; 3.987 ;       ;       ; 3.987 ;
+; L0_EXT_NIM ; Aout        ; 4.003 ;       ;       ; 4.003 ;
+; L2_EXT     ; Cout        ; 3.999 ;       ;       ; 3.999 ;
+; fbD[12]    ; foBSYn      ; 5.190 ; 5.190 ; 5.190 ; 5.190 ;
+; fbD[13]    ; foBSYn      ; 5.703 ; 5.703 ; 5.703 ; 5.703 ;
+; fbD[14]    ; foBSYn      ; 5.183 ; 5.183 ; 5.183 ; 5.183 ;
+; fbD[15]    ; foBSYn      ; 5.666 ; 5.666 ; 5.666 ; 5.666 ;
+; fbD[16]    ; foBSYn      ; 5.202 ; 5.202 ; 5.202 ; 5.202 ;
+; fbD[17]    ; foBSYn      ; 5.485 ; 5.485 ; 5.485 ; 5.485 ;
+; fbD[18]    ; foBSYn      ; 5.260 ; 5.260 ; 5.260 ; 5.260 ;
+; fbD[19]    ; foBSYn      ; 5.474 ; 5.474 ; 5.474 ; 5.474 ;
+; fbD[20]    ; foBSYn      ; 5.342 ; 5.342 ; 5.342 ; 5.342 ;
+; fbD[21]    ; foBSYn      ; 5.666 ; 5.666 ; 5.666 ; 5.666 ;
+; fbTENn     ; foBSYn      ;       ; 5.563 ; 5.563 ;       ;
+; fiBENn     ; fbCTRLn     ; 5.536 ; 5.536 ; 5.536 ; 5.536 ;
+; fiBENn     ; fbTENn      ; 5.536 ; 5.536 ; 5.536 ; 5.536 ;
++------------+-------------+-------+-------+-------+-------+
+
+
++----------------------------------------------------------+
+; Minimum Propagation Delay                                ;
++------------+-------------+-------+-------+-------+-------+
+; Input Port ; Output Port ; RR    ; RF    ; FR    ; FF    ;
++------------+-------------+-------+-------+-------+-------+
+; CLK40DES1  ; SEG_CLOCK   ; 3.427 ;       ;       ; 3.427 ;
+; CLK40DES1  ; foCLK       ;       ; 1.469 ; 1.469 ;       ;
+; EXT_RESET  ; Dout        ; 3.987 ;       ;       ; 3.987 ;
+; L0_EXT_NIM ; Aout        ; 4.003 ;       ;       ; 4.003 ;
+; L2_EXT     ; Cout        ; 3.999 ;       ;       ; 3.999 ;
+; fbD[12]    ; foBSYn      ; 5.190 ; 5.190 ; 5.190 ; 5.190 ;
+; fbD[13]    ; foBSYn      ; 5.703 ; 5.703 ; 5.703 ; 5.703 ;
+; fbD[14]    ; foBSYn      ; 5.183 ; 5.183 ; 5.183 ; 5.183 ;
+; fbD[15]    ; foBSYn      ; 5.666 ; 5.666 ; 5.666 ; 5.666 ;
+; fbD[16]    ; foBSYn      ; 5.202 ; 5.202 ; 5.202 ; 5.202 ;
+; fbD[17]    ; foBSYn      ; 5.485 ; 5.485 ; 5.485 ; 5.485 ;
+; fbD[18]    ; foBSYn      ; 5.260 ; 5.260 ; 5.260 ; 5.260 ;
+; fbD[19]    ; foBSYn      ; 5.474 ; 5.474 ; 5.474 ; 5.474 ;
+; fbD[20]    ; foBSYn      ; 5.342 ; 5.342 ; 5.342 ; 5.342 ;
+; fbD[21]    ; foBSYn      ; 5.666 ; 5.666 ; 5.666 ; 5.666 ;
+; fbTENn     ; foBSYn      ;       ; 5.563 ; 5.563 ;       ;
+; fiBENn     ; fbCTRLn     ; 5.536 ; 5.536 ; 5.536 ; 5.536 ;
+; fiBENn     ; fbTENn      ; 5.536 ; 5.536 ; 5.536 ; 5.536 ;
++------------+-------------+-------+-------+-------+-------+
+
+
++--------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                            ;
++----------------------+-------+------+----------+---------+---------------------+
+; Clock                ; Setup ; Hold ; Recovery ; Removal ; Minimum Pulse Width ;
++----------------------+-------+------+----------+---------+---------------------+
+; Worst-case Slack     ; N/A   ; N/A  ; N/A      ; N/A     ; 97.778              ;
+;  altera_reserved_tck ; N/A   ; N/A  ; N/A      ; N/A     ; 97.778              ;
+; Design-wide TNS      ; 0.0   ; 0.0  ; 0.0      ; 0.0     ; 0.0                 ;
+;  altera_reserved_tck ; N/A   ; N/A  ; N/A      ; N/A     ; 0.000               ;
++----------------------+-------+------+----------+---------+---------------------+
+
+
++--------------------------------------------------------------+
+; Progagation Delay                                            ;
++------------+-------------+--------+--------+--------+--------+
+; Input Port ; Output Port ; RR     ; RF     ; FR     ; FF     ;
++------------+-------------+--------+--------+--------+--------+
+; CLK40DES1  ; SEG_CLOCK   ; 8.004  ;        ;        ; 8.004  ;
+; CLK40DES1  ; foCLK       ;        ; 3.136  ; 3.136  ;        ;
+; EXT_RESET  ; Dout        ; 8.685  ;        ;        ; 8.685  ;
+; L0_EXT_NIM ; Aout        ; 8.689  ;        ;        ; 8.689  ;
+; L2_EXT     ; Cout        ; 8.682  ;        ;        ; 8.682  ;
+; fbD[12]    ; foBSYn      ; 11.693 ; 11.693 ; 11.693 ; 11.693 ;
+; fbD[13]    ; foBSYn      ; 12.721 ; 12.721 ; 12.721 ; 12.721 ;
+; fbD[14]    ; foBSYn      ; 11.728 ; 11.728 ; 11.728 ; 11.728 ;
+; fbD[15]    ; foBSYn      ; 12.784 ; 12.784 ; 12.784 ; 12.784 ;
+; fbD[16]    ; foBSYn      ; 11.622 ; 11.622 ; 11.622 ; 11.622 ;
+; fbD[17]    ; foBSYn      ; 12.119 ; 12.119 ; 12.119 ; 12.119 ;
+; fbD[18]    ; foBSYn      ; 11.906 ; 11.906 ; 11.906 ; 11.906 ;
+; fbD[19]    ; foBSYn      ; 12.086 ; 12.086 ; 12.086 ; 12.086 ;
+; fbD[20]    ; foBSYn      ; 11.974 ; 11.974 ; 11.974 ; 11.974 ;
+; fbD[21]    ; foBSYn      ; 12.891 ; 12.891 ; 12.891 ; 12.891 ;
+; fbTENn     ; foBSYn      ;        ; 12.662 ; 12.662 ;        ;
+; fiBENn     ; fbCTRLn     ; 12.989 ; 12.989 ; 12.989 ; 12.989 ;
+; fiBENn     ; fbTENn      ; 12.989 ; 12.989 ; 12.989 ; 12.989 ;
++------------+-------------+--------+--------+--------+--------+
+
+
++----------------------------------------------------------+
+; Minimum Progagation Delay                                ;
++------------+-------------+-------+-------+-------+-------+
+; Input Port ; Output Port ; RR    ; RF    ; FR    ; FF    ;
++------------+-------------+-------+-------+-------+-------+
+; CLK40DES1  ; SEG_CLOCK   ; 3.427 ;       ;       ; 3.427 ;
+; CLK40DES1  ; foCLK       ;       ; 1.469 ; 1.469 ;       ;
+; EXT_RESET  ; Dout        ; 3.987 ;       ;       ; 3.987 ;
+; L0_EXT_NIM ; Aout        ; 4.003 ;       ;       ; 4.003 ;
+; L2_EXT     ; Cout        ; 3.999 ;       ;       ; 3.999 ;
+; fbD[12]    ; foBSYn      ; 5.190 ; 5.190 ; 5.190 ; 5.190 ;
+; fbD[13]    ; foBSYn      ; 5.703 ; 5.703 ; 5.703 ; 5.703 ;
+; fbD[14]    ; foBSYn      ; 5.183 ; 5.183 ; 5.183 ; 5.183 ;
+; fbD[15]    ; foBSYn      ; 5.666 ; 5.666 ; 5.666 ; 5.666 ;
+; fbD[16]    ; foBSYn      ; 5.202 ; 5.202 ; 5.202 ; 5.202 ;
+; fbD[17]    ; foBSYn      ; 5.485 ; 5.485 ; 5.485 ; 5.485 ;
+; fbD[18]    ; foBSYn      ; 5.260 ; 5.260 ; 5.260 ; 5.260 ;
+; fbD[19]    ; foBSYn      ; 5.474 ; 5.474 ; 5.474 ; 5.474 ;
+; fbD[20]    ; foBSYn      ; 5.342 ; 5.342 ; 5.342 ; 5.342 ;
+; fbD[21]    ; foBSYn      ; 5.666 ; 5.666 ; 5.666 ; 5.666 ;
+; fbTENn     ; foBSYn      ;       ; 5.563 ; 5.563 ;       ;
+; fiBENn     ; fbCTRLn     ; 5.536 ; 5.536 ; 5.536 ; 5.536 ;
+; fiBENn     ; fbTENn      ; 5.536 ; 5.536 ; 5.536 ; 5.536 ;
++------------+-------------+-------+-------+-------+-------+
+
+
+-------------------
+; Clock Transfers ;
+-------------------
+Nothing to report.
+
+
+---------------
+; Report TCCS ;
+---------------
+No dedicated SERDES Transmitter circuitry present in device or used in design
+
+
+---------------
+; Report RSKM ;
+---------------
+No dedicated SERDES Receiver circuitry present in device or used in design
+
+
++------------------------------------------------+
+; Unconstrained Paths                            ;
++---------------------------------+-------+------+
+; Property                        ; Setup ; Hold ;
++---------------------------------+-------+------+
+; Illegal Clocks                  ; 0     ; 0    ;
+; Unconstrained Clocks            ; 5     ; 5    ;
+; Unconstrained Input Ports       ; 82    ; 82   ;
+; Unconstrained Input Port Paths  ; 910   ; 910  ;
+; Unconstrained Output Ports      ; 56    ; 56   ;
+; Unconstrained Output Port Paths ; 1680  ; 1680 ;
++---------------------------------+-------+------+
+
+
++------------------------------------+
+; TimeQuest Timing Analyzer Messages ;
++------------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
+    Info: Version 12.0 Build 178 05/31/2012 SJ Full Version
+    Info: Processing started: Wed Jun 19 21:49:01 2013
+Info: Command: quartus_sta rcb_ctrlr -c ddl_ctrlr
+Info: qsta_default_script.tcl version: #4
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
+Critical Warning (138069): Setting INCREMENTAL_COMPILATION to "OFF" is no longer supported. Assignment is ignored. To disable partitions, set the IGNORE_PARTITIONS global assignment to "ON" instead.
+Info (332164): Evaluating HDL-embedded SDC commands
+    Info (332165): Entity sld_hub
+        Info (332166): create_clock -period 10MHz -name altera_reserved_tck [get_ports {altera_reserved_tck}]
+        Info (332166): set_clock_groups -asynchronous -group {altera_reserved_tck}
+Critical Warning (332012): Synopsys Design Constraints File file not found: 'ddl_ctrlr.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Warning (332125): Found combinational loop of 256 nodes
+    Warning (332126): Node "inst19|inst60|combout"
+    Warning (332126): Node "inst19|inst188|dataf"
+    Warning (332126): Node "inst19|inst188|combout"
+    Warning (332126): Node "inst19|inst187|dataf"
+    Warning (332126): Node "inst19|inst187|combout"
+    Warning (332126): Node "inst19|inst186|dataa"
+    Warning (332126): Node "inst19|inst186|combout"
+    Warning (332126): Node "inst19|inst185|dataf"
+    Warning (332126): Node "inst19|inst185|combout"
+    Warning (332126): Node "inst19|inst184|dataf"
+    Warning (332126): Node "inst19|inst184|combout"
+    Warning (332126): Node "inst19|inst183|datae"
+    Warning (332126): Node "inst19|inst183|combout"
+    Warning (332126): Node "inst19|inst182|dataf"
+    Warning (332126): Node "inst19|inst182|combout"
+    Warning (332126): Node "inst19|inst181|datac"
+    Warning (332126): Node "inst19|inst181|combout"
+    Warning (332126): Node "inst19|inst180|dataf"
+    Warning (332126): Node "inst19|inst180|combout"
+    Warning (332126): Node "inst19|inst179|datae"
+    Warning (332126): Node "inst19|inst179|combout"
+    Warning (332126): Node "inst19|inst178|datac"
+    Warning (332126): Node "inst19|inst178|combout"
+    Warning (332126): Node "inst19|inst177|datac"
+    Warning (332126): Node "inst19|inst177|combout"
+    Warning (332126): Node "inst19|inst176|dataf"
+    Warning (332126): Node "inst19|inst176|combout"
+    Warning (332126): Node "inst19|inst175|datac"
+    Warning (332126): Node "inst19|inst175|combout"
+    Warning (332126): Node "inst19|inst174|dataf"
+    Warning (332126): Node "inst19|inst174|combout"
+    Warning (332126): Node "inst19|inst173|dataa"
+    Warning (332126): Node "inst19|inst173|combout"
+    Warning (332126): Node "inst19|inst172|dataf"
+    Warning (332126): Node "inst19|inst172|combout"
+    Warning (332126): Node "inst19|inst171|dataf"
+    Warning (332126): Node "inst19|inst171|combout"
+    Warning (332126): Node "inst19|inst170|datac"
+    Warning (332126): Node "inst19|inst170|combout"
+    Warning (332126): Node "inst19|inst169|datac"
+    Warning (332126): Node "inst19|inst169|combout"
+    Warning (332126): Node "inst19|inst168|datac"
+    Warning (332126): Node "inst19|inst168|combout"
+    Warning (332126): Node "inst19|inst167|dataf"
+    Warning (332126): Node "inst19|inst167|combout"
+    Warning (332126): Node "inst19|inst166|dataa"
+    Warning (332126): Node "inst19|inst166|combout"
+    Warning (332126): Node "inst19|inst165|dataf"
+    Warning (332126): Node "inst19|inst165|combout"
+    Warning (332126): Node "inst19|inst164|datac"
+    Warning (332126): Node "inst19|inst164|combout"
+    Warning (332126): Node "inst19|inst163|dataf"
+    Warning (332126): Node "inst19|inst163|combout"
+    Warning (332126): Node "inst19|inst162|datac"
+    Warning (332126): Node "inst19|inst162|combout"
+    Warning (332126): Node "inst19|inst161|datac"
+    Warning (332126): Node "inst19|inst161|combout"
+    Warning (332126): Node "inst19|inst160|dataf"
+    Warning (332126): Node "inst19|inst160|combout"
+    Warning (332126): Node "inst19|inst159|datac"
+    Warning (332126): Node "inst19|inst159|combout"
+    Warning (332126): Node "inst19|inst158|dataf"
+    Warning (332126): Node "inst19|inst158|combout"
+    Warning (332126): Node "inst19|inst157|dataf"
+    Warning (332126): Node "inst19|inst157|combout"
+    Warning (332126): Node "inst19|inst156|dataf"
+    Warning (332126): Node "inst19|inst156|combout"
+    Warning (332126): Node "inst19|inst155|datae"
+    Warning (332126): Node "inst19|inst155|combout"
+    Warning (332126): Node "inst19|inst154|datae"
+    Warning (332126): Node "inst19|inst154|combout"
+    Warning (332126): Node "inst19|inst153|dataf"
+    Warning (332126): Node "inst19|inst153|combout"
+    Warning (332126): Node "inst19|inst152|dataf"
+    Warning (332126): Node "inst19|inst152|combout"
+    Warning (332126): Node "inst19|inst151|datac"
+    Warning (332126): Node "inst19|inst151|combout"
+    Warning (332126): Node "inst19|inst150|dataf"
+    Warning (332126): Node "inst19|inst150|combout"
+    Warning (332126): Node "inst19|inst149|dataf"
+    Warning (332126): Node "inst19|inst149|combout"
+    Warning (332126): Node "inst19|inst148|datac"
+    Warning (332126): Node "inst19|inst148|combout"
+    Warning (332126): Node "inst19|inst147|datac"
+    Warning (332126): Node "inst19|inst147|combout"
+    Warning (332126): Node "inst19|inst146|datab"
+    Warning (332126): Node "inst19|inst146|combout"
+    Warning (332126): Node "inst19|inst145|dataa"
+    Warning (332126): Node "inst19|inst145|combout"
+    Warning (332126): Node "inst19|inst144|datac"
+    Warning (332126): Node "inst19|inst144|combout"
+    Warning (332126): Node "inst19|inst143|datac"
+    Warning (332126): Node "inst19|inst143|combout"
+    Warning (332126): Node "inst19|inst142|dataf"
+    Warning (332126): Node "inst19|inst142|combout"
+    Warning (332126): Node "inst19|inst141|datac"
+    Warning (332126): Node "inst19|inst141|combout"
+    Warning (332126): Node "inst19|inst140|dataf"
+    Warning (332126): Node "inst19|inst140|combout"
+    Warning (332126): Node "inst19|inst139|dataf"
+    Warning (332126): Node "inst19|inst139|combout"
+    Warning (332126): Node "inst19|inst138|dataf"
+    Warning (332126): Node "inst19|inst138|combout"
+    Warning (332126): Node "inst19|inst137|dataf"
+    Warning (332126): Node "inst19|inst137|combout"
+    Warning (332126): Node "inst19|inst136|datac"
+    Warning (332126): Node "inst19|inst136|combout"
+    Warning (332126): Node "inst19|inst135|dataa"
+    Warning (332126): Node "inst19|inst135|combout"
+    Warning (332126): Node "inst19|inst134|dataf"
+    Warning (332126): Node "inst19|inst134|combout"
+    Warning (332126): Node "inst19|inst133|datac"
+    Warning (332126): Node "inst19|inst133|combout"
+    Warning (332126): Node "inst19|inst132|dataf"
+    Warning (332126): Node "inst19|inst132|combout"
+    Warning (332126): Node "inst19|inst131|datac"
+    Warning (332126): Node "inst19|inst131|combout"
+    Warning (332126): Node "inst19|inst130|dataf"
+    Warning (332126): Node "inst19|inst130|combout"
+    Warning (332126): Node "inst19|inst129|datae"
+    Warning (332126): Node "inst19|inst129|combout"
+    Warning (332126): Node "inst19|inst128|dataf"
+    Warning (332126): Node "inst19|inst128|combout"
+    Warning (332126): Node "inst19|inst127|dataf"
+    Warning (332126): Node "inst19|inst127|combout"
+    Warning (332126): Node "inst19|inst126|dataf"
+    Warning (332126): Node "inst19|inst126|combout"
+    Warning (332126): Node "inst19|inst125|dataf"
+    Warning (332126): Node "inst19|inst125|combout"
+    Warning (332126): Node "inst19|inst124|datab"
+    Warning (332126): Node "inst19|inst124|combout"
+    Warning (332126): Node "inst19|inst123|dataa"
+    Warning (332126): Node "inst19|inst123|combout"
+    Warning (332126): Node "inst19|inst122|dataf"
+    Warning (332126): Node "inst19|inst122|combout"
+    Warning (332126): Node "inst19|inst121|datab"
+    Warning (332126): Node "inst19|inst121|combout"
+    Warning (332126): Node "inst19|inst120|dataf"
+    Warning (332126): Node "inst19|inst120|combout"
+    Warning (332126): Node "inst19|inst119|datab"
+    Warning (332126): Node "inst19|inst119|combout"
+    Warning (332126): Node "inst19|inst118|dataa"
+    Warning (332126): Node "inst19|inst118|combout"
+    Warning (332126): Node "inst19|inst117|datad"
+    Warning (332126): Node "inst19|inst117|combout"
+    Warning (332126): Node "inst19|inst116|dataf"
+    Warning (332126): Node "inst19|inst116|combout"
+    Warning (332126): Node "inst19|inst115|datac"
+    Warning (332126): Node "inst19|inst115|combout"
+    Warning (332126): Node "inst19|inst114|datab"
+    Warning (332126): Node "inst19|inst114|combout"
+    Warning (332126): Node "inst19|inst113|datab"
+    Warning (332126): Node "inst19|inst113|combout"
+    Warning (332126): Node "inst19|inst112|dataf"
+    Warning (332126): Node "inst19|inst112|combout"
+    Warning (332126): Node "inst19|inst111|dataf"
+    Warning (332126): Node "inst19|inst111|combout"
+    Warning (332126): Node "inst19|inst110|dataf"
+    Warning (332126): Node "inst19|inst110|combout"
+    Warning (332126): Node "inst19|inst109|datac"
+    Warning (332126): Node "inst19|inst109|combout"
+    Warning (332126): Node "inst19|inst108|datac"
+    Warning (332126): Node "inst19|inst108|combout"
+    Warning (332126): Node "inst19|inst107|datac"
+    Warning (332126): Node "inst19|inst107|combout"
+    Warning (332126): Node "inst19|inst106|dataf"
+    Warning (332126): Node "inst19|inst106|combout"
+    Warning (332126): Node "inst19|inst105|datab"
+    Warning (332126): Node "inst19|inst105|combout"
+    Warning (332126): Node "inst19|inst104|dataf"
+    Warning (332126): Node "inst19|inst104|combout"
+    Warning (332126): Node "inst19|inst103|dataa"
+    Warning (332126): Node "inst19|inst103|combout"
+    Warning (332126): Node "inst19|inst102|datac"
+    Warning (332126): Node "inst19|inst102|combout"
+    Warning (332126): Node "inst19|inst101|datac"
+    Warning (332126): Node "inst19|inst101|combout"
+    Warning (332126): Node "inst19|inst100|dataf"
+    Warning (332126): Node "inst19|inst100|combout"
+    Warning (332126): Node "inst19|inst99|dataf"
+    Warning (332126): Node "inst19|inst99|combout"
+    Warning (332126): Node "inst19|inst98|datac"
+    Warning (332126): Node "inst19|inst98|combout"
+    Warning (332126): Node "inst19|inst97|dataf"
+    Warning (332126): Node "inst19|inst97|combout"
+    Warning (332126): Node "inst19|inst96|datac"
+    Warning (332126): Node "inst19|inst96|combout"
+    Warning (332126): Node "inst19|inst95|dataf"
+    Warning (332126): Node "inst19|inst95|combout"
+    Warning (332126): Node "inst19|inst94|dataa"
+    Warning (332126): Node "inst19|inst94|combout"
+    Warning (332126): Node "inst19|inst93|datab"
+    Warning (332126): Node "inst19|inst93|combout"
+    Warning (332126): Node "inst19|inst92|datac"
+    Warning (332126): Node "inst19|inst92|combout"
+    Warning (332126): Node "inst19|inst91|datac"
+    Warning (332126): Node "inst19|inst91|combout"
+    Warning (332126): Node "inst19|inst90|datac"
+    Warning (332126): Node "inst19|inst90|combout"
+    Warning (332126): Node "inst19|inst89|dataf"
+    Warning (332126): Node "inst19|inst89|combout"
+    Warning (332126): Node "inst19|inst88|datac"
+    Warning (332126): Node "inst19|inst88|combout"
+    Warning (332126): Node "inst19|inst87|dataf"
+    Warning (332126): Node "inst19|inst87|combout"
+    Warning (332126): Node "inst19|inst86|dataf"
+    Warning (332126): Node "inst19|inst86|combout"
+    Warning (332126): Node "inst19|inst85|datac"
+    Warning (332126): Node "inst19|inst85|combout"
+    Warning (332126): Node "inst19|inst84|dataf"
+    Warning (332126): Node "inst19|inst84|combout"
+    Warning (332126): Node "inst19|inst83|dataf"
+    Warning (332126): Node "inst19|inst83|combout"
+    Warning (332126): Node "inst19|inst82|datac"
+    Warning (332126): Node "inst19|inst82|combout"
+    Warning (332126): Node "inst19|inst81|datae"
+    Warning (332126): Node "inst19|inst81|combout"
+    Warning (332126): Node "inst19|inst80|dataf"
+    Warning (332126): Node "inst19|inst80|combout"
+    Warning (332126): Node "inst19|inst79|dataf"
+    Warning (332126): Node "inst19|inst79|combout"
+    Warning (332126): Node "inst19|inst78|datac"
+    Warning (332126): Node "inst19|inst78|combout"
+    Warning (332126): Node "inst19|inst77|datac"
+    Warning (332126): Node "inst19|inst77|combout"
+    Warning (332126): Node "inst19|inst75|datac"
+    Warning (332126): Node "inst19|inst75|combout"
+    Warning (332126): Node "inst19|inst74|dataf"
+    Warning (332126): Node "inst19|inst74|combout"
+    Warning (332126): Node "inst19|inst73|datac"
+    Warning (332126): Node "inst19|inst73|combout"
+    Warning (332126): Node "inst19|inst72|dataf"
+    Warning (332126): Node "inst19|inst72|combout"
+    Warning (332126): Node "inst19|inst71|datac"
+    Warning (332126): Node "inst19|inst71|combout"
+    Warning (332126): Node "inst19|inst70|datac"
+    Warning (332126): Node "inst19|inst70|combout"
+    Warning (332126): Node "inst19|inst69|datae"
+    Warning (332126): Node "inst19|inst69|combout"
+    Warning (332126): Node "inst19|inst68|datac"
+    Warning (332126): Node "inst19|inst68|combout"
+    Warning (332126): Node "inst19|inst67|dataf"
+    Warning (332126): Node "inst19|inst67|combout"
+    Warning (332126): Node "inst19|inst66|dataf"
+    Warning (332126): Node "inst19|inst66|combout"
+    Warning (332126): Node "inst19|inst65|dataf"
+    Warning (332126): Node "inst19|inst65|combout"
+    Warning (332126): Node "inst19|inst64|dataf"
+    Warning (332126): Node "inst19|inst64|combout"
+    Warning (332126): Node "inst19|inst63|dataf"
+    Warning (332126): Node "inst19|inst63|combout"
+    Warning (332126): Node "inst19|inst62|datac"
+    Warning (332126): Node "inst19|inst62|combout"
+    Warning (332126): Node "inst19|inst61|dataf"
+    Warning (332126): Node "inst19|inst61|combout"
+    Warning (332126): Node "inst19|inst60|datac"
+Critical Warning (332081): Design contains combinational loop of 256 nodes. Estimating the delays through the loop.
+Warning (332060): Node: CLK40DES1 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: ddlctrlr:inst|CLMN_READ_STATUS_2 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: inst63 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: inst85 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: CLK40 was determined to be a clock but was found without an associated clock assignment.
+Warning (332056): PLL cross checking found inconsistent PLL clock settings:
+    Warning (332056): Node: inst44|altpll_component|pll|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[1] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[2] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[3] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[4] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow Model
+Info (332140): No fmax paths to report
+Info (332140): No Setup paths to report
+Info (332140): No Hold paths to report
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 97.778
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    97.778         0.000 altera_reserved_tck 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info: Analyzing Fast Model
+Warning (332060): Node: CLK40DES1 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: ddlctrlr:inst|CLMN_READ_STATUS_2 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: inst63 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: inst85 was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: CLK40 was determined to be a clock but was found without an associated clock assignment.
+Warning (332056): PLL cross checking found inconsistent PLL clock settings:
+    Warning (332056): Node: inst44|altpll_component|pll|clk[0] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[1] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[2] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[3] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+    Warning (332056): Node: inst44|altpll_component|pll|clk[4] was found missing 1 generated clock that corresponds to a base clock with a period of: 25.000
+Info (332140): No Setup paths to report
+Info (332140): No Hold paths to report
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is 98.000
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    98.000         0.000 altera_reserved_tck 
+Info (332001): The selected device family is not supported by the report_metastability command.
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
+Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 282 warnings
+    Info: Peak virtual memory: 423 megabytes
+    Info: Processing ended: Wed Jun 19 21:49:02 2013
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+

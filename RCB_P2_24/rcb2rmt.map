@@ -1,0 +1,11 @@
+Please note that this file only contains theaddress information for the update data
+
+BLOCK		START ADDRESS		END ADDRESS
+
+OPTION BITS	0x00010000		0x0001003F
+Page_0		0x00010040		0x000428DF 
+Page_1		0x000428E0		0x0007517F 
+
+
+
+NOTE:All the addresses in this file are Byte addresses

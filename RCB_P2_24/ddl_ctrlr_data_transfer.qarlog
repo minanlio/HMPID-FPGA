@@ -1,0 +1,56 @@
+Quartus II Archive log --	c:\cernproj\alice\quartus\ddl\ddl_ctrlr_data_transfer.qarlog
+
+Archive:	c:\cernproj\alice\quartus\ddl\ddl_ctrlr_data_transfer.qar
+Date:		Tue Oct 14 18:03:40 2003
+
+	=========== Files Selected: ===========
+c:\cernproj\alice\quartus\ddl\4counter.bsf
+c:\cernproj\alice\quartus\ddl\4counter.inc
+c:\cernproj\alice\quartus\ddl\4counter.tdf
+c:\cernproj\alice\quartus\ddl\4counter_inst.tdf
+c:\cernproj\alice\quartus\ddl\9counter.bsf
+c:\cernproj\alice\quartus\ddl\9counter.inc
+c:\cernproj\alice\quartus\ddl\9counter.tdf
+c:\cernproj\alice\quartus\ddl\9counter_inst.tdf
+c:\cernproj\alice\quartus\ddl\db\a_dpfifo_0ci.tdf
+c:\cernproj\alice\quartus\ddl\db\a_fefifo_74f.tdf
+c:\cernproj\alice\quartus\ddl\db\scfifo_pnm.tdf
+c:\cernproj\alice\quartus\ddl\ddl_blocksim.vwf
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.asm.rpt
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.csf
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.fit.rpt
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.gdf
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.map.rpt
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.psf
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.qarlog
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.quartus
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.qws
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.sim.rpt
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.ssf
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.tan.rpt
+c:\cernproj\alice\quartus\ddl\ddl_ctrlr.vwf
+c:\cernproj\alice\quartus\ddl\ddl_data_transfer_header.qarlog
+c:\cernproj\alice\quartus\ddl\ddl_fifo.bsf
+c:\cernproj\alice\quartus\ddl\ddl_fifo.inc
+c:\cernproj\alice\quartus\ddl\ddl_fifo.tdf
+c:\cernproj\alice\quartus\ddl\ddl_fifo_inst.tdf
+c:\cernproj\alice\quartus\ddl\ddlctrlr.bsf
+c:\cernproj\alice\quartus\ddl\ddlctrlr.tdf
+c:\cernproj\alice\quartus\ddl\debug.fsf
+c:\cernproj\alice\quartus\ddl\elttc.gdf
+c:\cernproj\alice\quartus\ddl\evntcntr.bsf
+c:\cernproj\alice\quartus\ddl\evntcntr.inc
+c:\cernproj\alice\quartus\ddl\evntcntr.tdf
+c:\cernproj\alice\quartus\ddl\evntcntr_inst.tdf
+c:\cernproj\alice\quartus\ddl\header.bsf
+c:\cernproj\alice\quartus\ddl\header.tdf
+c:\cernproj\alice\quartus\ddl\lhccntr.bsf
+c:\cernproj\alice\quartus\ddl\lhccntr.inc
+c:\cernproj\alice\quartus\ddl\lhccntr.tdf
+c:\cernproj\alice\quartus\ddl\lhccntr_inst.tdf
+c:\cernproj\alice\quartus\ddl\release.fsf
+c:\cernproj\alice\quartus\lhc_structure\lhcbunch.gdf
+	======= Total: 46 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

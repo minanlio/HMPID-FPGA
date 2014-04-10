@@ -1,0 +1,135 @@
+Quartus II Archive log --	C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_ctrlr_tmp_archive.qarlog
+
+Archive:	C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_ctrlr_tmp_archive.qar
+Date:		Mon Jun 12 19:15:34 2006
+Quartus II		6.0 Build 178 04/27/2006 SJ Full Version
+
+	=========== Files Selected: ===========
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/4counter.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/4counter.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/9counter.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/9counter.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/Chain1.cdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/LHCBUNCH.bdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/a_csnbuffer.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/addcore.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_counter_f10ke.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_pll0.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_pll0.ppf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_pll0.v
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_pll0_bb.v
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_pll0_waveforms.html
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_remote.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_remote.inc
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/alt_remote.vhd
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altclklock0.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altclklock1.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altdpram.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altpll1.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altpll1.v
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altpll1_bb.v
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altpll1_waveforms.html
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/altshift.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/assignment_defaults.qdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/cmpchain.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/comptree.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_8nb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_8ne1.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_9nb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_anb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_bnb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_ckb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_clc1.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_cnb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_dnb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_ekb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_enb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_fnb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_fvi2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_gnb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_hnb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_inb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_jnb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_kkb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_knb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_okb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_opl1.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_rsb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_tsb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/altsyncram_vsb2.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/ddl_ctrlr.cbx.xml
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/decode_6pa.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/decode_cpi.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/decode_tqe.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/db/mux_6lb.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_blocksim.vwf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.acf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.asm.rpt
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.auto_signaltap_0.map.eqn
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.bdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.cdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.fit.eqn
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.fit.rpt
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.fit.smsg
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.fit.summary
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.fld
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.flow.rpt
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.map.eqn
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.map.rpt
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.map.summary
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.merge.rpt
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.pof
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.qarlog
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.qsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.qws
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.sld_hub_inst.map.eqn
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.sof
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.tan.rpt
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.tan.summary
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr.vwf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr_assignment_defaults.qdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr_data_transfer.qarlog
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_ctrlr_tmp_archive.qarlog
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_data_transfer_header.qarlog
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_fifo.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddl_fifo.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddlctrlr-24-10.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddlctrlr.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/ddlctrlr.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/elttc.gdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/evntcntr.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/evntcntr.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/header.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/header.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/led_pulse_cnt.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/led_pulse_cnt.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lhcbunch.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lhcbunch.gdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lhccntr.bsf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lhccntr.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lpm_add_sub.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lpm_compare.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lpm_constant.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/lpm_counter.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/pin.tcl
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb2.stp
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb2rmt.pof
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb3-28may.qarlog
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_ctrlr.pof
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_ctrlr.qarlog
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_ctrlr.qpf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_ctrlr.qws
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_sII.stp
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/scfifo.tdf
+C:/CERNproj/Alice/Quartus/RCB_SII_rev1/undo_redo.txt
+zlib_out_time_stamp_tmp.tmp
+	======= Total: 118 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
+
+
+******* Archived project restoration attempt on Mon Jun 12 19:15:37 2006
+Source archive file:	C:/CERNproj/Alice/Quartus/RCB_SII_rev1/rcb_ctrlr_tmp_archive.qar
+Archive was extracted into	C:/CERNproj/Alice/Quartus/RCB_SII_rev1_copy/
+		 - successfully.

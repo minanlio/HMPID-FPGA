@@ -1,0 +1,99 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2006 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 0 0 240 192)
+	(text "alt_remote" (rect 90 0 161 16)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 176 25 188)(font "Arial" ))
+	(port
+		(pt 0 40)
+		(input)
+		(text "read_param" (rect 0 0 68 14)(font "Arial" (font_size 8)))
+		(text "read_param" (rect 20 34 77 47)(font "Arial" (font_size 8)))
+		(line (pt 0 40)(pt 16 40)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "param[2..0]" (rect 0 0 63 14)(font "Arial" (font_size 8)))
+		(text "param[2..0]" (rect 20 58 74 71)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 88)
+		(input)
+		(text "reconfig" (rect 0 0 47 14)(font "Arial" (font_size 8)))
+		(text "reconfig" (rect 20 82 58 95)(font "Arial" (font_size 8)))
+		(line (pt 0 88)(pt 16 88)(line_width 1))
+	)
+	(port
+		(pt 0 104)
+		(input)
+		(text "reset_timer" (rect 0 0 63 14)(font "Arial" (font_size 8)))
+		(text "reset_timer" (rect 20 98 72 111)(font "Arial" (font_size 8)))
+		(line (pt 0 104)(pt 16 104)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "clock" (rect 0 0 29 14)(font "Arial" (font_size 8)))
+		(text "clock" (rect 20 122 43 135)(font "Arial" (font_size 8)))
+		(line (pt 0 128)(pt 16 128)(line_width 1))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "reset" (rect 0 0 29 14)(font "Arial" (font_size 8)))
+		(text "reset" (rect 20 138 42 151)(font "Arial" (font_size 8)))
+		(line (pt 0 144)(pt 16 144)(line_width 1))
+	)
+	(port
+		(pt 240 40)
+		(output)
+		(text "busy" (rect 0 0 28 14)(font "Arial" (font_size 8)))
+		(text "busy" (rect 197 34 218 47)(font "Arial" (font_size 8)))
+		(line (pt 240 40)(pt 224 40)(line_width 1))
+	)
+	(port
+		(pt 240 64)
+		(output)
+		(text "data_out[11..0]" (rect 0 0 84 14)(font "Arial" (font_size 8)))
+		(text "data_out[11..0]" (rect 149 58 221 71)(font "Arial" (font_size 8)))
+		(line (pt 240 64)(pt 224 64)(line_width 3))
+	)
+	(port
+		(pt 240 88)
+		(output)
+		(text "pgmout[2..0]" (rect 0 0 69 14)(font "Arial" (font_size 8)))
+		(text "pgmout[2..0]" (rect 162 82 222 95)(font "Arial" (font_size 8)))
+		(line (pt 240 88)(pt 224 88)(line_width 3))
+	)
+	(drawing
+		(line (pt 0 0)(pt 241 0)(line_width 1))
+		(line (pt 241 0)(pt 241 193)(line_width 1))
+		(line (pt 0 193)(pt 241 193)(line_width 1))
+		(line (pt 0 0)(pt 0 193)(line_width 1))
+		(line (pt 16 24)(pt 225 24)(line_width 1))
+		(line (pt 225 24)(pt 225 169)(line_width 1))
+		(line (pt 16 169)(pt 225 169)(line_width 1))
+		(line (pt 16 24)(pt 16 169)(line_width 1))
+	)
+)

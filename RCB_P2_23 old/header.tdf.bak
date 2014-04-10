@@ -1,0 +1,304 @@
+--  
+-- HEADER GENERATOR for the HMPID DDL, ALICE Project
+-- Copyright (c) JC Silva , CERN 2003
+--
+-- CPT L2A DECODER MESSAGE TO BE IMPLEMENTED
+--
+
+SUBDESIGN header
+(
+		CLOCK, RESETn: INPUT; 
+		--L1_TTC: INPUT; -- e' L1 externo, ho i miei dubbi che sia utile
+		CPT_L2A:INPUT; -- e' il segnale di enable a trasmettere l'HEADER sul bus; proviene da ddl_ctrlr 
+		--BLOCK_LENGTH_IN[9..0]: INPUT; -- num di parole in FIF0: e' zero?
+		--ORBIT_NMBER_IN[23..0]: INPUT; -- dovrebbe essere l'EVENT NUMBER proveniente dal TTC
+		--STATUS_IN[15..0]: INPUT; -- e' messo a massa: serve?
+		--MINI_EV_ID_IN[11..0]: INPUT;  -- dovrebbe essere il BUNCH NUMBER proveniente dal TTC
+		
+		WORD0[31..0]: INPUT;
+		WORD1[31..0]: INPUT;
+		WORD2[31..0]: INPUT;
+		WORD3[31..0]: INPUT;
+		WORD4[31..0]: INPUT;
+		WORD5[31..0]: INPUT;
+		WORD6[31..0]: INPUT;
+		WORD7[31..0]: INPUT;
+		
+		TTCRX_RESETn_COUNTER[31..0]: INPUT;
+		
+		TTC_READY_COUNTER[31..0]: INPUT;
+		
+		fbD[31..0] : BIDIR;
+		
+		WR_FIFO: OUTPUT; -- negato fuori, diventa il segnale fbTENn quando si invia l'header 
+		END_FIFO_WR: OUTPUT; -- diventa il segnale END_HEADER_WR che indica al blocco ddl_ctrlr che l'invio dell'header
+							 -- e' terminato
+		RD_FIFO: OUTPUT; -- non serve
+		
+		STATUS_ERROR_BIT_NEW[15..0]: INPUT; -- sono i bit di errore dal TTC_COMMUNICATION.tdf da inserire
+											-- nella parola custom del CDH modificato  
+		
+		CDH_NEW_ENA: INPUT; -- dal ddlctrlr.tdf, quando 0 il CDH è quello tradizionale, se 1 è il CDH modificato 
+							-- l'invio dei bit di errore nella 5° parola del CDH tradizionale è condizionato    
+							-- dal valore del bit (che cmq non arriva in questo blocco) ERROR_BIT_ENA 
+)		
+
+variable
+
+%
+BLOCK_LENGTH[9..0]: DFFE;
+L1_TRIG_MSG[9..0]: DFFE;
+EV_ID[11..0]: DFFE; 
+ORBIT_NMBER[23..0]: DFFE;
+SUB_DET_PART[23..0]: DFFE;
+STATUS[15..0]: DFFE; 
+MINI_EV_ID[11..0]: DFFE;
+TRIGGER_CLASS_LOW[31..0]: DFFE; 
+TRIGGER_CLASS_HIGH[17..0]: DFFE;
+%
+
+RD_FIFO: NODE;
+
+fbDtri[31..0] : TRI;
+
+	HEADER_SM :	MACHINE OF BITS (QB[3..0]) WITH STATES (
+
+					IDLE,
+					HEADER_WRD0,
+					HEADER_WRD1,
+					HEADER_WRD2,
+					HEADER_WRD3,
+					HEADER_WRD4,
+					HEADER_WRD5,
+					HEADER_WRD6,
+					HEADER_WRD7,
+					NOSTRA_WRD0,
+					NOSTRA_WRD1,
+					NOSTRA_WRD2,
+					NOSTRA_WRD3,
+					NOSTRA_WRD4,
+					HEADER_END
+					
+				);
+------------------------------------------------------------------
+------------------------------------------------------------------				
+BEGIN		
+------------------------------------------------------------------
+DEFAULTS
+	RD_FIFO = GND;
+	END_FIFO_WR = GND;
+END DEFAULTS;
+
+%
+BLOCK_LENGTH[].d = BLOCK_LENGTH_IN[9..0] + H"8" ;
+BLOCK_LENGTH[].clk = CLOCK;
+BLOCK_LENGTH[].ena = CPT_L2A;
+
+L1_TRIG_MSG[9..0].d = H"1A"; --TO BE REPLACED BY CPT L1_TRIG WORD
+L1_TRIG_MSG[9..0].clk = CLOCK;
+L1_TRIG_MSG[9..0].ena = CPT_L2A;
+
+EV_ID[11..0].d = MINI_EV_ID_IN[11..0];--TO BE REPLACED BY CPT EV_ID WORD
+EV_ID[11..0].clk = CLOCK;
+EV_ID[11..0].ena = CPT_L2A;
+
+ORBIT_NMBER[23..0].d = ORBIT_NMBER_IN[23..0]; -- TO BE REPLACED BY CPT ORBIT_ID WORD
+ORBIT_NMBER[23..0].clk = CLOCK;
+ORBIT_NMBER[23..0].ena = CPT_L2A;
+
+SUB_DET_PART[23..0].d = H"DCC123";--TO BE REPLACED BY CPT WORD
+SUB_DET_PART[23..0].clk = CLOCK;
+SUB_DET_PART[23..0].ena = CPT_L2A;
+
+STATUS[15..0].d = STATUS_IN[15..0];
+STATUS[15..0].clk = CLOCK;
+STATUS[15..0].ena = CPT_L2A;
+
+MINI_EV_ID[11..0].d = MINI_EV_ID_IN[11..0];
+MINI_EV_ID[11..0].clk = CLOCK;
+MINI_EV_ID[11..0].ena = L1_TTC;
+
+TRIGGER_CLASS_LOW[31..0].d = H"00000000";
+TRIGGER_CLASS_LOW[31..0].clk = CLOCK;
+TRIGGER_CLASS_LOW[31..0].ena = CPT_L2A;
+
+TRIGGER_CLASS_HIGH[17..0].d = H"00000";
+TRIGGER_CLASS_HIGH[17..0].clk = CLOCK;
+TRIGGER_CLASS_HIGH[17..0].ena = CPT_L2A;
+%
+
+
+--RCB_SM.clk = CLOCK;
+--RCB_SM.reset=  !RESETn;
+
+fbD[31..0] = fbDtri[31..0].out;
+ 
+
+HEADER_SM.clk = !CLOCK; -- era CLOCK
+HEADER_SM.reset=  !RESETn;
+-----------------------------------------------
+-- LOCAL BUS STATE MACHINE
+----------------------------------------------
+
+-- se il bit CDH_NEW_ENA dal blocco ddlctrlr.tdf è pari a 0 allora il CDH è quello da specifiche ALICE
+-- viceversa se CDH_NEW_ENA è pari a 1, al CDH sono aggiunte le nostre 5 parole custom   
+-- i bit di errore nel CDH tradizionale sono forzati a 0 o meno in funzione del valore del bit
+-- ERROR_BIT_ENA  che cm non serve in questo blocco
+
+
+CASE HEADER_SM is 
+
+	WHEN IDLE => 
+		fbDTRI[31..0].oe = GND ;
+		WR_FIFO = GND;
+		END_FIFO_WR = GND;
+		
+		IF CPT_L2A THEN  
+			HEADER_SM = HEADER_WRD0 ; 
+		ELSE
+			HEADER_SM = IDLE; 
+		END IF;
+			
+	WHEN HEADER_WRD0 =>   -- 1° PAROLA COMMON DATA HEADER
+		fbDtri[31..0].in = WORD0[31..0];
+		
+		fbDTRI[31..0].oe = VCC ;
+		
+		WR_FIFO = VCC;
+			
+		HEADER_SM = HEADER_WRD1 ; 
+			
+	WHEN HEADER_WRD1 =>  -- 2° PAROLA COMMON DATA HEADER
+		fbDtri[31..0] = WORD1[31..0];
+		
+		fbDTRI[31..0].oe = VCC ;
+		
+		WR_FIFO = VCC;
+			
+		HEADER_SM = HEADER_WRD2 ; 
+			
+	WHEN HEADER_WRD2 =>  -- 3° PAROLA COMMON DATA HEADER
+		fbDtri[31..0] = WORD2[31..0];
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC;
+		
+		HEADER_SM = HEADER_WRD3; 
+			
+	WHEN HEADER_WRD3 =>  -- 4° PAROLA COMMON DATA HEADER
+		fbDtri[31..0] = WORD3[31..0];
+		
+		fbDTRI[31..0].oe = VCC ;
+		
+		WR_FIFO = VCC;
+		
+		HEADER_SM = HEADER_WRD4; 
+			
+	WHEN HEADER_WRD4 =>  -- 5° PAROLA COMMON DATA HEADER
+						 	
+		fbDTRI[31..0] = WORD4[31..0];
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC;
+		
+		HEADER_SM = HEADER_WRD5 ; 
+			
+	WHEN HEADER_WRD5 => -- 6° PAROLA COMMON DATA HEADER
+		fbDtri[31..0] = WORD5[31..0];
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC;
+		
+		HEADER_SM = HEADER_WRD6 ;
+			
+	WHEN HEADER_WRD6 => -- 7° PAROLA COMMON DATA HEADER
+		fbDtri[31..0] = WORD6[31..0];
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC;
+		
+		HEADER_SM = HEADER_WRD7 ; 
+			
+	WHEN HEADER_WRD7 => -- 8° PAROLA COMMON DATA HEADER
+		fbDtri[31..0] = WORD7[31..0];
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC; 
+		
+		IF !CDH_NEW_ENA THEN  
+			HEADER_SM = HEADER_END; 
+		ELSE
+			HEADER_SM = NOSTRA_WRD0; 
+		END IF;
+		
+		--HEADER_SM = NOSTRA_WRD0;
+		--HEADER_SM = HEADER_END; 
+		
+	WHEN NOSTRA_WRD0 => -- 1° PAROLA CUSTOM HEADER: FIRMWARE VERSION
+		fbDtri[31..0] = H"00000016"; -- versione 22
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC; 
+		
+		HEADER_SM = NOSTRA_WRD1;
+		
+	WHEN NOSTRA_WRD1 => -- 2° PAROLA CUSTOM HEADER: BIT DI ERRORE DELLA 5° DEL CDH
+		fbDtri[31..0] = (H"0000", STATUS_ERROR_BIT_NEW[15..0]);
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC; 
+		
+		HEADER_SM = NOSTRA_WRD2; 
+		
+	WHEN NOSTRA_WRD2 => -- 3° PAROLA CUSTOM HEADER: NUMERO DI FEE_RESET RICEVUTI DA TTCRX
+		fbDtri[31..0] = TTCRX_RESETn_COUNTER[31..0];
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC; 
+		
+		HEADER_SM = NOSTRA_WRD3; 
+		
+	WHEN NOSTRA_WRD3 => -- 4° PAROLA CUSTOM HEADER: NUMERO VOLTE IN CUI IL TTC_READY E' ANDATO GIU'
+		fbDtri[31..0] = TTC_READY_COUNTER[31..0];
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC; 
+		
+		HEADER_SM = NOSTRA_WRD4;
+		
+	WHEN NOSTRA_WRD4 => -- 5° PAROLA CUSTOM HEADER: SPARE
+		fbDtri[31..0] = H"00000000";
+		
+		fbDTRI[31..0].oe = VCC;
+		
+		WR_FIFO = VCC; 
+		
+		HEADER_SM = HEADER_END; 	 	 	 		 	 	 	 	 	 	 		 	 	 		 	 	 		 	 	 
+			
+	WHEN HEADER_END =>
+		fbDTRI[31..0].oe = GND;
+		WR_FIFO = GND;
+		END_FIFO_WR = VCC;
+		
+		HEADER_SM = IDLE ; 
+			
+	WHEN OTHERS =>
+		fbDTRI[31..0].oe = GND;
+		WR_FIFO = GND;
+		END_FIFO_WR = GND;
+
+	END CASE;
+--------------------------------------------------------------------
+
+-------------------------------------------------------------------------
+
+END;

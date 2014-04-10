@@ -1,0 +1,121 @@
+--  
+-- DECODIFICA IL COMANDO DI RESET PROVENIENTE DAL TTCRX  (CODICE "1100") E GENERA UN IMPULSO DI RESET 
+-- DA DISTRIBUIRE ALL'INTERNO DAL FIRMWARE
+--
+--
+
+
+
+SUBDESIGN TTCRX_SOFT_RESET_MODULE
+(
+	--	CLOCK40DES1: INPUT; 
+	--	RESETn: INPUT; 
+		DQ[3..0]: INPUT; -- dal TTC: indica il tipo dei dati
+		DOUTSTR:INPUT; -- e' il segnale D_Str del progetto di carlos 
+		ADDRESS[3..0]: INPUT; -- è SA[7..4] del progetto di carlos
+		
+		TTCRX_SOFT_RESETn: OUTPUT;	
+	--	DECODER_STATO[2..0]: OUTPUT;	
+
+)
+
+
+-- MACCHINA A STATI PRECEDENTE
+%
+variable
+
+
+
+
+
+
+	TTCRX_RESET_DECODER_SM :	MACHINE OF BITS (QA[2..0]) WITH STATES (
+
+					IDLE_TTCRX_RESET_DECODER,		--0	
+					RESET_HEADER_1,					--1
+					RESET_HEADER_2,					--2
+					RESET_HEADER_3,					--3
+					RESET_HEADER_4					--4
+				
+					
+				);			
+
+%				
+------------------------------------------------------------------
+------------------------------------------------------------------				
+BEGIN		
+
+CASE (DQ[3..0], DOUTSTR, ADDRESS[3..0]) IS 
+
+	WHEN B"000011100" => TTCRX_SOFT_RESETn = GND;
+	
+	WHEN OTHERS => TTCRX_SOFT_RESETn = VCC;
+
+END CASE;
+	
+END;	
+
+
+
+
+
+---- MACCHINA A STATI PRECEDENTE
+%
+DEFAULTS
+
+TTCRX_SOFT_RESETn = VCC;
+
+	
+END DEFAULTS;
+
+TTCRX_RESET_DECODER_SM.clk = !CLOCK40DES1; --40MHz CLOCK
+TTCRX_RESET_DECODER_SM.reset=  !RESETn;
+-----------------------------------------------------------
+
+
+-----------------------------------------------
+-- DECODER_SM STATE MACHINE
+----------------------------------------------
+CASE TTCRX_RESET_DECODER_SM is -- questa MACHINE si occupa esclusivamente di decodificare il messagio di reset dal TTCRX
+				
+	WHEN IDLE_TTCRX_RESET_DECODER => 
+		DECODER_STATO[2..0] = H"0";
+		
+		IF DQ[3..0] == H"0" AND DOUTSTR AND ADDRESS[3..0] == H"8" THEN 
+			TTCRX_RESET_DECODER_SM = RESET_HEADER_1; 
+		ELSE
+			TTCRX_RESET_DECODER_SM = IDLE_TTCRX_RESET_DECODER; 
+		END IF;
+			
+	WHEN RESET_HEADER_1 =>
+		DECODER_STATO[2..0] = H"1";
+		
+		TTCRX_SOFT_RESETn = GND;
+		
+		TTCRX_RESET_DECODER_SM = RESET_HEADER_2;
+	
+	WHEN RESET_HEADER_2 =>
+		DECODER_STATO[2..0] = H"2";
+		
+		TTCRX_SOFT_RESETn = GND;
+		
+		TTCRX_RESET_DECODER_SM = RESET_HEADER_3;
+		
+	WHEN RESET_HEADER_3 =>
+		DECODER_STATO[2..0] = H"3";
+		
+		TTCRX_SOFT_RESETn = GND;
+		
+		TTCRX_RESET_DECODER_SM = RESET_HEADER_4;
+		
+	WHEN RESET_HEADER_4 =>
+		DECODER_STATO[2..0] = H"4";
+		
+		TTCRX_SOFT_RESETn = VCC;
+		
+		TTCRX_RESET_DECODER_SM = IDLE_TTCRX_RESET_DECODER;
+	
+		
+	END CASE;
+%
+

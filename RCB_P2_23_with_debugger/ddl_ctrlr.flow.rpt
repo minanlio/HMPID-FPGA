@@ -1,5 +1,5 @@
 Flow report for ddl_ctrlr
-Mon Apr 14 16:09:33 2014
+Mon Apr 14 18:06:58 2014
 Quartus II 64-Bit Version 12.0 Build 178 05/31/2012 SJ Full Version
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------+
 ; Flow Summary                                                              ;
 +-------------------------------+-------------------------------------------+
-; Flow Status                   ; Successful - Mon Apr 14 16:09:33 2014     ;
+; Flow Status                   ; Successful - Mon Apr 14 18:06:58 2014     ;
 ; Quartus II 64-Bit Version     ; 12.0 Build 178 05/31/2012 SJ Full Version ;
 ; Revision Name                 ; ddl_ctrlr                                 ;
 ; Top-level Entity Name         ; ddl_ctrlr                                 ;
@@ -46,7 +46,7 @@ applicable agreement for further details.
 ; Device                        ; EP2S15F484C5                              ;
 ; Timing Models                 ; Final                                     ;
 ; Logic utilization             ; 18 %                                      ;
-;     Combinational ALUTs       ; 1,258 / 12,480 ( 10 % )                   ;
+;     Combinational ALUTs       ; 1,269 / 12,480 ( 10 % )                   ;
 ;     Dedicated logic registers ; 1,686 / 12,480 ( 14 % )                   ;
 ; Total registers               ; 1686                                      ;
 ; Total pins                    ; 108 / 343 ( 31 % )                        ;
@@ -63,7 +63,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/14/2014 16:08:49 ;
+; Start date & time ; 04/14/2014 18:06:14 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; ddl_ctrlr           ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ applicable agreement for further details.
 ; ADV_NETLIST_OPT_SYNTH_GATE_RETIME                 ; On                                                                                                                                                                                                               ; Off                            ; --          ; --               ;
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                                                                                                                                                               ; Off                            ; --          ; --               ;
 ; AUTO_ENABLE_SMART_COMPILE                         ; On                                                                                                                                                                                                               ; --                             ; --          ; --               ;
-; COMPILER_SIGNATURE_ID                             ; 147329319576.139748452807136                                                                                                                                                                                     ; --                             ; --          ; --               ;
+; COMPILER_SIGNATURE_ID                             ; 147329319576.139749157403400                                                                                                                                                                                     ; --                             ; --          ; --               ;
 ; ENABLE_ADVANCED_IO_TIMING                         ; On                                                                                                                                                                                                               ; --                             ; --          ; --               ;
 ; ENABLE_DA_RULE                                    ; C101, C102, C103, C104, C105, C106, R101, R102, R103, R104, R105, T101, T102, A101, A102, A103, A104, A105, A106, A107, A108, A109, A110, S101, S102, S103, S104, D101, D102, D103, M101, M102, M103, M104, M105 ; --                             ; --          ; --               ;
 ; ENABLE_SIGNALTAP                                  ; On                                                                                                                                                                                                               ; --                             ; --          ; --               ;
@@ -118,10 +118,10 @@ applicable agreement for further details.
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_ENABLE_ADVANCED_TRIGGER=0                                                                                                                                                                                    ; --                             ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_DATA_BITS=48                                                                                                                                                                                                 ; --                             ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_TRIGGER_BITS=48                                                                                                                                                                                              ; --                             ; --          ; auto_signaltap_0 ;
+; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_NODE_CRC_LOWORD=62612                                                                                                                                                                                        ; --                             ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000                    ; --                             ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_INVERSION_MASK_LENGTH=170                                                                                                                                                                                    ; --                             ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_SEGMENT_SIZE=4096                                                                                                                                                                                            ; --                             ; --          ; auto_signaltap_0 ;
-; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_NODE_CRC_LOWORD=62612                                                                                                                                                                                        ; --                             ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_NODE_CRC_HIWORD=471                                                                                                                                                                                          ; --                             ; --          ; auto_signaltap_0 ;
 ; SLD_NODE_PARAMETER_ASSIGNMENT                     ; SLD_SAMPLE_DEPTH=4096                                                                                                                                                                                            ; --                             ; --          ; auto_signaltap_0 ;
 ; SMART_RECOMPILE                                   ; On                                                                                                                                                                                                               ; Off                            ; --          ; --               ;
@@ -139,11 +139,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:11     ; 1.0                     ; 509 MB              ; 00:00:11                           ;
-; Fitter                    ; 00:00:29     ; 2.6                     ; 662 MB              ; 00:00:35                           ;
-; Assembler                 ; 00:00:02     ; 1.0                     ; 406 MB              ; 00:00:02                           ;
-; TimeQuest Timing Analyzer ; 00:00:02     ; 1.0                     ; 432 MB              ; 00:00:02                           ;
-; Total                     ; 00:00:44     ; --                      ; --                  ; 00:00:50                           ;
+; Analysis & Synthesis      ; 00:00:12     ; 1.0                     ; 509 MB              ; 00:00:11                           ;
+; Fitter                    ; 00:00:27     ; 2.1                     ; 672 MB              ; 00:00:33                           ;
+; TimeQuest Timing Analyzer ; 00:00:02     ; 4.0                     ; 432 MB              ; 00:00:02                           ;
+; Assembler                 ; 00:00:03     ; 1.0                     ; 394 MB              ; 00:00:01                           ;
+; Total                     ; 00:00:44     ; --                      ; --                  ; 00:00:47                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -154,8 +154,8 @@ applicable agreement for further details.
 +---------------------------+------------------+-----------+------------+----------------+
 ; Analysis & Synthesis      ; HMPIDFE1         ; Windows 7 ; 6.1        ; x86_64         ;
 ; Fitter                    ; HMPIDFE1         ; Windows 7 ; 6.1        ; x86_64         ;
-; Assembler                 ; HMPIDFE1         ; Windows 7 ; 6.1        ; x86_64         ;
 ; TimeQuest Timing Analyzer ; HMPIDFE1         ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; HMPIDFE1         ; Windows 7 ; 6.1        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 
@@ -164,8 +164,8 @@ applicable agreement for further details.
 ------------
 quartus_map --read_settings_files=on --write_settings_files=off rcb_ctrlr -c ddl_ctrlr
 quartus_fit --read_settings_files=off --write_settings_files=off rcb_ctrlr -c ddl_ctrlr
-quartus_asm --read_settings_files=off --write_settings_files=off rcb_ctrlr -c ddl_ctrlr
 quartus_sta rcb_ctrlr -c ddl_ctrlr
+quartus_asm --read_settings_files=off --write_settings_files=off rcb_ctrlr -c ddl_ctrlr
 
 
 

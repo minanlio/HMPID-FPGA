@@ -70,7 +70,7 @@ variable
 -----------------------------------------------------------
 
 temp: DFF;
-temp2: DFF;
+--temp2: DFF;
 local[7..0]: DFF;
 ENA_REG: DFF;
 
@@ -197,9 +197,9 @@ ZERO_SUPP_COLUMN_CLRN: NODE; -- clr del relativo contatore
 					RCB_END_LOOP ,						--24	
 					END_LOOP,							--25
 					END_ALL,							--26
-					TTC_RESET_STATE,					--28
-					TTC_RESET_STATE1,					--29
-					TTC_RESET_STATE2,					--2A
+					--TTC_RESET_STATE,					--28
+					--TTC_RESET_STATE1,					--29
+					--TTC_RESET_STATE2,					--2A
 					SET_L1A_LATENCY_STATE,				--2B
 					BUSY_RESET_STATE1,					--2C
 					BUSY_RESET_STATE2,					--2D
@@ -389,9 +389,9 @@ READ_STATUS.clrn = RESETn;
 
 temp.clk = clock;
 temp.clrn = RESETn;
-temp2.clk = clock;
-temp2.clrn = RESETn;
-temp2.d = LOCAL_CYCLE_END;
+--temp2.clk = clock;
+--temp2.clrn = RESETn;
+--temp2.d = LOCAL_CYCLE_END;
 
 local[7..0].d = LOCAL_STATE[7..0];
 local[7..0].clk = clock;
@@ -611,7 +611,7 @@ CASE RCB_SM is
 	---------------------
 	-- READ DATA CYCLE --
 	---------------------	
-	WHEN READ_DIR_WAIT =>	
+	WHEN READ_DIR_WAIT =>
 		MAIN_STATE[7..0] = H"01"; 
 		IF fiDIR == VCC THEN 
 			RCB_SM = READ_BEN_WAIT;
@@ -653,6 +653,7 @@ CASE RCB_SM is
 		END IF;
 							
 	WHEN READ_HEADER_START =>
+		temp = VCC;
 		MAIN_STATE[7..0] = H"05"; 
 		SIU_TRI_ctrl = VCC;
 		int_fbCTRLn = VCC;
@@ -1156,7 +1157,7 @@ CASE RCB_SM is
 		IF fb_TENn THEN
 			RCB_SM = BLOCK_WRITE_FIFO_COMPARE ;	
 			WR_FIFO = VCC;		
-		ELSIF (FIFO_NMBR[9..0]== FbD[21..12]) THEN -- nel caso di scrittura pedestal relativi ad un column
+		ELSIF (FIFO_NMBR[9..0] == FbD[21..12]) THEN -- nel caso di scrittura pedestal relativi ad un column
 			RCB_SM = BLOCK_WRITE_END ;			   -- esce dal ciclo quando le parole in FIFO sono
 			fo_BSYn = VCC;						   -- pari a 640	
 		ELSE 
@@ -1332,7 +1333,6 @@ CASE RCB_SM is
 		END IF;
 
 	WHEN STRD_WAIT_STATE2a =>
-		temp = VCC;
 		MAIN_STATE[7..0] = H"22";
 		LOCAL_CYCLE_START = VCC; -- prima era settato già nello stato precedente
 		SIU_TRI_ctrl = VCC;

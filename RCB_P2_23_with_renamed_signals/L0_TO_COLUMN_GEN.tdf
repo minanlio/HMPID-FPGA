@@ -1,0 +1,121 @@
+--  
+-- MODULO PER GENARARE L0 OPPORTUNAMENTE RITARDATO VERSO I COLUMN
+--
+
+SUBDESIGN L0_TO_COLUMN_GEN
+(
+	-- INPUT	
+		CLOCK: INPUT; -- 20 MHz : SI VUOLE UNA GRANULARITA' DI 50 nsec
+		RESETn: INPUT; 
+		L0_DELAY_VALUE[7..0]: INPUT;	-- da ddlctrlr.tdf
+		L0_INT: INPUT; -- da L0_DELAY.tdf
+	
+	-- OUTPUT
+		L0_TO_COLUMN: OUTPUT;  
+		SET_L0_VETO: OUTPUT; -- setta il veto sull'invio di ulteriori L0 ai column nel mentre se ne processa un altro
+)
+
+
+variable
+
+-----------------------------------------------------------
+-- REGISTERS
+-----------------------------------------------------------
+WAIT_COUNTER[7..0]: DFFE;
+
+-----------------------------------------------------------
+-- NODES
+-----------------------------------------------------------
+CLRN_WAIT_COUNTER: NODE;
+ENA_WAIT_COUNTER: NODE;
+
+------------------------------------------------------------
+-- STATE MACHINES
+------------------------------------------------------------
+L0_TO_COLUMN_SM :	MACHINE WITH STATES (
+
+				IDLE,
+				WAIT_STATE,
+				L0_UP_1,
+				L0_UP_2,
+				FINAL_STATE,
+				FINAL_STATE_1
+			);
+			
+			
+BEGIN		
+
+WAIT_COUNTER[7..0].d = WAIT_COUNTER[7..0].q + 1;
+WAIT_COUNTER[7..0].clk = !CLOCK;
+WAIT_COUNTER[7..0].ena = ENA_WAIT_COUNTER;
+WAIT_COUNTER[7..0].clrn = RESETn AND CLRN_WAIT_COUNTER;
+
+L0_TO_COLUMN_SM.clk = CLOCK; 
+L0_TO_COLUMN_SM.reset = !RESETn;
+
+
+------------------------------------------------
+------------------------------------------------
+-- L0_TO_COLUMN STATE MACHINE
+------------------------------------------------
+------------------------------------------------
+
+CASE L0_TO_COLUMN_SM is 
+
+	WHEN IDLE => 
+		L0_TO_COLUMN = GND;
+		CLRN_WAIT_COUNTER = GND;
+		ENA_WAIT_COUNTER = GND;
+		SET_L0_VETO = GND;
+		IF (L0_INT AND L0_DELAY_VALUE[7..0] != H"00") THEN  
+			L0_TO_COLUMN_SM = WAIT_STATE; 
+		ELSIF (L0_INT AND L0_DELAY_VALUE[7..0] == H"00") THEN
+			L0_TO_COLUMN_SM = L0_UP_1;
+		ELSE
+			L0_TO_COLUMN_SM = IDLE; 
+		END IF;
+		
+	WHEN WAIT_STATE =>
+		L0_TO_COLUMN = GND;
+		CLRN_WAIT_COUNTER = VCC;
+		ENA_WAIT_COUNTER = VCC;
+		SET_L0_VETO = GND;
+		IF (WAIT_COUNTER[7..0] == L0_DELAY_VALUE[7..0]) THEN	
+			L0_TO_COLUMN_SM = L0_UP_1;
+		ELSE
+			L0_TO_COLUMN_SM = WAIT_STATE;
+		END IF;
+	
+	WHEN L0_UP_1 =>
+		L0_TO_COLUMN = VCC;
+		CLRN_WAIT_COUNTER = VCC;
+		ENA_WAIT_COUNTER = GND;
+		SET_L0_VETO = GND;
+		L0_TO_COLUMN_SM = L0_UP_2;
+			
+	WHEN L0_UP_2 =>
+		L0_TO_COLUMN = VCC;
+		CLRN_WAIT_COUNTER = VCC;
+		ENA_WAIT_COUNTER = GND;
+		SET_L0_VETO = GND;
+		L0_TO_COLUMN_SM = FINAL_STATE;
+			
+	WHEN FINAL_STATE =>
+		L0_TO_COLUMN = GND;
+		CLRN_WAIT_COUNTER = GND;
+		ENA_WAIT_COUNTER = GND;
+		L0_TO_COLUMN_SM = FINAL_STATE_1;
+		
+	WHEN FINAL_STATE_1 =>
+		L0_TO_COLUMN = GND;
+		CLRN_WAIT_COUNTER = GND;
+		ENA_WAIT_COUNTER = GND;
+		SET_L0_VETO = VCC;
+		L0_TO_COLUMN_SM = IDLE;
+		
+	WHEN OTHERS => 
+		L0_TO_COLUMN_SM = IDLE;
+				
+	END CASE;
+
+END;

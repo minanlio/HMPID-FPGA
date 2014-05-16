@@ -59,11 +59,12 @@ SUBDESIGN ddlctrlr
 
 variable
 
+-- DEBUGGER
+START_DEBUG: DFF;
+
 -----------------------------------------------------------
 -- REGISTERS
 -----------------------------------------------------------
-
-
 
 FE_REG[31..0]: DFFE; -- registro contenente il contenuto del bus
 LOCAL_STATUS[18..0]: DFFE; 
@@ -101,7 +102,7 @@ WR_ERR_FLAG: SRFF; -- flag che segnala un numero di parole diverso da 640 durant
 -- NODES
 -----------------------------------------------------------
 
-LOCAL_DEC_CMD_END: NODE; -- segnala la fine del ciclo di decodifica comandi nella LOCAL_SM
+LOCAL_END: NODE; -- segnala la fine del ciclo di decodifica comandi nella LOCAL_SM
 RDYRX ,EOBTR, STBWR, STBRD, FECTRL, FESTRD : NODE;
 CLR_WORD_NR: NODE; 
 CLR_WRITE_fbTEN: NODE; 
@@ -276,7 +277,7 @@ DEFAULTS
 	FIFO_CLR = GND;
 	FIFO_DATA_ENABLE = GND;
 	SIU_TRI_ctrl = GND;
-	DATABUS_ADD[12..8] = H"0000";
+	DATABUS_ADD[12..8] = B"00000";
 	DATABUS_ADD[3..0] = H"0";
 	DATABUS_ADD[7..4] = H"0";
 	fo_BSYn = VCC;
@@ -288,8 +289,9 @@ DEFAULTS
 	
 END DEFAULTS;
 
-
-
+-- DEBUGGER
+START_DEBUG.clk = CLOCK;
+START_DEBUG.clrn = RESETn;
 
 
 -- TRISTATE
@@ -311,7 +313,7 @@ ENA_L2LOOP.r = EOBTR;
 ENA_L2LOOP.clrn = RESETn;
 
 LOCAL_DEC_CMD.clk = !CLOCK;
-LOCAL_DEC_CMD.r = LOCAL_DEC_CMD_END;
+LOCAL_DEC_CMD.r = LOCAL_END;
 LOCAL_DEC_CMD.clrn = RESETn;
 
 READ_STATUS.clk = !CLOCK;
@@ -408,7 +410,7 @@ LOCAL_STATUS[].clrn = !END_DEC_CTRL_CMD AND RESETn;
 
 COLUMN_CNT[3..0].clk = CLOCK10 ;
 COLUMN_CNT[3..0].d = COLUMN_CNT[3..0] + 1;
-COLUMN_CNT[3..0].clrn = !LOCAL_DEC_CMD_END AND RESETn AND !CLR_COLUMN_CNT;
+COLUMN_CNT[3..0].clrn = !LOCAL_END AND RESETn AND !CLR_COLUMN_CNT;
 
 WORD_NR_CNT[9..0].d = WORD_NR_CNT[9..0] + 1;
 WORD_NR_CNT[9..0].clk = !CLOCK10;
@@ -420,6 +422,7 @@ WRITE_fbTEN.clrn = !CLR_WRITE_fbTEN AND RESETn;
 ZERO_SUPP_MEMO.d = FE_REG[20];
 ZERO_SUPP_MEMO.clk = CLOCK10;
 ZERO_SUPP_MEMO.clrn = RESETn;
+
 
 -- 20 MHz procecces
 WORD_NR[9..0].clk = CLOCK20;
@@ -556,7 +559,7 @@ CASE RCB_SM is
 		END IF;
 
 	-- stato di avvio della sequenza per il download dei dati nel caso di ricezione di L2a	
-	WHEN CHECK_L2A =>  
+	WHEN CHECK_L2A => 
 		MAIN_STATE[7..0] = H"03"; 
 		SIU_TRI_ctrl = VCC;
 		int_fbCTRLn = VCC;
@@ -611,10 +614,11 @@ CASE RCB_SM is
 	
 	-- stato di avvio selezione segmenti
 	WHEN START_SEGMENT_SEL =>
+		--START_DEBUG = VCC;
 		MAIN_STATE[7..0] = H"08";
 		SIU_TRI_ctrl = VCC;
 		int_fbCTRLn = VCC;
-		int_fbTENn =VCC;
+		int_fbTENn = VCC;
 		SEGMENT_CNT[1..0].ena = VCC; -- abilita il contatore dei segment
 		DAQ_FLAG.s = VCC; -- abilita il flag aquisizione dati							
 		CLR_SEGMENT_WORD_CNT = VCC; -- fa il clear del contatore di parole di segment
@@ -664,7 +668,6 @@ CASE RCB_SM is
 		
 	-- stato di verifica fine lettura segmento
 	WHEN CHECK_END_LOCAL_DATA_READ =>
-		
 		MAIN_STATE[7..0] = H"0C"; 
 		SIU_TRI_ctrl = VCC;
 		int_fbCTRLn = VCC;
@@ -673,7 +676,7 @@ CASE RCB_SM is
 		ENA_SEGMENT_WORD_CNT = VCC; -- abilita il contatore delle parole inviate relative al segmento
 		IF WRITE_fbTEN THEN -- sul bus è presente una parola letta dalle colonne
 			RCB_SM = READ_fbTEN;
-		ELSIF LOCAL_DEC_CMD_END THEN -- la local ha terminato, tutti i dati di un segment inviati
+		ELSIF LOCAL_END THEN -- la local ha terminato, tutti i dati di un segment inviati
 			RCB_SM = CHECK_DAQ_FLAG;		
 		END IF;	
 			
@@ -1199,7 +1202,7 @@ CASE RCB_SM is
 		SIU_TRI_ctrl = VCC;
 		int_fbCTRLn = VCC;
 		int_fbTENn = VCC;
-		IF LOCAL_DEC_CMD_END THEN -- verifica la fine del processo nella LOCAL_SM
+		IF LOCAL_END THEN -- verifica la fine del processo nella LOCAL_SM
 			IF READ_STATUS THEN -- verifica se la richiesta era di READ STATUS
 				RCB_SM = SEND_LOCAL_STATUS;	
 			ELSE 
@@ -1343,8 +1346,10 @@ CASE LOCAL_SM IS
 		DATABUS_ADD[3..0] = H"1"; -- STATUS REGISTER
 		DATABUS_ADD[7..4] = H"0"; -- #colonna
 		COLUMN_CNT[3..0].ena = VCC;
-		IF fiLFn THEN  -- verifica che il link non sia pieno
-			LOCAL_SM = COLUMN_READ_STATUS;	
+		IF !fiLFn THEN  -- verifica che il link non sia pieno
+			LOCAL_SM = START_COLUMN_DATA_READ;
+		ELSE
+			LOCAL_SM = COLUMN_READ_STATUS;
 		END IF;
 
 	-- stato di read status della colonna selezionata
@@ -1363,7 +1368,7 @@ CASE LOCAL_SM IS
 		LOC_CSn = GND;
 		LOC_Rn/W = GND;			
 		DATABUS_ADD[3..0] = H"1"; -- STATUS REGISTER
-		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- #colonna								
+		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- #colonna	
 		IF !fiLFn THEN -- verifica che il link non sia pieno
 			LOCAL_SM = COLUMN_READ_STATUS_1;
 		ELSE
@@ -1398,16 +1403,16 @@ CASE LOCAL_SM IS
 		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
 		LOC_CSn = GND;
 		LOC_Rn/W = GND; 				
-		LOCAL_SM = LOOP_DATA;
+		LOCAL_SM = LOOP_DATA_1;
 	
 	-- stato di lettura dati
-	WHEN LOOP_DATA =>		
-		LOCAL_STATE[7..0] = H"07";		
-		DATABUS_ADD[3..0] = H"2"; -- DATA LOOP
-		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- #colonna			
-		LOC_CSn = GND;
-		LOC_Rn/W = GND;			
-		LOCAL_SM = LOOP_DATA_1;
+--	WHEN LOOP_DATA =>		
+--		LOCAL_STATE[7..0] = H"07";		
+--		DATABUS_ADD[3..0] = H"2"; -- DATA LOOP
+--		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- #colonna			
+--		LOC_CSn = GND;
+--		LOC_Rn/W = GND;			
+--		LOCAL_SM = LOOP_DATA_1;
 		
 	WHEN LOOP_DATA_1 =>			
 		LOCAL_STATE[7..0] = H"08";		
@@ -1423,7 +1428,7 @@ CASE LOCAL_SM IS
 		END IF;
 		
 	-- stato di verifica fine parole da leggere	
-	WHEN LOOP_DATA_2 =>		
+	WHEN LOOP_DATA_2 =>
 		LOCAL_STATE[7..0] = H"09";	
 		WRITE_fbTEN.d = VCC;
 		WORD_NR_CNT[9..0].ena = VCC;	
@@ -1705,7 +1710,7 @@ CASE LOCAL_SM IS
 		
 	-- I successivi 2 stati terminano l'operazione e lo notificano alla RCB_SM 	
 	WHEN END_LOCAL =>
-		LOCAL_DEC_CMD_END = GND;
+		LOCAL_END = GND;
 		DATABUS_ADD[3..0] = H"0";
 		LOC_CSn = VCC;
 		LOC_Rn/W = GND; 
@@ -1713,7 +1718,7 @@ CASE LOCAL_SM IS
 		LOCAL_SM = END_LOCAL_2;
 			
 	WHEN END_LOCAL_2 =>
-		LOCAL_DEC_CMD_END = VCC;
+		LOCAL_END = VCC;
 		DATABUS_ADD[3..0] = H"0";
 		LOC_CSn = VCC;
 		LOC_Rn/W = GND; 

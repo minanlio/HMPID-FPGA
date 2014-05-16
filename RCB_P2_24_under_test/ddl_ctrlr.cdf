@@ -6,7 +6,7 @@ JedecChain;
 	P ActionCode(Ign)
 		Device PartName(EPC4) MfrSpec(OpMask(0));
 	P ActionCode(Cfg)
-		Device PartName(EP2S15F484) Path("C:/HMPID-FPGA/RCB_P2_23 - Copy/") File("ddl_ctrlr.sof") MfrSpec(OpMask(1));
+		Device PartName(EP2S15F484) Path("C:/HMPID-FPGA/RCB_P2_24 - Copy/") File("ddl_ctrlr.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

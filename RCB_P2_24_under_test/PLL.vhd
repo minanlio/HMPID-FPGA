@@ -289,7 +289,7 @@ END SYN;
 -- Retrieval info: PRIVATE: INT_FEEDBACK__MODE_RADIO STRING "1"
 -- Retrieval info: PRIVATE: LOCKED_OUTPUT_CHECK STRING "0"
 -- Retrieval info: PRIVATE: LONG_SCAN_RADIO STRING "1"
--- Retrieval info: PRIVATE: LVDS_MODE_DATA_RATE STRING "160.000"
+-- Retrieval info: PRIVATE: LVDS_MODE_DATA_RATE STRING "Not Available"
 -- Retrieval info: PRIVATE: LVDS_MODE_DATA_RATE_DIRTY NUMERIC "0"
 -- Retrieval info: PRIVATE: LVDS_PHASE_SHIFT_UNIT0 STRING "deg"
 -- Retrieval info: PRIVATE: LVDS_PHASE_SHIFT_UNIT1 STRING "deg"
@@ -447,7 +447,7 @@ END SYN;
 -- Retrieval info: GEN_FILE: TYPE_NORMAL PLL.ppf TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL PLL.inc FALSE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL PLL.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL PLL.bsf TRUE FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL PLL.bsf TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL PLL_inst.vhd FALSE
 -- Retrieval info: LIB_FILE: altera_mf
 -- Retrieval info: CBX_MODULE_PREFIX: ON

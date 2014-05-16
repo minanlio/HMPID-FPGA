@@ -39,9 +39,6 @@ SUBDESIGN header
 
 variable
 
--- DEBUGGER
-START_DEBUG: DFF;
-
 ------------------------------------------------------------
 -- TRISTATE
 ------------------------------------------------------------
@@ -82,10 +79,6 @@ END_HEADER_WR = GND;
 	
 END DEFAULTS;
 
--- DEBUGGER
-START_DEBUG.clk = CLOCK;
-START_DEBUG.clrn = RESETn;
-
 fbD[31..0] = fbDtri[31..0].out;
  
 HEADER_SM.clk = !CLOCK;
@@ -111,7 +104,6 @@ CASE HEADER_SM is
 		END IF;
 			
 	WHEN HEADER_WRD0 =>   -- PAROLA 1 CDH
-		START_DEBUG = VCC;
 		fbDtri[31..0].in = WORD0[31..0];
 		fbDTRI[31..0].oe = VCC;
 		int_fbTENn = VCC;

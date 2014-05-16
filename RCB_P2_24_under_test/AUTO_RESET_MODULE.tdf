@@ -25,7 +25,7 @@ AUTO_RESETn: DFF;
 				
 BEGIN		
 
-AUTO_RESETn.d = !((fiDIR==0)AND(fiBENn==1)AND(MAIN_STATE[7..0]==H"0B"));
+AUTO_RESETn.d = !((fiDIR==0)AND(fiBENn==1)AND(MAIN_STATE[7..0]==H"0C"));
 AUTO_RESETn.clk = CLOCK;
 AUTO_RESETn.clrn = VCC;
 

@@ -614,7 +614,6 @@ CASE RCB_SM is
 	
 	-- stato di avvio selezione segmenti
 	WHEN START_SEGMENT_SEL =>
-		--START_DEBUG = VCC;
 		MAIN_STATE[7..0] = H"08";
 		SIU_TRI_ctrl = VCC;
 		int_fbCTRLn = VCC;
@@ -1197,6 +1196,7 @@ CASE RCB_SM is
 
 	-- stato di avvio della LOCAL_SM per la decodifica comandi	
 	WHEN ENA_LOCAL_DEC_CTRL_CMD =>
+		START_DEBUG = VCC;
 		MAIN_STATE[7..0] = H"2E";
 		LOCAL_DEC_CMD.s = VCC; -- avvio della LOCAL_SM per la decodifica comandi
 		SIU_TRI_ctrl = VCC;
@@ -1394,26 +1394,30 @@ CASE LOCAL_SM IS
 		DATABUS_ADD[3..0] = H"4"; -- DATA CYCLE READ START
 		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- #colonna
 		LOC_CSn = GND;
-		LOC_Rn/W = GND; 			
+		LOC_Rn/W = GND;
 		LOCAL_SM = OPEN_DATA_2;
 			
-	WHEN OPEN_DATA_2 => 	
+	WHEN OPEN_DATA_2 => 
 		LOCAL_STATE[7..0] = H"06";					
 		DATABUS_ADD[3..0] = H"4"; -- DATA CYCLE READ START
 		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
 		LOC_CSn = GND;
-		LOC_Rn/W = GND; 				
+		LOC_Rn/W = GND;
+		IF SEGMENT_CNT[1..0] == B"10" OR SEGMENT_CNT[1..0] == B"11" THEN -- da debugger (perchè i segmenti 2 e 3 impiegano più tempo?)
+			LOCAL_SM = LOOP_DATA;
+		ELSE
+			LOCAL_SM = LOOP_DATA_1;
+		END IF;
+		
+	-- stato di lettura dati
+	WHEN LOOP_DATA =>		
+		LOCAL_STATE[7..0] = H"07";		
+		DATABUS_ADD[3..0] = H"2"; -- DATA LOOP
+		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- #colonna			
+		LOC_CSn = GND;
+		LOC_Rn/W = GND;
 		LOCAL_SM = LOOP_DATA_1;
 	
-	-- stato di lettura dati
---	WHEN LOOP_DATA =>		
---		LOCAL_STATE[7..0] = H"07";		
---		DATABUS_ADD[3..0] = H"2"; -- DATA LOOP
---		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- #colonna			
---		LOC_CSn = GND;
---		LOC_Rn/W = GND;			
---		LOCAL_SM = LOOP_DATA_1;
-		
 	WHEN LOOP_DATA_1 =>			
 		LOCAL_STATE[7..0] = H"08";		
 		DATABUS_ADD[3..0] = H"2"; -- DATA LOOP
@@ -1437,7 +1441,7 @@ CASE LOCAL_SM IS
 		LOC_CSn = GND;
 		LOC_Rn/W = GND;						
 		DISABLE_CLOCK_20 = GND;						
-		IF WORD_NR_CNT[9..0] == WORD_NR[9..0] THEN
+		IF (WORD_NR_CNT[9..0] == WORD_NR[9..0]) THEN
 			LOCAL_SM = END_COLUMN_DATA_READ;
 		ELSE 
 			LOCAL_SM = LOOP_DATA_1;

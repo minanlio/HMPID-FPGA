@@ -212,13 +212,6 @@ applicable agreement for further details.
 		(text "TTC_COM_RST" (rect 214 235 291 247)(font "Arial" ))
 		(line (pt 312 240)(pt 296 240)(line_width 1))
 	)
-	(port
-		(pt 312 256)
-		(output)
-		(text "DEC_STATE[7..0]" (rect 0 0 106 12)(font "Arial" ))
-		(text "DEC_STATE[7..0]" (rect 185 251 291 263)(font "Arial" ))
-		(line (pt 312 256)(pt 296 256)(line_width 3))
-	)
 	(drawing
 		(rectangle (rect 16 16 296 272)(line_width 1))
 	)

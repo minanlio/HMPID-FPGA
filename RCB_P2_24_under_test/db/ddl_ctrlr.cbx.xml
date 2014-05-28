@@ -7,9 +7,9 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|COUNTER:inst10|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_d5i.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|LED_COUNTER:inst58|lpm_counter:lpm_counter_component" CBX_FILE_NAME="cntr_c8j.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|altdpram:\stp_non_zero_ram_gen:attribute_mem_gen:attribute_mem|lpm_mux:mux" CBX_FILE_NAME="mux_fpc.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:\adv_point_3_and_more:advance_pointer_counter" CBX_FILE_NAME="cntr_rci.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:\adv_point_3_and_more:advance_pointer_counter" CBX_FILE_NAME="cntr_9bi.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:read_pointer_counter" CBX_FILE_NAME="cntr_86j.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram" CBX_FILE_NAME="altsyncram_1o14.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram" CBX_FILE_NAME="altsyncram_3l14.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:status_advance_pointer_counter" CBX_FILE_NAME="cntr_5di.tdf"/>
 	</PROJECT>
 </LOG_ROOT>

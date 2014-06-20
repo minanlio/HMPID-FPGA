@@ -1,0 +1,106 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2011 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 0 0 240 208)
+	(text "PLL" (rect 109 0 136 16)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 192 25 204)(font "Arial" ))
+	(port
+		(pt 0 64)
+		(input)
+		(text "inclk0" (rect 0 0 31 14)(font "Arial" (font_size 8)))
+		(text "inclk0" (rect 4 50 29 63)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 40 64))
+	)
+	(port
+		(pt 240 64)
+		(output)
+		(text "c0" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c0" (rect 224 50 234 63)(font "Arial" (font_size 8)))
+	)
+	(port
+		(pt 240 80)
+		(output)
+		(text "c1" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c1" (rect 224 66 232 79)(font "Arial" (font_size 8)))
+	)
+	(port
+		(pt 240 96)
+		(output)
+		(text "c2" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c2" (rect 224 82 234 95)(font "Arial" (font_size 8)))
+	)
+	(port
+		(pt 240 112)
+		(output)
+		(text "c4" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c4" (rect 224 98 234 111)(font "Arial" (font_size 8)))
+	)
+	(drawing
+		(text "Stratix II" (rect 194 192 422 395)(font "Arial" ))
+		(text "inclk0 frequency: 40.000 MHz" (rect 50 59 223 129)(font "Arial" ))
+		(text "Operation Mode: Normal" (rect 50 72 199 155)(font "Arial" ))
+		(text "PLL Type: Enhanced PLL" (rect 50 85 205 181)(font "Arial" ))
+		(text "Clk " (rect 51 106 116 223)(font "Arial" ))
+		(text "Ratio" (rect 72 106 164 223)(font "Arial" ))
+		(text "Ph (dg)" (rect 98 106 225 223)(font "Arial" ))
+		(text "DC (%)" (rect 132 106 294 223)(font "Arial" ))
+		(text "c0" (rect 54 120 116 251)(font "Arial" ))
+		(text "1/1" (rect 77 120 164 251)(font "Arial" ))
+		(text "0.00" (rect 104 120 224 251)(font "Arial" ))
+		(text "50.00" (rect 136 120 293 251)(font "Arial" ))
+		(text "c1" (rect 54 134 115 279)(font "Arial" ))
+		(text "1/2" (rect 77 134 165 279)(font "Arial" ))
+		(text "0.00" (rect 104 134 224 279)(font "Arial" ))
+		(text "50.00" (rect 136 134 293 279)(font "Arial" ))
+		(text "c2" (rect 54 148 116 307)(font "Arial" ))
+		(text "1/4" (rect 77 148 166 307)(font "Arial" ))
+		(text "0.00" (rect 104 148 224 307)(font "Arial" ))
+		(text "50.00" (rect 136 148 293 307)(font "Arial" ))
+		(text "c4" (rect 54 162 117 335)(font "Arial" ))
+		(text "4/1" (rect 77 162 164 335)(font "Arial" ))
+		(text "0.00" (rect 104 162 224 335)(font "Arial" ))
+		(text "50.00" (rect 136 162 293 335)(font "Arial" ))
+		(line (pt 0 0)(pt 241 0))
+		(line (pt 241 0)(pt 241 209))
+		(line (pt 0 209)(pt 241 209))
+		(line (pt 0 0)(pt 0 209))
+		(line (pt 48 104)(pt 164 104))
+		(line (pt 48 117)(pt 164 117))
+		(line (pt 48 131)(pt 164 131))
+		(line (pt 48 145)(pt 164 145))
+		(line (pt 48 159)(pt 164 159))
+		(line (pt 48 173)(pt 164 173))
+		(line (pt 48 104)(pt 48 173))
+		(line (pt 69 104)(pt 69 173)(line_width 3))
+		(line (pt 95 104)(pt 95 173)(line_width 3))
+		(line (pt 129 104)(pt 129 173)(line_width 3))
+		(line (pt 163 104)(pt 163 173))
+		(line (pt 40 48)(pt 207 48))
+		(line (pt 207 48)(pt 207 191))
+		(line (pt 40 191)(pt 207 191))
+		(line (pt 40 48)(pt 40 191))
+		(line (pt 239 64)(pt 207 64))
+		(line (pt 239 80)(pt 207 80))
+		(line (pt 239 96)(pt 207 96))
+		(line (pt 239 112)(pt 207 112))
+	)
+)

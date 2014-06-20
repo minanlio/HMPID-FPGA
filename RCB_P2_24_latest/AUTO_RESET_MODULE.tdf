@@ -1,0 +1,32 @@
+--
+-- MODULO CHE EFFETTUA IL RESET AUTOMATICO DEL MODULO ddlctrlr.tdf QUANDO LA SUA MAIN MACHINE RIMANE BLOCCATA
+-- NELLO STATO 0x0B, OVVERO IL READ_DATA_TRANSFER STATE, L'INGRESSO fiDIR=0 (DATI DA DDL A RCB), E L'INGRESSO 
+-- fiBENn=1 (BUS DISABILITATO;)
+
+SUBDESIGN AUTO_RESET_MODULE
+(
+	-- INPUT	
+		CLOCK: INPUT; -- clk40_g, il negato e' il clock della RCB_SM  (40 MHz)
+		fiBENn: INPUT; -- da DDL
+		fiDIR: INPUT; -- da DDL 
+		MAIN_STATE[7..0]: INPUT;	-- stato della main machine del  MODULO ddl_ctrlr
+		
+	-- OUTPUT	
+		AUTO_RESETn: OUTPUT;  
+)
+
+variable
+
+-----------------------------------------------------------
+-- REGISTERS
+-----------------------------------------------------------
+AUTO_RESETn: DFF;
+
+				
+BEGIN		
+
+AUTO_RESETn.d = !((fiDIR==0)AND(fiBENn==1)AND(MAIN_STATE[7..0]==H"0C"));
+AUTO_RESETn.clk = CLOCK;
+AUTO_RESETn.clrn = VCC;
+
+END;

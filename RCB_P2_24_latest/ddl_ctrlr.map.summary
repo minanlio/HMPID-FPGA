@@ -1,0 +1,15 @@
+Analysis & Synthesis Status : Successful - Fri Jun 20 10:33:37 2014
+Quartus II 64-Bit Version : 10.1 Build 197 01/19/2011 SP 1.05 SJ Full Version
+Revision Name : ddl_ctrlr
+Top-level Entity Name : ddl_ctrlr
+Family : Stratix II
+Logic utilization : N/A
+    Combinational ALUTs : 1,200
+    Dedicated logic registers : 1,286
+Total registers : 1286
+Total pins : 108
+Total virtual pins : 0
+Total block memory bits : 122,880
+DSP block 9-bit elements : 0
+Total PLLs : 1
+Total DLLs : 0

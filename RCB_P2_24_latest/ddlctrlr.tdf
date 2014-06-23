@@ -99,7 +99,7 @@ WR_ERR_FLAG: SRFF; -- flag che segnala un numero di parole diverso da 640 durant
 -- NODES
 -----------------------------------------------------------
 
-LOCAL_END: NODE; -- segnala la fine del ciclo di decodifica comandi nella LOCAL_SM
+LOCAL_END: NODE; -- segnala la fine del ciclo nella LOCAL_SM
 RDYRX ,EOBTR, STBWR, STBRD, FECTRL, FESTRD : NODE;
 CLR_WORD_NR: NODE; 
 CLR_WRITE_fbTEN: NODE; 
@@ -1060,7 +1060,7 @@ CASE RCB_SM is
 			RCB_SM = BLOCK_WRITE_FIFO_COMPARE ;
 			WR_FIFO = VCC;
 		ELSE 
-			IF (FIFO_NMBR[9..0] == H"281") THEN -- da modificare a H"280"!!!
+			IF (FIFO_NMBR[9..0] == H"280") THEN
 				RCB_SM = END_BLOCK_WRITE;			  	
 				fo_BSYn = GND;
 				WR_FIFO = GND;

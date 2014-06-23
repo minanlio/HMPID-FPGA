@@ -20,26 +20,6 @@ VHSM_ON
 -- Start VHDL Libraries --
 -- End VHDL Libraries --
 # entity
-ddl_ctrlr
-# storage
-db|ddl_ctrlr.(0).cnf
-db|ddl_ctrlr.(0).cnf
-# case_insensitive
-# source_file
-ddl_ctrlr.bdf
-daee56c58c9699dc50c2d3fc7fdf0
-26
-# internal_option {
-BLOCK_DESIGN_NAMING
-AUTO
-}
-# hierarchies {
-|
-}
-# macro_sequence
-
-# end
-# entity
 DDL_SOFT_RESET_MODULE
 # storage
 db|ddl_ctrlr.(2).cnf
@@ -11319,6 +11299,26 @@ a36c8ec425c8a2589af98b2d4daabc3
 
 # end
 # entity
+ddl_ctrlr
+# storage
+db|ddl_ctrlr.(0).cnf
+db|ddl_ctrlr.(0).cnf
+# case_insensitive
+# source_file
+ddl_ctrlr.bdf
+25ceda47843ecf2331bec7fb6a19f11
+26
+# internal_option {
+BLOCK_DESIGN_NAMING
+AUTO
+}
+# hierarchies {
+|
+}
+# macro_sequence
+
+# end
+# entity
 ddlctrlr
 # storage
 db|ddl_ctrlr.(1).cnf
@@ -11326,7 +11326,7 @@ db|ddl_ctrlr.(1).cnf
 # case_insensitive
 # source_file
 ddlctrlr.tdf
-1dddbd50c9102c869c6e6939bd6eca4
+7037f7403e8af8cdc1fd52b1d07deb39
 7
 # used_port {
 int_fbTENn

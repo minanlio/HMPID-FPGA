@@ -2,8 +2,8 @@ This file only contains the address information for the update data
 
 BLOCK		START ADDRESS		END ADDRESS
 
-Page_0		0x00010040		0x00042C6B
-Page_1		0x0005D3CC		0x0000FFFB	(wrapped around)	(updated)
+Page_0		0x00010040		0x00042D97
+Page_1		0x0005D2A0		0x0000FFFB	(wrapped around)	(updated)
 OPTION BITS	0x00010000		0x0001003F
 
 

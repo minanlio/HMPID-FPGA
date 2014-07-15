@@ -293,9 +293,60 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 2096 864 2272 880)
+	(rect 2096 1104 2272 1120)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "SEG_CLOCK" (rect 90 0 156 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+	(annotation_block (location)(rect 2272 1120 2336 1136))
+)
+(pin
+	(output)
+	(rect 2104 1520 2280 1536)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "foCLK" (rect 90 0 121 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+	(annotation_block (location)(rect 2280 1536 2336 1552))
+)
+(pin
+	(output)
+	(rect 2096 944 2272 960)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "LOC_CSn" (rect 90 0 139 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+	(annotation_block (location)(rect 2272 960 2336 976))
+)
+(pin
+	(output)
+	(rect 2096 864 2272 880)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "SEG_TRIG" (rect 90 0 144 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -310,58 +361,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 2104 1312 2280 1328)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "foCLK" (rect 90 0 121 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-	(annotation_block (location)(rect 2280 1328 2336 1344))
-)
-(pin
-	(output)
-	(rect 2096 704 2272 720)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "LOC_CSn" (rect 90 0 139 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-	(annotation_block (location)(rect 2272 720 2336 736))
-)
-(pin
-	(output)
-	(rect 2096 624 2272 640)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "SEG_TRIG" (rect 90 0 144 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-	(annotation_block (location)(rect 2272 640 2336 656))
-)
-(pin
-	(output)
-	(rect 2104 200 2280 216)
+	(rect 2104 432 2280 448)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "BUSY" (rect 90 0 120 12)(font "Arial" ))
 	(pt 0 8)
@@ -374,7 +374,7 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 2280 216 2328 232))
+	(annotation_block (location)(rect 2280 448 2328 464))
 )
 (pin
 	(output)
@@ -429,7 +429,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 1944 1984 2120 2000)
+	(rect 1944 2248 2120 2264)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "TRIG_LED" (rect 90 0 143 12)(font "Arial" ))
 	(pt 0 8)
@@ -442,11 +442,11 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 2120 1984 2184 2000))
+	(annotation_block (location)(rect 2120 2248 2184 2264))
 )
 (pin
 	(output)
-	(rect 1944 1728 2120 1744)
+	(rect 1944 1992 2120 2008)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "ACCESS_LED" (rect 90 0 161 12)(font "Arial" ))
 	(pt 0 8)
@@ -459,11 +459,11 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 2120 1728 2184 1744))
+	(annotation_block (location)(rect 2120 1992 2184 2008))
 )
 (pin
 	(output)
-	(rect 2104 800 2280 816)
+	(rect 2104 1040 2280 1056)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "foBSYn" (rect 90 0 128 12)(font "Arial" ))
 	(pt 0 8)
@@ -476,11 +476,11 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 2280 816 2336 832))
+	(annotation_block (location)(rect 2280 1056 2336 1072))
 )
 (pin
 	(output)
-	(rect 2096 928 2272 944)
+	(rect 2096 1168 2272 1184)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "DATABUS_ADD[7..0]" (rect 90 0 196 12)(font "Arial" ))
 	(pt 0 8)
@@ -493,7 +493,7 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 2272 944 2336 960))
+	(annotation_block (location)(rect 2272 1184 2336 1200))
 )
 (pin
 	(output)
@@ -514,7 +514,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 2096 752 2272 768)
+	(rect 2096 992 2272 1008)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "LOC_Rn/W" (rect 90 0 146 12)(font "Arial" ))
 	(pt 0 8)
@@ -527,7 +527,7 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 2272 768 2336 784))
+	(annotation_block (location)(rect 2272 1008 2336 1024))
 )
 (pin
 	(output)
@@ -599,7 +599,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 2088 512 2264 528)
+	(rect 2088 752 2264 768)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "RESETn_to_SEGMENT" (rect 90 0 204 12)(font "Arial" ))
 	(pt 0 8)
@@ -612,11 +612,11 @@ applicable agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 2264 528 2328 544))
+	(annotation_block (location)(rect 2264 768 2328 784))
 )
 (pin
 	(bidir)
-	(rect 2104 1464 2280 1480)
+	(rect 2104 1672 2280 1688)
 	(text "BIDIR" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "fbTENn" (rect 90 0 127 12)(font "Arial" ))
 	(pt 0 8)
@@ -630,11 +630,11 @@ applicable agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 24 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 2280 1480 2336 1496))
+	(annotation_block (location)(rect 2280 1688 2336 1704))
 )
 (pin
 	(bidir)
-	(rect 2104 1392 2280 1408)
+	(rect 2104 1600 2280 1616)
 	(text "BIDIR" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "fbCTRLn" (rect 90 0 134 12)(font "Arial" ))
 	(pt 0 8)
@@ -648,11 +648,11 @@ applicable agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 24 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 2280 1408 2336 1424))
+	(annotation_block (location)(rect 2280 1616 2336 1632))
 )
 (pin
 	(bidir)
-	(rect 2096 1088 2272 1104)
+	(rect 2096 1328 2272 1344)
 	(text "BIDIR" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "fbD[31..0]" (rect 90 0 140 12)(font "Arial" ))
 	(pt 0 8)
@@ -666,7 +666,7 @@ applicable agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 24 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 2272 1104 2328 1120))
+	(annotation_block (location)(rect 2272 1344 2328 1360))
 )
 (symbol
 	(rect 2072 -16 2104 16)
@@ -686,7 +686,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1984 1456 2032 1488)
+	(rect 1984 1664 2032 1696)
 	(text "TRI" (rect 1 22 16 32)(font "Arial" (font_size 6)))
 	(text "71" (rect 3 -1 14 11)(font "Arial" ))
 	(port
@@ -718,7 +718,7 @@ applicable agreement for further details.
 	(flipx)
 )
 (symbol
-	(rect 1928 1384 1976 1416)
+	(rect 1928 1592 1976 1624)
 	(text "TRI" (rect 1 22 16 32)(font "Arial" (font_size 6)))
 	(text "72" (rect 3 -1 14 11)(font "Arial" ))
 	(port
@@ -782,7 +782,7 @@ applicable agreement for further details.
 	(flipx)
 )
 (symbol
-	(rect 1680 1464 1728 1496)
+	(rect 1680 1672 1728 1704)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst8" (rect 3 21 26 33)(font "Arial" ))
 	(port
@@ -807,7 +807,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1816 1448 1880 1496)
+	(rect 1816 1656 1880 1704)
 	(text "AND2" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst9" (rect 3 37 26 49)(font "Arial" ))
 	(port
@@ -839,7 +839,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1824 192 1888 272)
+	(rect 1824 424 1888 504)
 	(text "SRFF" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst11" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -927,7 +927,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1792 1384 1840 1416)
+	(rect 1792 1592 1840 1624)
 	(text "LCELL" (rect 1 0 28 10)(font "Arial" (font_size 6)))
 	(text "inst24" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -951,7 +951,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1864 1384 1912 1416)
+	(rect 1864 1592 1912 1624)
 	(text "LCELL" (rect 1 0 28 10)(font "Arial" (font_size 6)))
 	(text "inst28" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -1121,7 +1121,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1768 1880 1832 1960)
+	(rect 1768 2144 1832 2224)
 	(text "JKFF" (rect 1 0 23 10)(font "Arial" (font_size 6)))
 	(text "inst16" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1179,7 +1179,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1768 1768 1832 1848)
+	(rect 1768 2032 1832 2112)
 	(text "JKFF" (rect 1 0 23 10)(font "Arial" (font_size 6)))
 	(text "inst29" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1237,7 +1237,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1696 1752 1744 1784)
+	(rect 1696 2016 1744 2048)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst41" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -1262,7 +1262,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1928 1824 1992 1872)
+	(rect 1928 2088 1992 2136)
 	(text "NOR2" (rect 1 0 26 10)(font "Arial" (font_size 6)))
 	(text "inst57" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -1296,7 +1296,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1648 248 1712 360)
+	(rect 1648 480 1712 592)
 	(text "OR6" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst5" (rect 3 101 26 113)(font "Arial" ))
 	(port
@@ -1398,7 +1398,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -392 1472 -328 1520)
+	(rect -392 1680 -328 1728)
 	(text "AND3" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst26" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -1437,7 +1437,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 688 1424 752 1472)
+	(rect 688 1632 752 1680)
 	(text "AND3" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst42" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -1476,7 +1476,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -208 1504 -144 1552)
+	(rect -208 1712 -144 1760)
 	(text "AND2" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst46" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -1540,7 +1540,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -208 1584 -144 1632)
+	(rect -208 1792 -144 1840)
 	(text "AND2" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst47" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -1572,7 +1572,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 232 2024 296 2104)
+	(rect 232 2200 296 2280)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst34" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1622,7 +1622,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 2000 184 2064 232)
+	(rect 2000 416 2064 464)
 	(text "OR2" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst59" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -1680,7 +1680,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 2008 496 2072 576)
+	(rect 2008 736 2072 816)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst65" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1730,7 +1730,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 440 2024 504 2104)
+	(rect 440 2200 504 2280)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst82" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1780,7 +1780,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 568 2024 632 2104)
+	(rect 568 2200 632 2280)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst83" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1830,7 +1830,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 704 2024 768 2104)
+	(rect 704 2200 768 2280)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst84" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1880,7 +1880,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 840 2024 904 2104)
+	(rect 840 2200 904 2280)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst85" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -1930,7 +1930,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 2000 1304 2048 1336)
+	(rect 2000 1512 2048 1544)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst69" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -1955,7 +1955,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1952 848 2016 896)
+	(rect 1952 1088 2016 1136)
 	(text "OR2" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst48" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -1988,7 +1988,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1856 496 1920 544)
+	(rect 1856 736 1920 784)
 	(text "AND3" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst45" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -2027,32 +2027,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 944 -240 992 -208)
-	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
-	(text "inst55" (rect 3 21 32 33)(font "Arial" ))
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN" (rect 2 7 13 19)(font "Courier New" (bold))(invisible))
-		(text "IN" (rect 2 7 13 19)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 13 16))
-	)
-	(port
-		(pt 48 16)
-		(output)
-		(text "OUT" (rect 32 7 49 19)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 32 7 49 19)(font "Courier New" (bold))(invisible))
-		(line (pt 39 16)(pt 48 16))
-	)
-	(drawing
-		(line (pt 13 25)(pt 13 7))
-		(line (pt 13 7)(pt 31 16))
-		(line (pt 13 25)(pt 31 16))
-		(circle (rect 31 12 39 20))
-	)
-)
-(symbol
-	(rect 984 912 1032 944)
+	(rect 928 1000 976 1032)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst14" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -2077,7 +2052,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 808 904 872 984)
+	(rect 752 992 816 1072)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst67" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -2127,7 +2102,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 232 2184 296 2264)
+	(rect 232 2360 296 2440)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst56" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -2177,7 +2152,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 440 2184 504 2264)
+	(rect 440 2360 504 2440)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst86" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -2227,7 +2202,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 568 2184 632 2264)
+	(rect 568 2360 632 2440)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst87" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -2277,7 +2252,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 704 2184 768 2264)
+	(rect 704 2360 768 2440)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst88" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -2327,7 +2302,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 840 2184 904 2264)
+	(rect 840 2360 904 2440)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst89" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -2377,7 +2352,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1016 2192 1064 2224)
+	(rect 1016 2368 1064 2400)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst70" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -2402,7 +2377,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1000 2032 1048 2064)
+	(rect 1000 2208 1048 2240)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst73" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -2427,7 +2402,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1728 600 1792 680)
+	(rect 1728 840 1792 920)
 	(text "SRFF" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst18" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -2484,7 +2459,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1552 656 1616 768)
+	(rect 1552 896 1616 1008)
 	(text "OR6" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst21" (rect 3 101 32 113)(font "Arial" ))
 	(port
@@ -2547,7 +2522,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 1808 608 1856 640)
+	(rect 1808 848 1856 880)
 	(text "NOT" (rect 1 0 21 10)(font "Arial" (font_size 6)))
 	(text "inst40" (rect 3 21 32 33)(font "Arial" ))
 	(port
@@ -2572,7 +2547,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 2008 608 2072 656)
+	(rect 2008 848 2072 896)
 	(text "AND2" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst71" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -2604,7 +2579,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -176 2472 -112 2520)
+	(rect -176 2648 -112 2696)
 	(text "AND2" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst38" (rect 3 37 32 49)(font "Arial" ))
 	(port
@@ -2722,7 +2697,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -112 2016 136 2112)
+	(rect -112 2192 136 2288)
 	(text "TTCRX_SOFT_RESET_MODULE" (rect 5 0 166 12)(font "Arial" ))
 	(text "inst66" (rect 8 80 37 92)(font "Arial" ))
 	(port
@@ -2758,7 +2733,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -8 2448 160 2544)
+	(rect -8 2624 160 2720)
 	(text "DDL_SOFT_RESET_MODULE" (rect 5 0 154 12)(font "Arial" ))
 	(text "inst7" (rect 8 80 31 92)(font "Arial" ))
 	(port
@@ -2794,7 +2769,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect -120 2176 136 2272)
+	(rect -120 2352 136 2448)
 	(text "TTCRX_CLEAR_BUSY_MODULE" (rect 5 0 170 12)(font "Arial" ))
 	(text "inst1" (rect 8 80 31 92)(font "Arial" ))
 	(port
@@ -2830,7 +2805,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 264 608 568 1088)
+	(rect 208 696 512 1176)
 	(text "ddlctrlr" (rect 5 0 38 12)(font "Arial" ))
 	(text "inst" (rect 8 464 25 476)(font "Arial" ))
 	(port
@@ -3118,7 +3093,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 864 1432 1200 1752)
+	(rect 864 1640 1200 1960)
 	(text "header" (rect 5 0 38 12)(font "Arial" ))
 	(text "inst15" (rect 8 304 37 316)(font "Arial" ))
 	(port
@@ -3259,7 +3234,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 16 1448 328 1736)
+	(rect 16 1656 328 1944)
 	(text "TTC_COMMUNICATION" (rect 5 0 125 12)(font "Arial" ))
 	(text "inst13" (rect 8 272 37 284)(font "Arial" ))
 	(port
@@ -3456,7 +3431,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 40 616 104 664)
+	(rect -16 704 48 752)
 	(text "AND2" (rect 1 0 25 10)(font "Arial" (font_size 6)))
 	(text "inst4" (rect 3 37 26 49)(font "Arial" ))
 	(port
@@ -3488,7 +3463,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 456 2472 520 2552)
+	(rect 456 2648 520 2728)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst90" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -3538,7 +3513,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 584 2472 648 2552)
+	(rect 584 2648 648 2728)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst91" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -3588,7 +3563,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 720 2472 784 2552)
+	(rect 720 2648 784 2728)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst92" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -3638,7 +3613,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 856 2472 920 2552)
+	(rect 856 2648 920 2728)
 	(text "DFF" (rect 1 0 19 10)(font "Arial" (font_size 6)))
 	(text "inst93" (rect 3 68 32 80)(font "Arial" ))
 	(port
@@ -3887,7 +3862,7 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 2080 1800 2272 1936)
+	(rect 2080 2064 2272 2200)
 	(text "LED_COUNTER" (rect 50 0 160 16)(font "Arial" (font_size 10)))
 	(text "inst58" (rect 8 120 37 132)(font "Arial" ))
 	(port
@@ -3930,546 +3905,109 @@ applicable agreement for further details.
 		(line (pt 48 32)(pt 48 120))
 	)
 )
-(connector
-	(pt 2008 1504)
-	(pt 2008 1488)
-)
-(connector
-	(pt 2032 1472)
-	(pt 2104 1472)
-)
-(connector
-	(pt 1928 1400)
-	(pt 1912 1400)
-)
-(connector
-	(text "L0_DELAY_VALUE[7..0]" (rect 578 992 699 1004)(font "Arial" ))
-	(pt 568 1008)
-	(pt 696 1008)
-	(bus)
-)
-(connector
-	(text "DISABLE_CLOCK_20" (rect 578 752 685 764)(font "Arial" ))
-	(pt 568 768)
-	(pt 696 768)
-)
-(connector
-	(text "DDL_BUSY_RESET" (rect 882 912 982 924)(font "Arial" ))
-	(pt 872 928)
-	(pt 984 928)
-)
-(connector
-	(pt 1984 1472)
-	(pt 1880 1472)
-)
-(connector
-	(text "int_fbTENn" (rect 1736 1448 1797 1462)(font "Arial" (font_size 8)))
-	(pt 1736 1464)
-	(pt 1816 1464)
-)
-(connector
-	(text "fifo_wrdnmbr[9..0]" (rect 160 800 266 814)(font "Arial" (font_size 8)))
-	(pt 264 816)
-	(pt 144 816)
-	(bus)
-)
-(connector
-	(pt 104 640)
-	(pt 264 640)
-)
-(connector
-	(text "fbD[31..0]" (rect 578 624 633 638)(font "Arial" (font_size 8)))
-	(pt 568 640)
-	(pt 696 640)
-	(bus)
-)
-(connector
-	(text "DATA_ADD[12..0]" (rect 576 736 678 750)(font "Arial" (font_size 8)))
-	(pt 568 752)
-	(pt 696 752)
-	(bus)
-)
-(connector
-	(text "DDL_BUSY_RESETn" (rect 1032 912 1138 924)(font "Arial" ))
-	(pt 1120 928)
-	(pt 1032 928)
-)
-(connector
-	(text "CLOCK40" (rect 200 640 255 654)(font "Arial" (font_size 8)))
-	(pt 144 656)
-	(pt 264 656)
-)
-(connector
-	(text "CLOCK10" (rect 202 656 251 668)(font "Arial" ))
-	(pt 144 672)
-	(pt 264 672)
-)
-(connector
-	(text "CLOCK20" (rect 202 672 251 684)(font "Arial" ))
-	(pt 144 688)
-	(pt 264 688)
-)
-(connector
-	(text "fiDIR" (rect 216 720 241 734)(font "Arial" (font_size 8)))
-	(pt 144 736)
-	(pt 264 736)
-)
-(connector
-	(text "fiBENn" (rect 208 736 245 750)(font "Arial" (font_size 8)))
-	(pt 144 752)
-	(pt 264 752)
-)
-(connector
-	(text "fiLFn_int" (rect 208 752 256 766)(font "Arial" (font_size 8)))
-	(pt 144 768)
-	(pt 264 768)
-)
-(connector
-	(text "empty_fifo" (rect 168 816 228 830)(font "Arial" (font_size 8)))
-	(pt 144 832)
-	(pt 264 832)
-)
-(connector
-	(text "END_HEADER_WR" (rect 162 832 268 846)(font "Arial" (font_size 8)))
-	(pt 144 848)
-	(pt 264 848)
-)
-(connector
-	(pt 2104 1400)
-	(pt 1976 1400)
-)
-(connector
-	(text "tri_ctrl" (rect 1888 1488 1923 1502)(font "Arial" (font_size 8)))
-	(pt 1880 1504)
-	(pt 1952 1504)
-)
-(connector
-	(pt 1952 1504)
-	(pt 2008 1504)
-)
-(connector
-	(text "tri_ctrl" (rect 576 656 611 670)(font "Arial" (font_size 8)))
-	(pt 696 672)
-	(pt 568 672)
-)
-(connector
-	(text "int_fbCTRLn" (rect 576 672 645 686)(font "Arial" (font_size 8)))
-	(pt 696 688)
-	(pt 568 688)
-)
-(connector
-	(text "int_fbTENn" (rect 576 688 637 702)(font "Arial" (font_size 8)))
-	(pt 696 704)
-	(pt 568 704)
-)
-(connector
-	(text "LOC_Rn/W" (rect 576 720 638 734)(font "Arial" (font_size 8)))
-	(pt 696 736)
-	(pt 568 736)
-)
-(connector
-	(text "WR_FIFO" (rect 576 768 629 782)(font "Arial" (font_size 8)))
-	(pt 696 784)
-	(pt 568 784)
-)
-(connector
-	(text "RD_FIFO" (rect 576 784 625 798)(font "Arial" (font_size 8)))
-	(pt 696 800)
-	(pt 568 800)
-)
-(connector
-	(text "FIFO_CLK" (rect 576 800 632 814)(font "Arial" (font_size 8)))
-	(pt 696 816)
-	(pt 568 816)
-)
-(connector
-	(text "fifo_clr" (rect 576 816 616 830)(font "Arial" (font_size 8)))
-	(pt 696 832)
-	(pt 568 832)
-)
-(connector
-	(text "fifo_data_ena" (rect 576 832 655 846)(font "Arial" (font_size 8)))
-	(pt 696 848)
-	(pt 568 848)
-)
-(connector
-	(text "CLEAR_BUSY" (rect 578 880 659 894)(font "Arial" (font_size 8)))
-	(pt 696 896)
-	(pt 568 896)
-)
-(connector
-	(text "fectrl" (rect 578 896 607 910)(font "Arial" (font_size 8)))
-	(pt 696 912)
-	(pt 568 912)
-)
-(connector
-	(text "L1A_LATENCY[7..0]" (rect 578 944 679 956)(font "Arial" ))
-	(pt 696 960)
-	(pt 568 960)
-	(bus)
-)
-(connector
-	(pt 808 928)
-	(pt 568 928)
-)
-(connector
-	(text "ERROR_BIT_ENA" (rect 578 960 670 972)(font "Arial" ))
-	(pt 696 976)
-	(pt 568 976)
-)
-(connector
-	(text "ENA_L2LOOP" (rect 578 976 647 988)(font "Arial" ))
-	(pt 696 992)
-	(pt 568 992)
-)
-(connector
-	(text "TTCRX_RESETn" (rect -70 632 11 644)(font "Arial" ))
-	(pt -80 648)
-	(pt 40 648)
-)
-(connector
-	(text "L2_PULSE" (rect 202 704 261 718)(font "Arial" (font_size 8)))
-	(pt 144 720)
-	(pt 264 720)
-)
-(connector
-	(text "fo_BSYn" (rect 578 640 629 654)(font "Arial" (font_size 8)))
-	(pt 696 656)
-	(pt 568 656)
-)
-(connector
-	(text "fbTENn" (rect 210 784 247 796)(font "Arial" ))
-	(pt 144 800)
-	(pt 264 800)
-)
-(connector
-	(text "fbCTRLn" (rect 208 768 257 782)(font "Arial" (font_size 8)))
-	(pt 144 784)
-	(pt 264 784)
-)
-(connector
-	(text "LOC_CSn" (rect 576 704 631 718)(font "Arial" (font_size 8)))
-	(pt 696 720)
-	(pt 568 720)
-)
-(connector
-	(pt 1952 1416)
-	(pt 1952 1504)
-)
-(connector
-	(text "RST_SEQ_ERR_FLAG" (rect 578 928 691 940)(font "Arial" ))
-	(pt 568 944)
-	(pt 696 944)
-)
-(connector
-	(text "SEQ_ERR_FLAG" (rect 170 688 256 700)(font "Arial" ))
-	(pt 144 704)
-	(pt 264 704)
-)
-(connector
-	(text "HMPID_CDH_ENA" (rect 578 864 673 876)(font "Arial" ))
-	(pt 696 880)
-	(pt 568 880)
-)
-(connector
-	(text "MAIN_STATE[7..0]" (rect 578 1024 670 1036)(font "Arial" ))
-	(pt 696 1040)
-	(pt 568 1040)
-	(bus)
-)
-(connector
-	(text "HEADER_ENA" (rect 578 848 658 862)(font "Arial" (font_size 8)))
-	(pt 696 864)
-	(pt 568 864)
-)
-(connector
-	(text "DDL_RESETn" (rect -70 616 -1 628)(font "Arial" ))
-	(pt -80 632)
-	(pt 40 632)
-)
-(connector
-	(text "CLOCK20" (rect 762 928 811 940)(font "Arial" ))
-	(pt 752 944)
-	(pt 808 944)
-)
-(connector
-	(pt 1728 1480)
-	(pt 1816 1480)
-)
-(connector
-	(pt 1864 1400)
-	(pt 1840 1400)
-)
-(connector
-	(text "int_fbCTRLn" (rect 1696 1384 1765 1398)(font "Arial" (font_size 8)))
-	(pt 1688 1400)
-	(pt 1792 1400)
-)
-(connector
-	(text "CLOCK40" (rect 1936 1304 1991 1318)(font "Arial" (font_size 8)))
-	(pt 1920 1320)
-	(pt 2000 1320)
-)
-(connector
-	(pt 2048 1320)
-	(pt 2104 1320)
-)
-(connector
-	(pt 2088 520)
-	(pt 2072 520)
-)
-(connector
-	(pt 1920 520)
-	(pt 2008 520)
-)
-(connector
-	(pt 1856 512)
-	(pt 1816 512)
-)
-(connector
-	(pt 1816 512)
-	(pt 1816 496)
-)
-(connector
-	(text "DDL_BUSY_RESETn" (rect 1698 504 1804 516)(font "Arial" ))
-	(pt 1856 520)
-	(pt 1688 520)
-)
-(connector
-	(pt 1856 528)
-	(pt 1816 528)
-)
-(connector
-	(text "DDL_RESETn" (rect 1714 480 1783 492)(font "Arial" ))
-	(pt 1688 496)
-	(pt 1816 496)
-)
-(connector
-	(pt 2096 632)
-	(pt 2072 632)
-)
-(connector
-	(text "L0_TO_COLUMN" (rect 1906 624 2001 638)(font "Arial" (font_size 8)))
-	(pt 1896 640)
-	(pt 2008 640)
-)
-(connector
-	(text "DISABLE_CLOCK_20" (rect 1842 864 1949 876)(font "Arial" ))
-	(pt 1832 880)
-	(pt 1952 880)
-)
-(connector
-	(text "CLOCK20" (rect 1890 848 1939 860)(font "Arial" ))
-	(pt 1832 864)
-	(pt 1952 864)
-)
-(connector
-	(pt 2016 872)
-	(pt 2096 872)
-)
-(connector
-	(text "LOC_CSn" (rect 2008 696 2063 710)(font "Arial" (font_size 8)))
-	(pt 2000 712)
-	(pt 2096 712)
-)
-(connector
-	(text "fo_BSYn" (rect 2010 792 2061 806)(font "Arial" (font_size 8)))
-	(pt 2000 808)
-	(pt 2104 808)
-)
-(connector
-	(text "LOC_Rn/W" (rect 2008 744 2070 758)(font "Arial" (font_size 8)))
-	(pt 2000 760)
-	(pt 2096 760)
-)
-(connector
-	(text "DATA_ADD[7..0]" (rect 1922 920 2017 934)(font "Arial" (font_size 8)))
-	(pt 1912 936)
-	(pt 2096 936)
-	(bus)
-)
-(connector
-	(text "DDL_RESETn" (rect 1770 352 1839 364)(font "Arial" ))
-	(pt 1760 368)
-	(pt 1856 368)
-)
-(connector
-	(pt 1800 248)
-	(pt 1800 304)
-)
-(connector
-	(text "reset_busy" (rect 1722 288 1777 300)(font "Arial" ))
-	(pt 1712 304)
-	(pt 1800 304)
-)
-(connector
-	(pt 1856 272)
-	(pt 1856 368)
-)
-(connector
-	(pt 2104 208)
-	(pt 2064 208)
-)
-(connector
-	(text "L0_INT" (rect 1760 200 1798 214)(font "Arial" (font_size 8)))
-	(pt 1760 216)
-	(pt 1824 216)
-)
-(connector
-	(pt 1800 248)
-	(pt 1824 248)
-)
-(connector
-	(text "CLOCK160" (rect 1760 216 1815 228)(font "Arial" ))
-	(pt 1760 232)
-	(pt 1824 232)
-)
-(connector
-	(text "TTC_COM_RESET" (rect 1554 280 1646 292)(font "Arial" ))
-	(pt 1536 296)
-	(pt 1648 296)
-)
-(connector
-	(text "FECTRL" (rect 1560 264 1602 276)(font "Arial" ))
-	(pt 1536 280)
-	(pt 1648 280)
-)
-(connector
-	(text "TTCRX_RESET" (rect 1554 296 1629 308)(font "Arial" ))
-	(pt 1536 312)
-	(pt 1648 312)
-)
-(connector
-	(text "DDL_BUSY_RESET" (rect 1552 312 1652 324)(font "Arial" ))
-	(pt 1536 328)
-	(pt 1648 328)
-)
-(connector
-	(text "TTCRX_CLR_BUSY" (rect 1554 328 1653 340)(font "Arial" ))
-	(pt 1536 344)
-	(pt 1648 344)
-)
-(connector
-	(pt 1888 216)
-	(pt 2000 216)
-)
-(connector
-	(text "TTC_READYn" (rect 1922 184 1992 196)(font "Arial" ))
-	(pt 1912 200)
-	(pt 2000 200)
-)
-(connector
-	(text "CLEAR_BUSY" (rect 1554 248 1627 260)(font "Arial" ))
-	(pt 1536 264)
-	(pt 1648 264)
-)
-(connector
-	(pt 1832 1904)
-	(pt 1896 1904)
-)
-(connector
-	(text "q[21..0]" (rect 2282 1832 2326 1847)(font "Century" (font_size 8)))
-	(pt 2272 1848)
-	(pt 2328 1848)
-	(bus)
-)
-(connector
-	(pt 1768 1792)
-	(pt 1760 1792)
-)
-(connector
-	(pt 1760 1792)
-	(pt 1760 1768)
-)
-(connector
-	(pt 1760 1768)
-	(pt 1744 1768)
-)
-(connector
-	(pt 1896 1792)
-	(pt 1832 1792)
-)
-(connector
-	(text "q[21]" (rect 1698 1920 1728 1935)(font "Century" (font_size 8)))
-	(pt 1688 1936)
-	(pt 1768 1936)
-)
-(connector
-	(text "L0_INT" (rect 1698 1888 1744 1903)(font "Century" (font_size 8)))
-	(pt 1688 1904)
-	(pt 1768 1904)
-)
-(connector
-	(text "CLOCK40" (rect 1698 1904 1760 1919)(font "Century" (font_size 8)))
-	(pt 1688 1920)
-	(pt 1768 1920)
-)
-(connector
-	(text "q[21]" (rect 1698 1808 1728 1823)(font "Century" (font_size 8)))
-	(pt 1688 1824)
-	(pt 1768 1824)
-)
-(connector
-	(text "CLOCK40" (rect 1698 1792 1760 1807)(font "Century" (font_size 8)))
-	(pt 1688 1808)
-	(pt 1768 1808)
-)
-(connector
-	(text "LOC_CSn" (rect 1610 1752 1671 1767)(font "Century" (font_size 8)))
-	(pt 1608 1768)
-	(pt 1696 1768)
-)
-(connector
-	(pt 1896 1856)
-	(pt 1928 1856)
-)
-(connector
-	(pt 1896 1840)
-	(pt 1928 1840)
-)
-(connector
-	(pt 1992 1848)
-	(pt 2080 1848)
-)
-(connector
-	(text "CLOCK40" (rect 2018 1848 2080 1863)(font "Century" (font_size 8)))
-	(pt 2008 1864)
-	(pt 2080 1864)
-)
-(connector
-	(text "DDL_RESETn" (rect 2016 1864 2085 1876)(font "Arial" ))
-	(pt 2008 1880)
-	(pt 2080 1880)
-)
-(connector
-	(pt 1896 1992)
-	(pt 1944 1992)
-)
-(connector
-	(pt 1896 1736)
-	(pt 1944 1736)
-)
-(connector
-	(pt 1896 1856)
-	(pt 1896 1904)
-)
-(connector
-	(pt 1896 1904)
-	(pt 1896 1992)
-)
-(connector
-	(pt 1896 1736)
-	(pt 1896 1792)
-)
-(connector
-	(pt 1896 1792)
-	(pt 1896 1840)
-)
-(connector
-	(text "fbD[31..0]" (rect 2010 1080 2065 1094)(font "Arial" (font_size 8)))
-	(pt 1968 1096)
-	(pt 2096 1096)
-	(bus)
+(symbol
+	(rect 1776 224 1808 240)
+	(text "VCC" (rect 7 0 27 10)(font "Arial" (font_size 6)))
+	(text "inst61" (rect 3 5 32 17)(font "Arial" )(invisible))
+	(port
+		(pt 16 16)
+		(output)
+		(text "1" (rect 19 7 24 19)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 19 7 24 19)(font "Courier New" (bold))(invisible))
+		(line (pt 16 16)(pt 16 8))
+	)
+	(drawing
+		(line (pt 8 8)(pt 24 8))
+	)
+)
+(symbol
+	(rect 1824 232 1888 312)
+	(text "DFFE" (rect 1 0 25 10)(font "Arial" (font_size 6)))
+	(text "inst60" (rect 3 68 32 80)(font "Arial" ))
+	(port
+		(pt 32 0)
+		(input)
+		(text "PRN" (rect 24 13 41 25)(font "Courier New" (bold)))
+		(text "PRN" (rect 24 11 41 23)(font "Courier New" (bold)))
+		(line (pt 32 4)(pt 32 0))
+	)
+	(port
+		(pt 32 80)
+		(input)
+		(text "CLRN" (rect 21 59 44 71)(font "Courier New" (bold)))
+		(text "CLRN" (rect 21 58 44 70)(font "Courier New" (bold)))
+		(line (pt 32 80)(pt 32 76))
+	)
+	(port
+		(pt 0 24)
+		(input)
+		(text "D" (rect 14 20 19 32)(font "Courier New" (bold)))
+		(text "D" (rect 14 20 19 32)(font "Courier New" (bold)))
+		(line (pt 0 24)(pt 12 24))
+	)
+	(port
+		(pt 0 40)
+		(input)
+		(text "CLK" (rect 2 28 19 40)(font "Courier New" (bold))(invisible))
+		(text "CLK" (rect 2 28 19 40)(font "Courier New" (bold))(invisible))
+		(line (pt 0 40)(pt 12 40))
+	)
+	(port
+		(pt 0 56)
+		(input)
+		(text "ENA" (rect 14 50 31 62)(font "Courier New" (bold)))
+		(text "ENA" (rect 14 50 31 62)(font "Courier New" (bold)))
+		(line (pt 0 56)(pt 12 56))
+	)
+	(port
+		(pt 64 24)
+		(output)
+		(text "Q" (rect 44 20 49 32)(font "Courier New" (bold)))
+		(text "Q" (rect 44 20 49 32)(font "Courier New" (bold)))
+		(line (pt 53 24)(pt 64 24))
+	)
+	(drawing
+		(line (pt 12 68)(pt 52 68))
+		(line (pt 12 12)(pt 52 12))
+		(line (pt 52 68)(pt 52 12))
+		(line (pt 12 68)(pt 12 12))
+		(line (pt 12 34)(pt 19 41))
+		(line (pt 18 41)(pt 12 47))
+		(circle (rect 28 4 36 12))
+		(circle (rect 28 68 36 76))
+	)
+)
+(symbol
+	(rect 1752 312 1816 360)
+	(text "AND2" (rect 1 0 25 10)(font "Arial" (font_size 6)))
+	(text "inst72" (rect 3 37 32 49)(font "Arial" ))
+	(port
+		(pt 0 16)
+		(input)
+		(text "IN1" (rect 2 7 19 19)(font "Courier New" (bold))(invisible))
+		(text "IN1" (rect 2 7 19 19)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 14 16))
+	)
+	(port
+		(pt 0 32)
+		(input)
+		(text "IN2" (rect 2 23 19 35)(font "Courier New" (bold))(invisible))
+		(text "IN2" (rect 2 23 19 35)(font "Courier New" (bold))(invisible))
+		(line (pt 0 32)(pt 14 32))
+	)
+	(port
+		(pt 64 24)
+		(output)
+		(text "OUT" (rect 48 15 65 27)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 48 15 65 27)(font "Courier New" (bold))(invisible))
+		(line (pt 42 24)(pt 64 24))
+	)
+	(drawing
+		(line (pt 14 12)(pt 30 12))
+		(line (pt 14 37)(pt 31 37))
+		(line (pt 14 12)(pt 14 37))
+		(arc (pt 31 37)(pt 30 12)(rect 18 12 43 37))
+	)
 )
 (connector
 	(text "L0_EXT_NIM" (rect 1938 -336 2000 -324)(font "Arial" ))
@@ -4609,11 +4147,6 @@ applicable agreement for further details.
 	(bus)
 )
 (connector
-	(text "TTCRX_RESETn" (rect 856 -240 937 -228)(font "Arial" ))
-	(pt 848 -224)
-	(pt 944 -224)
-)
-(connector
 	(text "fbD[31..0]" (rect 184 -288 239 -274)(font "Arial" (font_size 8)))
 	(pt 168 -272)
 	(pt 256 -272)
@@ -4648,10 +4181,6 @@ applicable agreement for further details.
 	(text "DDL_BUSY_RESET" (rect 858 -256 958 -244)(font "Arial" ))
 	(pt 848 -240)
 	(pt 1008 -240)
-)
-(connector
-	(pt 992 -224)
-	(pt 1008 -224)
 )
 (connector
 	(pt 24 256)
@@ -4754,406 +4283,6 @@ applicable agreement for further details.
 	(pt 672 208)
 )
 (connector
-	(pt 1704 656)
-	(pt 1704 712)
-)
-(connector
-	(text "DDL_RESETn" (rect 1674 736 1743 748)(font "Arial" ))
-	(pt 1760 752)
-	(pt 1664 752)
-)
-(connector
-	(pt 1760 680)
-	(pt 1760 752)
-)
-(connector
-	(pt 1616 712)
-	(pt 1704 712)
-)
-(connector
-	(text "SET_L0_VETO" (rect 1650 608 1721 620)(font "Arial" ))
-	(pt 1640 624)
-	(pt 1728 624)
-)
-(connector
-	(pt 1704 656)
-	(pt 1728 656)
-)
-(connector
-	(text "CLOCK40" (rect 1648 624 1697 636)(font "Arial" ))
-	(pt 1638 640)
-	(pt 1728 640)
-)
-(connector
-	(text "CLEAR_BUSY" (rect 1450 656 1531 670)(font "Arial" (font_size 8)))
-	(pt 1432 672)
-	(pt 1552 672)
-)
-(connector
-	(text "TTC_COM_RESET" (rect 1450 688 1542 700)(font "Arial" ))
-	(pt 1432 704)
-	(pt 1552 704)
-)
-(connector
-	(text "FECTRL" (rect 1456 672 1498 684)(font "Arial" ))
-	(pt 1432 688)
-	(pt 1552 688)
-)
-(connector
-	(text "TTCRX_RESET" (rect 1450 704 1525 716)(font "Arial" ))
-	(pt 1432 720)
-	(pt 1552 720)
-)
-(connector
-	(text "DDL_BUSY_RESET" (rect 1448 720 1548 732)(font "Arial" ))
-	(pt 1432 736)
-	(pt 1552 736)
-)
-(connector
-	(text "TTCRX_CLR_BUSY" (rect 1450 736 1549 748)(font "Arial" ))
-	(pt 1432 752)
-	(pt 1552 752)
-)
-(connector
-	(pt 1792 624)
-	(pt 1808 624)
-)
-(connector
-	(text "L0_VETO_N" (rect 1904 608 1964 620)(font "Arial" ))
-	(pt 1856 624)
-	(pt 2008 624)
-)
-(connector
-	(pt 472 2104)
-	(pt 472 2112)
-)
-(connector
-	(pt 368 2112)
-	(pt 368 2048)
-)
-(connector
-	(pt 736 2104)
-	(pt 736 2112)
-)
-(connector
-	(pt 600 2104)
-	(pt 600 2112)
-)
-(connector
-	(pt 872 2112)
-	(pt 872 2104)
-)
-(connector
-	(pt 472 2264)
-	(pt 472 2272)
-)
-(connector
-	(pt 368 2272)
-	(pt 368 2208)
-)
-(connector
-	(pt 736 2264)
-	(pt 736 2272)
-)
-(connector
-	(pt 600 2264)
-	(pt 600 2272)
-)
-(connector
-	(pt 872 2272)
-	(pt 872 2264)
-)
-(connector
-	(text "TTCRX_RESET" (rect 1058 2032 1133 2044)(font "Arial" ))
-	(pt 1048 2048)
-	(pt 1184 2048)
-)
-(connector
-	(text "TTCRX_CLR_BUSY" (rect 1074 2192 1173 2204)(font "Arial" ))
-	(pt 1184 2208)
-	(pt 1064 2208)
-)
-(connector
-	(text "CLOCK40" (rect 170 2048 219 2060)(font "Arial" ))
-	(pt 160 2064)
-	(pt 232 2064)
-)
-(connector
-	(pt 136 2048)
-	(pt 232 2048)
-)
-(connector
-	(text "CLOCK10" (rect 386 2048 435 2060)(font "Arial" ))
-	(pt 392 2064)
-	(pt 440 2064)
-)
-(connector
-	(text "CLOCK10" (rect 512 2048 561 2060)(font "Arial" ))
-	(pt 528 2064)
-	(pt 568 2064)
-)
-(connector
-	(pt 504 2048)
-	(pt 568 2048)
-)
-(connector
-	(text "CLOCK10" (rect 648 2048 697 2060)(font "Arial" ))
-	(pt 664 2064)
-	(pt 704 2064)
-)
-(connector
-	(pt 632 2048)
-	(pt 704 2048)
-)
-(connector
-	(text "CLOCK10" (rect 784 2048 833 2060)(font "Arial" ))
-	(pt 808 2064)
-	(pt 840 2064)
-)
-(connector
-	(pt 768 2048)
-	(pt 840 2048)
-)
-(connector
-	(text "CLOCK40" (rect 170 2208 219 2220)(font "Arial" ))
-	(pt 160 2224)
-	(pt 232 2224)
-)
-(connector
-	(pt 136 2208)
-	(pt 232 2208)
-)
-(connector
-	(text "CLOCK10" (rect 386 2208 435 2220)(font "Arial" ))
-	(pt 392 2224)
-	(pt 440 2224)
-)
-(connector
-	(text "CLOCK10" (rect 512 2208 561 2220)(font "Arial" ))
-	(pt 528 2224)
-	(pt 568 2224)
-)
-(connector
-	(pt 504 2208)
-	(pt 568 2208)
-)
-(connector
-	(text "CLOCK10" (rect 648 2208 697 2220)(font "Arial" ))
-	(pt 664 2224)
-	(pt 704 2224)
-)
-(connector
-	(pt 632 2208)
-	(pt 704 2208)
-)
-(connector
-	(text "CLOCK10" (rect 784 2208 833 2220)(font "Arial" ))
-	(pt 808 2224)
-	(pt 840 2224)
-)
-(connector
-	(pt 768 2208)
-	(pt 840 2208)
-)
-(connector
-	(text "TTCRX_CLRn_BUSY" (rect 914 2192 1019 2204)(font "Arial" ))
-	(pt 904 2208)
-	(pt 1016 2208)
-)
-(connector
-	(text "TTCRX_RESETn" (rect 914 2032 995 2044)(font "Arial" ))
-	(pt 904 2048)
-	(pt 1000 2048)
-)
-(connector
-	(text "DQ[3..0]" (rect -238 2032 -196 2044)(font "Arial" ))
-	(pt -248 2048)
-	(pt -112 2048)
-	(bus)
-)
-(connector
-	(text "D_Str" (rect -238 2048 -210 2060)(font "Arial" ))
-	(pt -248 2064)
-	(pt -112 2064)
-)
-(connector
-	(text "SA[7..4]" (rect -238 2064 -198 2076)(font "Arial" ))
-	(pt -248 2080)
-	(pt -112 2080)
-	(bus)
-)
-(connector
-	(text "DQ[3..0]" (rect -246 2192 -204 2204)(font "Arial" ))
-	(pt -256 2208)
-	(pt -120 2208)
-	(bus)
-)
-(connector
-	(text "D_Str" (rect -246 2208 -218 2220)(font "Arial" ))
-	(pt -256 2224)
-	(pt -120 2224)
-)
-(connector
-	(text "SA[7..4]" (rect -246 2224 -206 2236)(font "Arial" ))
-	(pt -256 2240)
-	(pt -120 2240)
-	(bus)
-)
-(connector
-	(pt 368 2112)
-	(pt 472 2112)
-)
-(connector
-	(pt 472 2112)
-	(pt 600 2112)
-)
-(connector
-	(pt 600 2112)
-	(pt 736 2112)
-)
-(connector
-	(pt 736 2112)
-	(pt 872 2112)
-)
-(connector
-	(pt 368 2272)
-	(pt 472 2272)
-)
-(connector
-	(pt 472 2272)
-	(pt 600 2272)
-)
-(connector
-	(pt 600 2272)
-	(pt 736 2272)
-)
-(connector
-	(pt 736 2272)
-	(pt 872 2272)
-)
-(connector
-	(pt 296 2048)
-	(pt 368 2048)
-)
-(connector
-	(pt 368 2048)
-	(pt 440 2048)
-)
-(connector
-	(pt 296 2208)
-	(pt 368 2208)
-)
-(connector
-	(pt 368 2208)
-	(pt 440 2208)
-)
-(connector
-	(pt 488 2552)
-	(pt 488 2560)
-)
-(connector
-	(pt 384 2560)
-	(pt 384 2496)
-)
-(connector
-	(pt 752 2552)
-	(pt 752 2560)
-)
-(connector
-	(pt 616 2552)
-	(pt 616 2560)
-)
-(connector
-	(pt 888 2560)
-	(pt 888 2552)
-)
-(connector
-	(text "fbD[31..0]" (rect 170 2464 225 2478)(font "Arial" (font_size 8)))
-	(pt 160 2480)
-	(pt 288 2480)
-	(bus)
-)
-(connector
-	(text "DDL_RESETn" (rect 928 2480 997 2492)(font "Arial" ))
-	(pt 920 2496)
-	(pt 1000 2496)
-)
-(connector
-	(pt 384 2560)
-	(pt 488 2560)
-)
-(connector
-	(pt 488 2560)
-	(pt 616 2560)
-)
-(connector
-	(pt 616 2560)
-	(pt 752 2560)
-)
-(connector
-	(pt 752 2560)
-	(pt 888 2560)
-)
-(connector
-	(pt 160 2496)
-	(pt 384 2496)
-)
-(connector
-	(text "TTCRX_RESETn" (rect -270 2472 -189 2484)(font "Arial" ))
-	(pt -304 2488)
-	(pt -176 2488)
-)
-(connector
-	(text "DDL_BUSY_RESETn" (rect -288 2488 -182 2500)(font "Arial" ))
-	(pt -304 2504)
-	(pt -176 2504)
-)
-(connector
-	(text "CLOCK40" (rect -78 2464 -29 2476)(font "Arial" ))
-	(pt -88 2480)
-	(pt -8 2480)
-)
-(connector
-	(pt -112 2496)
-	(pt -8 2496)
-)
-(connector
-	(text "CLOCK10" (rect 402 2496 451 2508)(font "Arial" ))
-	(pt 408 2512)
-	(pt 456 2512)
-)
-(connector
-	(pt 384 2496)
-	(pt 456 2496)
-)
-(connector
-	(text "CLOCK10" (rect 528 2496 577 2508)(font "Arial" ))
-	(pt 544 2512)
-	(pt 584 2512)
-)
-(connector
-	(pt 520 2496)
-	(pt 584 2496)
-)
-(connector
-	(text "CLOCK10" (rect 664 2496 713 2508)(font "Arial" ))
-	(pt 680 2512)
-	(pt 720 2512)
-)
-(connector
-	(pt 648 2496)
-	(pt 720 2496)
-)
-(connector
-	(text "CLOCK10" (rect 800 2496 849 2508)(font "Arial" ))
-	(pt 824 2512)
-	(pt 856 2512)
-)
-(connector
-	(pt 784 2496)
-	(pt 856 2496)
-)
-(connector
 	(text "fiLFn_int" (rect -664 840 -616 854)(font "Arial" (font_size 8)))
 	(pt -672 856)
 	(pt -616 856)
@@ -5177,359 +4306,1348 @@ applicable agreement for further details.
 	(pt -776 616)
 )
 (connector
-	(text "DDL_BUSY_RESETn" (rect 568 1456 674 1468)(font "Arial" ))
-	(pt 560 1472)
-	(pt 680 1472)
+	(pt 1832 2168)
+	(pt 1896 2168)
 )
 (connector
-	(text "TTCRX_RESETn_COUNTER[31..0]" (rect 706 1656 879 1668)(font "Arial" ))
-	(pt 864 1672)
-	(pt 696 1672)
+	(text "q[21..0]" (rect 2282 2096 2326 2111)(font "Century" (font_size 8)))
+	(pt 2272 2112)
+	(pt 2328 2112)
 	(bus)
 )
 (connector
-	(pt -392 1488)
-	(pt -400 1488)
+	(pt 1768 2056)
+	(pt 1760 2056)
 )
 (connector
-	(pt -400 1488)
-	(pt -400 1472)
+	(pt 1760 2056)
+	(pt 1760 2032)
 )
 (connector
-	(pt -392 1504)
-	(pt -400 1504)
+	(pt 1760 2032)
+	(pt 1744 2032)
 )
 (connector
-	(pt -400 1504)
-	(pt -400 1520)
+	(pt 1896 2056)
+	(pt 1832 2056)
 )
 (connector
-	(text "ENA_L2LOOP" (rect -278 1504 -209 1516)(font "Arial" ))
-	(pt -288 1520)
-	(pt -208 1520)
+	(text "q[21]" (rect 1698 2184 1728 2199)(font "Century" (font_size 8)))
+	(pt 1688 2200)
+	(pt 1768 2200)
 )
 (connector
-	(pt 680 1424)
-	(pt 680 1440)
+	(text "L0_INT" (rect 1698 2152 1744 2167)(font "Century" (font_size 8)))
+	(pt 1688 2168)
+	(pt 1768 2168)
 )
 (connector
-	(pt 680 1440)
-	(pt 688 1440)
+	(text "CLOCK40" (rect 1698 2168 1760 2183)(font "Century" (font_size 8)))
+	(pt 1688 2184)
+	(pt 1768 2184)
 )
 (connector
-	(pt 680 1472)
-	(pt 680 1456)
+	(text "q[21]" (rect 1698 2072 1728 2087)(font "Century" (font_size 8)))
+	(pt 1688 2088)
+	(pt 1768 2088)
 )
 (connector
-	(pt 680 1456)
-	(pt 688 1456)
+	(text "CLOCK40" (rect 1698 2056 1760 2071)(font "Century" (font_size 8)))
+	(pt 1688 2072)
+	(pt 1768 2072)
 )
 (connector
-	(text "L1A_LATENCY[7..0]" (rect -94 1640 7 1652)(font "Arial" ))
-	(pt -104 1656)
-	(pt 16 1656)
+	(text "LOC_CSn" (rect 1610 2016 1671 2031)(font "Century" (font_size 8)))
+	(pt 1608 2032)
+	(pt 1696 2032)
+)
+(connector
+	(pt 1896 2120)
+	(pt 1928 2120)
+)
+(connector
+	(pt 1896 2104)
+	(pt 1928 2104)
+)
+(connector
+	(pt 1992 2112)
+	(pt 2080 2112)
+)
+(connector
+	(text "CLOCK40" (rect 2018 2112 2080 2127)(font "Century" (font_size 8)))
+	(pt 2008 2128)
+	(pt 2080 2128)
+)
+(connector
+	(text "DDL_RESETn" (rect 2016 2128 2085 2140)(font "Arial" ))
+	(pt 2008 2144)
+	(pt 2080 2144)
+)
+(connector
+	(pt 1896 2256)
+	(pt 1944 2256)
+)
+(connector
+	(pt 1896 2000)
+	(pt 1944 2000)
+)
+(connector
+	(pt 1896 2120)
+	(pt 1896 2168)
+)
+(connector
+	(pt 1896 2168)
+	(pt 1896 2256)
+)
+(connector
+	(pt 1896 2000)
+	(pt 1896 2056)
+)
+(connector
+	(pt 1896 2056)
+	(pt 1896 2104)
+)
+(connector
+	(pt 472 2280)
+	(pt 472 2288)
+)
+(connector
+	(pt 368 2288)
+	(pt 368 2224)
+)
+(connector
+	(pt 736 2280)
+	(pt 736 2288)
+)
+(connector
+	(pt 600 2280)
+	(pt 600 2288)
+)
+(connector
+	(pt 872 2288)
+	(pt 872 2280)
+)
+(connector
+	(pt 472 2440)
+	(pt 472 2448)
+)
+(connector
+	(pt 368 2448)
+	(pt 368 2384)
+)
+(connector
+	(pt 736 2440)
+	(pt 736 2448)
+)
+(connector
+	(pt 600 2440)
+	(pt 600 2448)
+)
+(connector
+	(pt 872 2448)
+	(pt 872 2440)
+)
+(connector
+	(text "TTCRX_RESET" (rect 1058 2208 1133 2220)(font "Arial" ))
+	(pt 1048 2224)
+	(pt 1184 2224)
+)
+(connector
+	(text "TTCRX_CLR_BUSY" (rect 1074 2368 1173 2380)(font "Arial" ))
+	(pt 1184 2384)
+	(pt 1064 2384)
+)
+(connector
+	(text "CLOCK40" (rect 170 2224 219 2236)(font "Arial" ))
+	(pt 160 2240)
+	(pt 232 2240)
+)
+(connector
+	(pt 136 2224)
+	(pt 232 2224)
+)
+(connector
+	(text "CLOCK10" (rect 386 2224 435 2236)(font "Arial" ))
+	(pt 392 2240)
+	(pt 440 2240)
+)
+(connector
+	(text "CLOCK10" (rect 512 2224 561 2236)(font "Arial" ))
+	(pt 528 2240)
+	(pt 568 2240)
+)
+(connector
+	(pt 504 2224)
+	(pt 568 2224)
+)
+(connector
+	(text "CLOCK10" (rect 648 2224 697 2236)(font "Arial" ))
+	(pt 664 2240)
+	(pt 704 2240)
+)
+(connector
+	(pt 632 2224)
+	(pt 704 2224)
+)
+(connector
+	(text "CLOCK10" (rect 784 2224 833 2236)(font "Arial" ))
+	(pt 808 2240)
+	(pt 840 2240)
+)
+(connector
+	(pt 768 2224)
+	(pt 840 2224)
+)
+(connector
+	(text "CLOCK40" (rect 170 2384 219 2396)(font "Arial" ))
+	(pt 160 2400)
+	(pt 232 2400)
+)
+(connector
+	(pt 136 2384)
+	(pt 232 2384)
+)
+(connector
+	(text "CLOCK10" (rect 386 2384 435 2396)(font "Arial" ))
+	(pt 392 2400)
+	(pt 440 2400)
+)
+(connector
+	(text "CLOCK10" (rect 512 2384 561 2396)(font "Arial" ))
+	(pt 528 2400)
+	(pt 568 2400)
+)
+(connector
+	(pt 504 2384)
+	(pt 568 2384)
+)
+(connector
+	(text "CLOCK10" (rect 648 2384 697 2396)(font "Arial" ))
+	(pt 664 2400)
+	(pt 704 2400)
+)
+(connector
+	(pt 632 2384)
+	(pt 704 2384)
+)
+(connector
+	(text "CLOCK10" (rect 784 2384 833 2396)(font "Arial" ))
+	(pt 808 2400)
+	(pt 840 2400)
+)
+(connector
+	(pt 768 2384)
+	(pt 840 2384)
+)
+(connector
+	(text "TTCRX_CLRn_BUSY" (rect 914 2368 1019 2380)(font "Arial" ))
+	(pt 904 2384)
+	(pt 1016 2384)
+)
+(connector
+	(text "TTCRX_RESETn" (rect 914 2208 995 2220)(font "Arial" ))
+	(pt 904 2224)
+	(pt 1000 2224)
+)
+(connector
+	(text "DQ[3..0]" (rect -238 2208 -196 2220)(font "Arial" ))
+	(pt -248 2224)
+	(pt -112 2224)
 	(bus)
 )
 (connector
-	(text "ERROR_BIT_ENA" (rect -94 1656 -2 1668)(font "Arial" ))
-	(pt -104 1672)
-	(pt 16 1672)
+	(text "D_Str" (rect -238 2224 -210 2236)(font "Arial" ))
+	(pt -248 2240)
+	(pt -112 2240)
 )
 (connector
-	(text "D_Str" (rect -262 1520 -234 1532)(font "Arial" ))
-	(pt -288 1536)
-	(pt -208 1536)
-)
-(connector
-	(text "DDL_BUSY_RESETn" (rect -512 1504 -406 1516)(font "Arial" ))
-	(pt -528 1520)
-	(pt -400 1520)
-)
-(connector
-	(text "TTCRX_RESETn" (rect -494 1480 -413 1492)(font "Arial" ))
-	(pt -528 1496)
-	(pt -392 1496)
-)
-(connector
-	(text "DDL_RESETn" (rect -494 1456 -425 1468)(font "Arial" ))
-	(pt -528 1472)
-	(pt -400 1472)
-)
-(connector
-	(text "L0_INT" (rect -70 1608 -35 1620)(font "Arial" ))
-	(pt -104 1624)
-	(pt 16 1624)
-)
-(connector
-	(text "BCNTSTR" (rect -78 1576 -28 1588)(font "Arial" ))
-	(pt -104 1592)
-	(pt 16 1592)
-)
-(connector
-	(text "BCNT[11..0]" (rect -78 1560 -17 1572)(font "Arial" ))
-	(pt -104 1576)
-	(pt 16 1576)
+	(text "SA[7..4]" (rect -238 2240 -198 2252)(font "Arial" ))
+	(pt -248 2256)
+	(pt -112 2256)
 	(bus)
 )
 (connector
-	(text "SA[3..0],D[7..0]" (rect -78 1544 -1 1556)(font "Arial" ))
-	(pt -104 1560)
-	(pt 16 1560)
+	(text "DQ[3..0]" (rect -246 2368 -204 2380)(font "Arial" ))
+	(pt -256 2384)
+	(pt -120 2384)
 	(bus)
 )
 (connector
-	(text "SA[7..4]" (rect -78 1528 -38 1540)(font "Arial" ))
-	(pt -104 1544)
-	(pt 16 1544)
+	(text "D_Str" (rect -246 2384 -218 2396)(font "Arial" ))
+	(pt -256 2400)
+	(pt -120 2400)
+)
+(connector
+	(text "SA[7..4]" (rect -246 2400 -206 2412)(font "Arial" ))
+	(pt -256 2416)
+	(pt -120 2416)
 	(bus)
 )
 (connector
-	(text "DQ[3..0]" (rect -78 1496 -36 1508)(font "Arial" ))
-	(pt -104 1512)
-	(pt 16 1512)
+	(pt 488 2728)
+	(pt 488 2736)
+)
+(connector
+	(pt 384 2736)
+	(pt 384 2672)
+)
+(connector
+	(pt 752 2728)
+	(pt 752 2736)
+)
+(connector
+	(pt 616 2728)
+	(pt 616 2736)
+)
+(connector
+	(pt 888 2736)
+	(pt 888 2728)
+)
+(connector
+	(text "fbD[31..0]" (rect 170 2640 225 2654)(font "Arial" (font_size 8)))
+	(pt 160 2656)
+	(pt 288 2656)
 	(bus)
 )
 (connector
-	(text "CLOCK40" (rect -78 1464 -29 1476)(font "Arial" ))
-	(pt -104 1480)
-	(pt 16 1480)
+	(text "DDL_RESETn" (rect 928 2656 997 2668)(font "Arial" ))
+	(pt 920 2672)
+	(pt 1000 2672)
 )
 (connector
-	(text "ENA_L2LOOP" (rect -278 1584 -209 1596)(font "Arial" ))
-	(pt -288 1600)
-	(pt -208 1600)
+	(text "TTCRX_RESETn" (rect -270 2648 -189 2660)(font "Arial" ))
+	(pt -304 2664)
+	(pt -176 2664)
 )
 (connector
-	(text "L1A" (rect -254 1600 -234 1612)(font "Arial" ))
-	(pt -288 1616)
-	(pt -208 1616)
+	(text "DDL_BUSY_RESETn" (rect -288 2664 -182 2676)(font "Arial" ))
+	(pt -304 2680)
+	(pt -176 2680)
 )
 (connector
-	(text "DDL_RESETn" (rect 586 1408 655 1420)(font "Arial" ))
-	(pt 560 1424)
-	(pt 680 1424)
+	(text "CLOCK40" (rect -78 2640 -29 2652)(font "Arial" ))
+	(pt -88 2656)
+	(pt -8 2656)
 )
 (connector
-	(text "TTCRX_RESETn" (rect 578 1432 659 1444)(font "Arial" ))
-	(pt 560 1448)
-	(pt 688 1448)
+	(pt -112 2672)
+	(pt -8 2672)
 )
 (connector
-	(pt 752 1448)
-	(pt 760 1448)
+	(text "CLOCK10" (rect 402 2672 451 2684)(font "Arial" ))
+	(pt 408 2688)
+	(pt 456 2688)
 )
 (connector
-	(pt 760 1448)
-	(pt 760 1480)
+	(text "CLOCK10" (rect 528 2672 577 2684)(font "Arial" ))
+	(pt 544 2688)
+	(pt 584 2688)
 )
 (connector
-	(pt 760 1480)
-	(pt 864 1480)
+	(pt 520 2672)
+	(pt 584 2672)
 )
 (connector
-	(text "RST_SEQ_ERR_FLAG" (rect -102 1624 11 1636)(font "Arial" ))
-	(pt -104 1640)
-	(pt 16 1640)
+	(text "CLOCK10" (rect 664 2672 713 2684)(font "Arial" ))
+	(pt 680 2688)
+	(pt 720 2688)
 )
 (connector
-	(text "ERROR_BIT[15..0]" (rect 706 1672 800 1684)(font "Arial" ))
+	(pt 648 2672)
+	(pt 720 2672)
+)
+(connector
+	(text "CLOCK10" (rect 800 2672 849 2684)(font "Arial" ))
+	(pt 824 2688)
+	(pt 856 2688)
+)
+(connector
+	(pt 784 2672)
+	(pt 856 2672)
+)
+(connector
+	(pt 368 2288)
+	(pt 472 2288)
+)
+(connector
+	(pt 472 2288)
+	(pt 600 2288)
+)
+(connector
+	(pt 600 2288)
+	(pt 736 2288)
+)
+(connector
+	(pt 736 2288)
+	(pt 872 2288)
+)
+(connector
+	(pt 368 2448)
+	(pt 472 2448)
+)
+(connector
+	(pt 472 2448)
+	(pt 600 2448)
+)
+(connector
+	(pt 600 2448)
+	(pt 736 2448)
+)
+(connector
+	(pt 736 2448)
+	(pt 872 2448)
+)
+(connector
+	(pt 296 2224)
+	(pt 368 2224)
+)
+(connector
+	(pt 368 2224)
+	(pt 440 2224)
+)
+(connector
+	(pt 296 2384)
+	(pt 368 2384)
+)
+(connector
+	(pt 368 2384)
+	(pt 440 2384)
+)
+(connector
+	(pt 384 2736)
+	(pt 488 2736)
+)
+(connector
+	(pt 488 2736)
+	(pt 616 2736)
+)
+(connector
+	(pt 616 2736)
+	(pt 752 2736)
+)
+(connector
+	(pt 752 2736)
+	(pt 888 2736)
+)
+(connector
+	(pt 160 2672)
+	(pt 384 2672)
+)
+(connector
+	(pt 384 2672)
+	(pt 456 2672)
+)
+(connector
+	(pt 2032 1680)
+	(pt 2104 1680)
+)
+(connector
+	(pt 1928 1608)
+	(pt 1912 1608)
+)
+(connector
+	(pt 1984 1680)
+	(pt 1880 1680)
+)
+(connector
+	(text "int_fbTENn" (rect 1736 1656 1797 1670)(font "Arial" (font_size 8)))
+	(pt 1736 1672)
+	(pt 1816 1672)
+)
+(connector
+	(pt 2104 1608)
+	(pt 1976 1608)
+)
+(connector
+	(pt 1728 1688)
+	(pt 1816 1688)
+)
+(connector
+	(pt 1864 1608)
+	(pt 1840 1608)
+)
+(connector
+	(text "int_fbCTRLn" (rect 1696 1592 1765 1606)(font "Arial" (font_size 8)))
+	(pt 1688 1608)
+	(pt 1792 1608)
+)
+(connector
+	(text "CLOCK40" (rect 1936 1512 1991 1526)(font "Arial" (font_size 8)))
+	(pt 1920 1528)
+	(pt 2000 1528)
+)
+(connector
+	(pt 2048 1528)
+	(pt 2104 1528)
+)
+(connector
+	(text "DDL_BUSY_RESETn" (rect 568 1664 674 1676)(font "Arial" ))
+	(pt 560 1680)
+	(pt 680 1680)
+)
+(connector
+	(text "TTCRX_RESETn_COUNTER[31..0]" (rect 706 1864 879 1876)(font "Arial" ))
+	(pt 864 1880)
+	(pt 696 1880)
+	(bus)
+)
+(connector
+	(pt -392 1696)
+	(pt -400 1696)
+)
+(connector
+	(pt -400 1696)
+	(pt -400 1680)
+)
+(connector
+	(pt -392 1712)
+	(pt -400 1712)
+)
+(connector
+	(pt -400 1712)
+	(pt -400 1728)
+)
+(connector
+	(text "ENA_L2LOOP" (rect -278 1712 -209 1724)(font "Arial" ))
+	(pt -288 1728)
+	(pt -208 1728)
+)
+(connector
+	(pt 680 1632)
+	(pt 680 1648)
+)
+(connector
+	(pt 680 1648)
+	(pt 688 1648)
+)
+(connector
+	(pt 680 1680)
+	(pt 680 1664)
+)
+(connector
+	(pt 680 1664)
+	(pt 688 1664)
+)
+(connector
+	(text "L1A_LATENCY[7..0]" (rect -94 1848 7 1860)(font "Arial" ))
+	(pt -104 1864)
+	(pt 16 1864)
+	(bus)
+)
+(connector
+	(text "ERROR_BIT_ENA" (rect -94 1864 -2 1876)(font "Arial" ))
+	(pt -104 1880)
+	(pt 16 1880)
+)
+(connector
+	(text "D_Str" (rect -262 1728 -234 1740)(font "Arial" ))
+	(pt -288 1744)
+	(pt -208 1744)
+)
+(connector
+	(text "DDL_BUSY_RESETn" (rect -512 1712 -406 1724)(font "Arial" ))
+	(pt -528 1728)
+	(pt -400 1728)
+)
+(connector
+	(text "TTCRX_RESETn" (rect -494 1688 -413 1700)(font "Arial" ))
+	(pt -528 1704)
+	(pt -392 1704)
+)
+(connector
+	(text "DDL_RESETn" (rect -494 1664 -425 1676)(font "Arial" ))
+	(pt -528 1680)
+	(pt -400 1680)
+)
+(connector
+	(text "L0_INT" (rect -70 1816 -35 1828)(font "Arial" ))
+	(pt -104 1832)
+	(pt 16 1832)
+)
+(connector
+	(text "BCNTSTR" (rect -78 1784 -28 1796)(font "Arial" ))
+	(pt -104 1800)
+	(pt 16 1800)
+)
+(connector
+	(text "BCNT[11..0]" (rect -78 1768 -17 1780)(font "Arial" ))
+	(pt -104 1784)
+	(pt 16 1784)
+	(bus)
+)
+(connector
+	(text "SA[3..0],D[7..0]" (rect -78 1752 -1 1764)(font "Arial" ))
+	(pt -104 1768)
+	(pt 16 1768)
+	(bus)
+)
+(connector
+	(text "SA[7..4]" (rect -78 1736 -38 1748)(font "Arial" ))
+	(pt -104 1752)
+	(pt 16 1752)
+	(bus)
+)
+(connector
+	(text "DQ[3..0]" (rect -78 1704 -36 1716)(font "Arial" ))
+	(pt -104 1720)
+	(pt 16 1720)
+	(bus)
+)
+(connector
+	(text "CLOCK40" (rect -78 1672 -29 1684)(font "Arial" ))
+	(pt -104 1688)
+	(pt 16 1688)
+)
+(connector
+	(text "ENA_L2LOOP" (rect -278 1792 -209 1804)(font "Arial" ))
+	(pt -288 1808)
+	(pt -208 1808)
+)
+(connector
+	(text "L1A" (rect -254 1808 -234 1820)(font "Arial" ))
+	(pt -288 1824)
+	(pt -208 1824)
+)
+(connector
+	(text "DDL_RESETn" (rect 586 1616 655 1628)(font "Arial" ))
+	(pt 560 1632)
+	(pt 680 1632)
+)
+(connector
+	(text "TTCRX_RESETn" (rect 578 1640 659 1652)(font "Arial" ))
+	(pt 560 1656)
+	(pt 688 1656)
+)
+(connector
+	(pt 752 1656)
+	(pt 760 1656)
+)
+(connector
+	(pt 760 1656)
+	(pt 760 1688)
+)
+(connector
+	(pt 760 1688)
 	(pt 864 1688)
-	(pt 696 1688)
+)
+(connector
+	(text "RST_SEQ_ERR_FLAG" (rect -102 1832 11 1844)(font "Arial" ))
+	(pt -104 1848)
+	(pt 16 1848)
+)
+(connector
+	(text "ERROR_BIT[15..0]" (rect 706 1880 800 1892)(font "Arial" ))
+	(pt 864 1896)
+	(pt 696 1896)
 	(bus)
 )
 (connector
-	(text "HMPID_CDH_ENA" (rect 730 1688 825 1700)(font "Arial" ))
-	(pt 696 1704)
+	(text "HMPID_CDH_ENA" (rect 730 1896 825 1908)(font "Arial" ))
+	(pt 696 1912)
+	(pt 864 1912)
+)
+(connector
+	(text "CLOCK40" (rect 802 1656 857 1670)(font "Arial" (font_size 8)))
+	(pt 784 1672)
+	(pt 864 1672)
+)
+(connector
+	(text "HEADER_ENA" (rect 792 1688 872 1702)(font "Arial" (font_size 8)))
+	(pt 784 1704)
 	(pt 864 1704)
 )
 (connector
-	(text "CLOCK40" (rect 802 1448 857 1462)(font "Arial" (font_size 8)))
-	(pt 784 1464)
-	(pt 864 1464)
+	(pt -328 1704)
+	(pt 16 1704)
 )
 (connector
-	(text "HEADER_ENA" (rect 792 1480 872 1494)(font "Arial" (font_size 8)))
-	(pt 784 1496)
-	(pt 864 1496)
+	(pt -144 1736)
+	(pt 16 1736)
 )
 (connector
-	(pt -328 1496)
-	(pt 16 1496)
+	(pt -144 1816)
+	(pt 16 1816)
 )
 (connector
-	(pt -144 1528)
-	(pt 16 1528)
+	(pt 1200 1688)
+	(pt 1680 1688)
 )
 (connector
-	(pt -144 1608)
-	(pt 16 1608)
+	(text "END_HEADER_WR" (rect 1210 1688 1316 1702)(font "Arial" (font_size 8)))
+	(pt 1200 1704)
+	(pt 1304 1704)
 )
 (connector
-	(pt 1200 1480)
-	(pt 1680 1480)
-)
-(connector
-	(text "END_HEADER_WR" (rect 1210 1480 1316 1494)(font "Arial" (font_size 8)))
-	(pt 1200 1496)
-	(pt 1304 1496)
-)
-(connector
-	(text "fbD[31..0]" (rect 1208 1448 1263 1462)(font "Arial" (font_size 8)))
-	(pt 1200 1464)
-	(pt 1304 1464)
+	(text "fbD[31..0]" (rect 1208 1656 1263 1670)(font "Arial" (font_size 8)))
+	(pt 1200 1672)
+	(pt 1304 1672)
 	(bus)
 )
 (connector
-	(text "L2_PULSE" (rect 338 1464 391 1476)(font "Arial" ))
-	(pt 328 1480)
-	(pt 496 1480)
-)
-(connector
-	(text "SEQ_ERR_FLAG" (rect 338 1480 424 1492)(font "Arial" ))
-	(pt 328 1496)
-	(pt 496 1496)
-)
-(connector
-	(text "WORD0[31..0]" (rect 610 1496 683 1508)(font "Arial" ))
-	(pt 328 1512)
-	(pt 864 1512)
-	(bus)
-)
-(connector
-	(text "WORD1[31..0]" (rect 610 1512 683 1524)(font "Arial" ))
-	(pt 328 1528)
-	(pt 864 1528)
-	(bus)
-)
-(connector
-	(text "WORD2[31..0]" (rect 610 1528 683 1540)(font "Arial" ))
-	(pt 328 1544)
-	(pt 864 1544)
-	(bus)
-)
-(connector
-	(text "WORD3[31..0]" (rect 610 1544 683 1556)(font "Arial" ))
-	(pt 328 1560)
-	(pt 864 1560)
-	(bus)
-)
-(connector
-	(text "WORD4[31..0]" (rect 610 1560 683 1572)(font "Arial" ))
-	(pt 328 1576)
-	(pt 864 1576)
-	(bus)
-)
-(connector
-	(text "WORD5[31..0]" (rect 610 1576 683 1588)(font "Arial" ))
-	(pt 328 1592)
-	(pt 864 1592)
-	(bus)
-)
-(connector
-	(text "WORD6[31..0]" (rect 610 1592 683 1604)(font "Arial" ))
-	(pt 328 1608)
-	(pt 864 1608)
-	(bus)
-)
-(connector
-	(text "WORD7[31..0]" (rect 610 1608 683 1620)(font "Arial" ))
-	(pt 328 1624)
-	(pt 864 1624)
-	(bus)
-)
-(connector
-	(text "WORD8[31..0]" (rect 610 1624 683 1636)(font "Arial" ))
-	(pt 328 1640)
-	(pt 864 1640)
-	(bus)
-)
-(connector
-	(text "WORD9[31..0]" (rect 610 1640 683 1652)(font "Arial" ))
-	(pt 328 1656)
-	(pt 864 1656)
-	(bus)
-)
-(connector
-	(text "ERROR_BIT[15..0]" (rect 338 1656 432 1668)(font "Arial" ))
-	(pt 328 1672)
-	(pt 496 1672)
-	(bus)
-)
-(connector
-	(text "TTC_COM_RESET" (rect 338 1672 430 1684)(font "Arial" ))
+	(text "L2_PULSE" (rect 338 1672 391 1684)(font "Arial" ))
 	(pt 328 1688)
 	(pt 496 1688)
 )
 (connector
-	(text "CLOCK40" (rect 1960 520 2009 532)(font "Arial" ))
-	(pt 1952 536)
-	(pt 2008 536)
+	(text "SEQ_ERR_FLAG" (rect 338 1688 424 1700)(font "Arial" ))
+	(pt 328 1704)
+	(pt 496 1704)
 )
 (connector
-	(pt 1816 528)
-	(pt 1816 544)
+	(text "WORD0[31..0]" (rect 610 1704 683 1716)(font "Arial" ))
+	(pt 328 1720)
+	(pt 864 1720)
+	(bus)
 )
 (connector
-	(text "TTCRX_RESETn" (rect 1714 528 1795 540)(font "Arial" ))
-	(pt 1816 544)
-	(pt 1688 544)
+	(text "WORD1[31..0]" (rect 610 1720 683 1732)(font "Arial" ))
+	(pt 328 1736)
+	(pt 864 1736)
+	(bus)
 )
-(junction (pt 1952 1504))
-(junction (pt 1896 1904))
-(junction (pt 1896 1792))
+(connector
+	(text "WORD2[31..0]" (rect 610 1736 683 1748)(font "Arial" ))
+	(pt 328 1752)
+	(pt 864 1752)
+	(bus)
+)
+(connector
+	(text "WORD3[31..0]" (rect 610 1752 683 1764)(font "Arial" ))
+	(pt 328 1768)
+	(pt 864 1768)
+	(bus)
+)
+(connector
+	(text "WORD4[31..0]" (rect 610 1768 683 1780)(font "Arial" ))
+	(pt 328 1784)
+	(pt 864 1784)
+	(bus)
+)
+(connector
+	(text "WORD5[31..0]" (rect 610 1784 683 1796)(font "Arial" ))
+	(pt 328 1800)
+	(pt 864 1800)
+	(bus)
+)
+(connector
+	(text "WORD6[31..0]" (rect 610 1800 683 1812)(font "Arial" ))
+	(pt 328 1816)
+	(pt 864 1816)
+	(bus)
+)
+(connector
+	(text "WORD7[31..0]" (rect 610 1816 683 1828)(font "Arial" ))
+	(pt 328 1832)
+	(pt 864 1832)
+	(bus)
+)
+(connector
+	(text "WORD8[31..0]" (rect 610 1832 683 1844)(font "Arial" ))
+	(pt 328 1848)
+	(pt 864 1848)
+	(bus)
+)
+(connector
+	(text "WORD9[31..0]" (rect 610 1848 683 1860)(font "Arial" ))
+	(pt 328 1864)
+	(pt 864 1864)
+	(bus)
+)
+(connector
+	(text "ERROR_BIT[15..0]" (rect 338 1864 432 1876)(font "Arial" ))
+	(pt 328 1880)
+	(pt 496 1880)
+	(bus)
+)
+(connector
+	(text "TTC_COM_RESET" (rect 338 1880 430 1892)(font "Arial" ))
+	(pt 328 1896)
+	(pt 496 1896)
+)
+(connector
+	(text "tri_ctrl" (rect 1888 1696 1923 1710)(font "Arial" (font_size 8)))
+	(pt 1880 1712)
+	(pt 1952 1712)
+)
+(connector
+	(pt 1952 1712)
+	(pt 2008 1712)
+)
+(connector
+	(pt 2008 1696)
+	(pt 2008 1712)
+)
+(connector
+	(pt 1952 1624)
+	(pt 1952 1712)
+)
+(connector
+	(pt 2088 760)
+	(pt 2072 760)
+)
+(connector
+	(pt 1920 760)
+	(pt 2008 760)
+)
+(connector
+	(pt 1856 752)
+	(pt 1816 752)
+)
+(connector
+	(pt 1816 752)
+	(pt 1816 736)
+)
+(connector
+	(text "DDL_BUSY_RESETn" (rect 1698 744 1804 756)(font "Arial" ))
+	(pt 1856 760)
+	(pt 1688 760)
+)
+(connector
+	(pt 1856 768)
+	(pt 1816 768)
+)
+(connector
+	(text "DDL_RESETn" (rect 1714 720 1783 732)(font "Arial" ))
+	(pt 1688 736)
+	(pt 1816 736)
+)
+(connector
+	(pt 2096 872)
+	(pt 2072 872)
+)
+(connector
+	(text "L0_TO_COLUMN" (rect 1906 864 2001 878)(font "Arial" (font_size 8)))
+	(pt 1896 880)
+	(pt 2008 880)
+)
+(connector
+	(text "DISABLE_CLOCK_20" (rect 1842 1104 1949 1116)(font "Arial" ))
+	(pt 1832 1120)
+	(pt 1952 1120)
+)
+(connector
+	(text "CLOCK20" (rect 1890 1088 1939 1100)(font "Arial" ))
+	(pt 1832 1104)
+	(pt 1952 1104)
+)
+(connector
+	(pt 2016 1112)
+	(pt 2096 1112)
+)
+(connector
+	(text "LOC_CSn" (rect 2008 936 2063 950)(font "Arial" (font_size 8)))
+	(pt 2000 952)
+	(pt 2096 952)
+)
+(connector
+	(text "fo_BSYn" (rect 2010 1032 2061 1046)(font "Arial" (font_size 8)))
+	(pt 2000 1048)
+	(pt 2104 1048)
+)
+(connector
+	(text "LOC_Rn/W" (rect 2008 984 2070 998)(font "Arial" (font_size 8)))
+	(pt 2000 1000)
+	(pt 2096 1000)
+)
+(connector
+	(text "DATA_ADD[7..0]" (rect 1922 1160 2017 1174)(font "Arial" (font_size 8)))
+	(pt 1912 1176)
+	(pt 2096 1176)
+	(bus)
+)
+(connector
+	(text "fbD[31..0]" (rect 2010 1320 2065 1334)(font "Arial" (font_size 8)))
+	(pt 1968 1336)
+	(pt 2096 1336)
+	(bus)
+)
+(connector
+	(pt 1704 896)
+	(pt 1704 952)
+)
+(connector
+	(text "DDL_RESETn" (rect 1674 976 1743 988)(font "Arial" ))
+	(pt 1760 992)
+	(pt 1664 992)
+)
+(connector
+	(pt 1760 920)
+	(pt 1760 992)
+)
+(connector
+	(pt 1616 952)
+	(pt 1704 952)
+)
+(connector
+	(text "SET_L0_VETO" (rect 1650 848 1721 860)(font "Arial" ))
+	(pt 1640 864)
+	(pt 1728 864)
+)
+(connector
+	(pt 1704 896)
+	(pt 1728 896)
+)
+(connector
+	(text "CLOCK40" (rect 1648 864 1697 876)(font "Arial" ))
+	(pt 1638 880)
+	(pt 1728 880)
+)
+(connector
+	(text "CLEAR_BUSY" (rect 1450 896 1531 910)(font "Arial" (font_size 8)))
+	(pt 1432 912)
+	(pt 1552 912)
+)
+(connector
+	(text "TTC_COM_RESET" (rect 1450 928 1542 940)(font "Arial" ))
+	(pt 1432 944)
+	(pt 1552 944)
+)
+(connector
+	(text "FECTRL" (rect 1456 912 1498 924)(font "Arial" ))
+	(pt 1432 928)
+	(pt 1552 928)
+)
+(connector
+	(text "TTCRX_RESET" (rect 1450 944 1525 956)(font "Arial" ))
+	(pt 1432 960)
+	(pt 1552 960)
+)
+(connector
+	(text "DDL_BUSY_RESET" (rect 1448 960 1548 972)(font "Arial" ))
+	(pt 1432 976)
+	(pt 1552 976)
+)
+(connector
+	(text "TTCRX_CLR_BUSY" (rect 1450 976 1549 988)(font "Arial" ))
+	(pt 1432 992)
+	(pt 1552 992)
+)
+(connector
+	(pt 1792 864)
+	(pt 1808 864)
+)
+(connector
+	(text "L0_VETO_N" (rect 1904 848 1964 860)(font "Arial" ))
+	(pt 1856 864)
+	(pt 2008 864)
+)
+(connector
+	(text "CLOCK40" (rect 1960 760 2009 772)(font "Arial" ))
+	(pt 1952 776)
+	(pt 2008 776)
+)
+(connector
+	(pt 1816 768)
+	(pt 1816 784)
+)
+(connector
+	(text "TTCRX_RESETn" (rect 1714 768 1795 780)(font "Arial" ))
+	(pt 1816 784)
+	(pt 1688 784)
+)
+(connector
+	(text "TTCRX_RESET" (rect 856 -240 931 -228)(font "Arial" ))
+	(pt 848 -224)
+	(pt 1008 -224)
+)
+(connector
+	(text "DDL_RESETn" (rect 1770 584 1839 596)(font "Arial" ))
+	(pt 1760 600)
+	(pt 1856 600)
+)
+(connector
+	(pt 1800 480)
+	(pt 1800 536)
+)
+(connector
+	(text "reset_busy" (rect 1722 520 1777 532)(font "Arial" ))
+	(pt 1712 536)
+	(pt 1800 536)
+)
+(connector
+	(pt 2104 440)
+	(pt 2064 440)
+)
+(connector
+	(text "L0_INT" (rect 1760 432 1798 446)(font "Arial" (font_size 8)))
+	(pt 1760 448)
+	(pt 1824 448)
+)
+(connector
+	(pt 1800 480)
+	(pt 1824 480)
+)
+(connector
+	(text "CLOCK160" (rect 1760 448 1815 460)(font "Arial" ))
+	(pt 1760 464)
+	(pt 1824 464)
+)
+(connector
+	(text "TTC_COM_RESET" (rect 1554 512 1646 524)(font "Arial" ))
+	(pt 1536 528)
+	(pt 1648 528)
+)
+(connector
+	(text "FECTRL" (rect 1560 496 1602 508)(font "Arial" ))
+	(pt 1536 512)
+	(pt 1648 512)
+)
+(connector
+	(text "TTCRX_RESET" (rect 1554 528 1629 540)(font "Arial" ))
+	(pt 1536 544)
+	(pt 1648 544)
+)
+(connector
+	(text "DDL_BUSY_RESET" (rect 1552 544 1652 556)(font "Arial" ))
+	(pt 1536 560)
+	(pt 1648 560)
+)
+(connector
+	(text "TTCRX_CLR_BUSY" (rect 1554 560 1653 572)(font "Arial" ))
+	(pt 1536 576)
+	(pt 1648 576)
+)
+(connector
+	(pt 1888 448)
+	(pt 2000 448)
+)
+(connector
+	(text "CLEAR_BUSY" (rect 1554 480 1627 492)(font "Arial" ))
+	(pt 1536 496)
+	(pt 1648 496)
+)
+(connector
+	(pt 1888 256)
+	(pt 1928 256)
+)
+(connector
+	(pt 1816 336)
+	(pt 1856 336)
+)
+(connector
+	(pt 1792 256)
+	(pt 1824 256)
+)
+(connector
+	(text "CLOCK40" (rect 1746 256 1795 268)(font "Arial" ))
+	(pt 1736 272)
+	(pt 1824 272)
+)
+(connector
+	(text "TTC_READYn" (rect 1746 272 1816 284)(font "Arial" ))
+	(pt 1736 288)
+	(pt 1824 288)
+)
+(connector
+	(text "TTCRX_RESETn" (rect 1650 312 1731 324)(font "Arial" ))
+	(pt 1640 328)
+	(pt 1752 328)
+)
+(connector
+	(text "TTCRX_CLRn_BUSY" (rect 1650 328 1755 340)(font "Arial" ))
+	(pt 1640 344)
+	(pt 1752 344)
+)
+(connector
+	(pt 1928 256)
+	(pt 1928 432)
+)
+(connector
+	(pt 1928 432)
+	(pt 2000 432)
+)
+(connector
+	(pt 1856 504)
+	(pt 1856 600)
+)
+(connector
+	(pt 1792 240)
+	(pt 1792 256)
+)
+(connector
+	(pt 1856 312)
+	(pt 1856 336)
+)
+(connector
+	(text "fifo_wrdnmbr[9..0]" (rect 104 888 210 902)(font "Arial" (font_size 8)))
+	(pt 208 904)
+	(pt 88 904)
+	(bus)
+)
+(connector
+	(text "CLOCK40" (rect 144 728 199 742)(font "Arial" (font_size 8)))
+	(pt 88 744)
+	(pt 208 744)
+)
+(connector
+	(text "CLOCK10" (rect 146 744 195 756)(font "Arial" ))
+	(pt 88 760)
+	(pt 208 760)
+)
+(connector
+	(text "CLOCK20" (rect 146 760 195 772)(font "Arial" ))
+	(pt 88 776)
+	(pt 208 776)
+)
+(connector
+	(text "fiDIR" (rect 160 808 185 822)(font "Arial" (font_size 8)))
+	(pt 88 824)
+	(pt 208 824)
+)
+(connector
+	(text "fiBENn" (rect 152 824 189 838)(font "Arial" (font_size 8)))
+	(pt 88 840)
+	(pt 208 840)
+)
+(connector
+	(text "fiLFn_int" (rect 152 840 200 854)(font "Arial" (font_size 8)))
+	(pt 88 856)
+	(pt 208 856)
+)
+(connector
+	(text "empty_fifo" (rect 112 904 172 918)(font "Arial" (font_size 8)))
+	(pt 88 920)
+	(pt 208 920)
+)
+(connector
+	(text "END_HEADER_WR" (rect 106 920 212 934)(font "Arial" (font_size 8)))
+	(pt 88 936)
+	(pt 208 936)
+)
+(connector
+	(text "TTCRX_RESETn" (rect -126 720 -45 732)(font "Arial" ))
+	(pt -136 736)
+	(pt -16 736)
+)
+(connector
+	(text "L2_PULSE" (rect 146 792 205 806)(font "Arial" (font_size 8)))
+	(pt 88 808)
+	(pt 208 808)
+)
+(connector
+	(text "fbTENn" (rect 154 872 191 884)(font "Arial" ))
+	(pt 88 888)
+	(pt 208 888)
+)
+(connector
+	(text "fbCTRLn" (rect 152 856 201 870)(font "Arial" (font_size 8)))
+	(pt 88 872)
+	(pt 208 872)
+)
+(connector
+	(text "SEQ_ERR_FLAG" (rect 114 776 200 788)(font "Arial" ))
+	(pt 88 792)
+	(pt 208 792)
+)
+(connector
+	(text "DDL_RESETn" (rect -126 704 -57 716)(font "Arial" ))
+	(pt -136 720)
+	(pt -16 720)
+)
+(connector
+	(text "CLOCK20" (rect 706 1016 755 1028)(font "Arial" ))
+	(pt 696 1032)
+	(pt 752 1032)
+)
+(connector
+	(text "DDL_BUSY_RESETn" (rect 976 1000 1082 1012)(font "Arial" ))
+	(pt 976 1016)
+	(pt 1064 1016)
+)
+(connector
+	(text "DDL_BUSY_RESET" (rect 826 1000 926 1012)(font "Arial" ))
+	(pt 816 1016)
+	(pt 928 1016)
+)
+(connector
+	(text "fo_BSYn" (rect 522 728 573 742)(font "Arial" (font_size 8)))
+	(pt 512 744)
+	(pt 640 744)
+)
+(connector
+	(text "tri_ctrl" (rect 520 744 555 758)(font "Arial" (font_size 8)))
+	(pt 512 760)
+	(pt 640 760)
+)
+(connector
+	(text "int_fbCTRLn" (rect 520 760 589 774)(font "Arial" (font_size 8)))
+	(pt 512 776)
+	(pt 640 776)
+)
+(connector
+	(text "int_fbTENn" (rect 520 776 581 790)(font "Arial" (font_size 8)))
+	(pt 512 792)
+	(pt 640 792)
+)
+(connector
+	(text "LOC_CSn" (rect 520 792 575 806)(font "Arial" (font_size 8)))
+	(pt 512 808)
+	(pt 640 808)
+)
+(connector
+	(text "LOC_Rn/W" (rect 520 808 582 822)(font "Arial" (font_size 8)))
+	(pt 512 824)
+	(pt 640 824)
+)
+(connector
+	(text "DATA_ADD[12..0]" (rect 520 824 622 838)(font "Arial" (font_size 8)))
+	(pt 512 840)
+	(pt 640 840)
+	(bus)
+)
+(connector
+	(text "DISABLE_CLOCK_20" (rect 522 840 629 852)(font "Arial" ))
+	(pt 512 856)
+	(pt 640 856)
+)
+(connector
+	(text "WR_FIFO" (rect 520 856 573 870)(font "Arial" (font_size 8)))
+	(pt 512 872)
+	(pt 640 872)
+)
+(connector
+	(text "RD_FIFO" (rect 520 872 569 886)(font "Arial" (font_size 8)))
+	(pt 512 888)
+	(pt 640 888)
+)
+(connector
+	(text "FIFO_CLK" (rect 520 888 576 902)(font "Arial" (font_size 8)))
+	(pt 512 904)
+	(pt 640 904)
+)
+(connector
+	(text "fifo_clr" (rect 520 904 560 918)(font "Arial" (font_size 8)))
+	(pt 512 920)
+	(pt 640 920)
+)
+(connector
+	(text "fifo_data_ena" (rect 520 920 599 934)(font "Arial" (font_size 8)))
+	(pt 512 936)
+	(pt 640 936)
+)
+(connector
+	(text "HEADER_ENA" (rect 522 936 602 950)(font "Arial" (font_size 8)))
+	(pt 512 952)
+	(pt 640 952)
+)
+(connector
+	(text "HMPID_CDH_ENA" (rect 522 952 617 964)(font "Arial" ))
+	(pt 512 968)
+	(pt 640 968)
+)
+(connector
+	(text "CLEAR_BUSY" (rect 522 968 603 982)(font "Arial" (font_size 8)))
+	(pt 512 984)
+	(pt 640 984)
+)
+(connector
+	(text "fectrl" (rect 522 984 551 998)(font "Arial" (font_size 8)))
+	(pt 512 1000)
+	(pt 640 1000)
+)
+(connector
+	(pt 512 1016)
+	(pt 752 1016)
+)
+(connector
+	(text "RST_SEQ_ERR_FLAG" (rect 522 1016 635 1028)(font "Arial" ))
+	(pt 512 1032)
+	(pt 640 1032)
+)
+(connector
+	(text "L1A_LATENCY[7..0]" (rect 522 1032 623 1044)(font "Arial" ))
+	(pt 512 1048)
+	(pt 640 1048)
+	(bus)
+)
+(connector
+	(text "ERROR_BIT_ENA" (rect 522 1048 614 1060)(font "Arial" ))
+	(pt 512 1064)
+	(pt 640 1064)
+)
+(connector
+	(text "ENA_L2LOOP" (rect 522 1064 591 1076)(font "Arial" ))
+	(pt 512 1080)
+	(pt 640 1080)
+)
+(connector
+	(text "L0_DELAY_VALUE[7..0]" (rect 522 1080 643 1092)(font "Arial" ))
+	(pt 512 1096)
+	(pt 640 1096)
+	(bus)
+)
+(connector
+	(text "MAIN_STATE[7..0]" (rect 522 1112 614 1124)(font "Arial" ))
+	(pt 512 1128)
+	(pt 640 1128)
+	(bus)
+)
+(connector
+	(text "fbD[31..0]" (rect 522 712 577 726)(font "Arial" (font_size 8)))
+	(pt 512 728)
+	(pt 640 728)
+	(bus)
+)
+(connector
+	(pt 48 728)
+	(pt 208 728)
+)
 (junction (pt 2088 -56))
 (junction (pt 2088 -24))
 (junction (pt -48 200))
-(junction (pt 472 2112))
-(junction (pt 600 2112))
-(junction (pt 736 2112))
-(junction (pt 472 2272))
-(junction (pt 600 2272))
-(junction (pt 736 2272))
-(junction (pt 368 2048))
-(junction (pt 368 2208))
-(junction (pt 488 2560))
-(junction (pt 616 2560))
-(junction (pt 752 2560))
-(junction (pt 384 2496))
+(junction (pt 1896 2168))
+(junction (pt 1896 2056))
+(junction (pt 472 2288))
+(junction (pt 600 2288))
+(junction (pt 736 2288))
+(junction (pt 472 2448))
+(junction (pt 600 2448))
+(junction (pt 736 2448))
+(junction (pt 368 2224))
+(junction (pt 368 2384))
+(junction (pt 488 2736))
+(junction (pt 616 2736))
+(junction (pt 752 2736))
+(junction (pt 384 2672))
+(junction (pt 1952 1712))
 (text "NEW SEGMENT ONLY" (rect 1864 -6 1989 8)(font "Arial" (font_size 8)))
 (text "  " (rect -1016 16 -1009 30)(font "Arial" (font_size 8)))
-(text "BUSY TO LTU" (rect 2224 136 2304 150)(font "Arial" (font_size 8)))
-(text "TO SEGMENTS" (rect 2184 456 2268 470)(font "Arial" (font_size 8)))
-(text "TO SIU" (rect 2264 1272 2302 1286)(font "Arial" (font_size 8)))
-(text "LEDs" (rect 2248 1664 2277 1678)(font "Arial" (font_size 8)))
-(text "BUS " (rect 2248 1040 2276 1054)(font "Arial" (font_size 8)))
+(text "BUSY TO LTU" (rect 2216 168 2296 182)(font "Arial" (font_size 8)))
+(text "TO SEGMENTS" (rect 2184 696 2268 710)(font "Arial" (font_size 8)))
+(text "TO SIU" (rect 2264 1480 2302 1494)(font "Arial" (font_size 8)))
+(text "LEDs" (rect 2248 1928 2277 1942)(font "Arial" (font_size 8)))
+(text "BUS " (rect 2248 1280 2276 1294)(font "Arial" (font_size 8)))
 (text "PLL" (rect -120 -368 -99 -354)(font "Arial" (font_size 8)))
 (text "FIFO" (rect 568 -368 593 -354)(font "Arial" (font_size 8)))
 (text "COUNTER FOR TTCRx RESET" (rect 1064 -368 1231 -354)(font "Arial" (font_size 8)))
 (text "LO TO COLUMN MODULE" (rect 288 88 431 102)(font "Arial" (font_size 8)))
-(text "DDL CONTROLLER" (rect 704 536 811 550)(font "Arial" (font_size 8)))
-(text "TTCRx COOMUNICATION AND CDH GENERATOR" (rect 544 1360 821 1374)(font "Arial" (font_size 8)))
-(text "RESET FROM TTCRx" (rect 856 1936 972 1950)(font "Arial" (font_size 8)))
+(text "DDL CONTROLLER" (rect 648 624 755 638)(font "Arial" (font_size 8)))
+(text "TTCRx COOMUNICATION AND CDH GENERATOR" (rect 544 1568 821 1582)(font "Arial" (font_size 8)))
+(text "RESET FROM TTCRx" (rect 856 2112 972 2126)(font "Arial" (font_size 8)))
 (text "FROM SIU" (rect -1008 720 -952 734)(font "Arial" (font_size 8)))
 (text "  FROM TTCRx" (rect -1016 16 -934 30)(font "Arial" (font_size 8)))
 (text "L0 ON LVDS" (rect -1008 -120 -937 -106)(font "Arial" (font_size 8)))
 (text "INPUT PIN NOT USED" (rect -1008 -360 -890 -346)(font "Arial" (font_size 8)))
 (text "OUTPUT PIN NOT USED" (rect 2144 -368 2276 -354)(font "Arial" (font_size 8)))
 (text "CLOCK SIGNAL 40MHz" (rect -784 56 -652 70)(font "Arial" (font_size 8)))
-(text "DECODIFICA IL COMANDO DI CLEAR BUSY (\"1000\") PROVENIENTE DAL TTCRX" (rect -128 2160 323 2174)(font "Arial" (font_size 8)))
-(text "blank" (rect -120 2000 -91 2014)(font "Arial" (font_size 8)))
-(text "SOFTWARE RESET FROM DDL" (rect 792 2400 966 2414)(font "Arial" (font_size 8)))
+(text "SOFTWARE RESET FROM DDL" (rect 792 2576 966 2590)(font "Arial" (font_size 8)))
+(text "DECODIFICA IL COMANDO DI CLEAR BUSY (\"1100\") PROVENIENTE DAL TTCRX" (rect -128 2336 323 2350)(font "Arial" (font_size 8)))
+(text "DECODIFICA IL COMANDO DI FEE RESET (\"1000\") PROVENIENTE DAL TTCRX" (rect -120 2176 316 2190)(font "Arial" (font_size 8)))
 (rectangle (rect -1024 -344 -752 -168)(color 0 170 255))
 (rectangle (rect -1024 -96 -752 -32)(color 0 170 255))
 (rectangle (rect -1024 40 -608 672)(color 0 170 255))
 (rectangle (rect -1024 744 -592 928)(color 0 170 255))
-(rectangle (rect 1504 152 2352 384)(color 255 0 0))
+(rectangle (rect 1504 192 2352 616)(color 255 0 0))
 (rectangle (rect 1840 -352 2352 64)(color 255 0 0))
-(rectangle (rect 1400 472 2352 984)(color 255 0 0))
-(rectangle (rect 1664 1288 2352 1520)(color 255 0 0))
-(rectangle (rect 1584 1688 2352 2016)(color 255 0 0))
-(rectangle (rect 1912 1064 2352 1160)(color 255 0 0))
+(rectangle (rect 1400 712 2352 1224)(color 255 0 0))
+(rectangle (rect 1664 1496 2352 1728)(color 255 0 0))
+(rectangle (rect 1584 1952 2352 2280)(color 255 0 0))
+(rectangle (rect 1912 1304 2352 1400)(color 255 0 0))
 (rectangle (rect -472 -352 -32 -112)(color 255 170 0))
 (rectangle (rect 120 -352 680 -112)(color 255 170 0))
 (rectangle (rect 816 -352 1376 -104)(color 255 170 0))
 (rectangle (rect -288 104 704 336)(color 255 170 0))
-(rectangle (rect -112 560 1152 1120)(color 255 170 0))
-(rectangle (rect -544 1400 1344 1800)(color 255 170 0))
-(rectangle (rect -320 1960 1224 2320)(color 255 170 0))
-(rectangle (rect -320 2424 1032 2616)(color 255 170 0))
+(rectangle (rect -168 648 1096 1208)(color 255 170 0))
+(rectangle (rect -544 1608 1344 2008)(color 255 170 0))
+(rectangle (rect -320 2136 1224 2496)(color 255 170 0))
+(rectangle (rect -320 2600 1032 2792)(color 255 170 0))

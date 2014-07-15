@@ -1,5 +1,5 @@
 Flow report for ddl_ctrlr
-Tue Jul 15 17:47:19 2014
+Tue Jul 15 19:03:46 2014
 Quartus II 64-Bit Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +-------------------------------+-----------------------------------------------+
-; Flow Status                   ; Successful - Tue Jul 15 17:47:19 2014         ;
+; Flow Status                   ; Successful - Tue Jul 15 19:03:45 2014         ;
 ; Quartus II 64-Bit Version     ; 10.1 Build 197 01/19/2011 SP 1 SJ Web Edition ;
 ; Revision Name                 ; ddl_ctrlr                                     ;
 ; Top-level Entity Name         ; ddl_ctrlr                                     ;
@@ -63,7 +63,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 07/15/2014 17:46:34 ;
+; Start date & time ; 07/15/2014 19:03:00 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; ddl_ctrlr           ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ applicable agreement for further details.
 ; ADV_NETLIST_OPT_SYNTH_GATE_RETIME                 ; On                                                                                                                                                                                                               ; Off                            ; --          ; --               ;
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                                                                                                                                                               ; Off                            ; --          ; --               ;
 ; AUTO_ENABLE_SMART_COMPILE                         ; On                                                                                                                                                                                                               ; --                             ; --          ; --               ;
-; COMPILER_SIGNATURE_ID                             ; 147329319576.140543919303096                                                                                                                                                                                     ; --                             ; --          ; --               ;
+; COMPILER_SIGNATURE_ID                             ; 147329319576.140544378001608                                                                                                                                                                                     ; --                             ; --          ; --               ;
 ; ENABLE_DA_RULE                                    ; C101, C102, C103, C104, C105, C106, R101, R102, R103, R104, R105, T101, T102, A101, A102, A103, A104, A105, A106, A107, A108, A109, A110, S101, S102, S103, S104, D101, D102, D103, M101, M102, M103, M104, M105 ; --                             ; --          ; --               ;
 ; ENABLE_SIGNALTAP                                  ; On                                                                                                                                                                                                               ; --                             ; --          ; --               ;
 ; FMAX_REQUIREMENT                                  ; 50 MHz                                                                                                                                                                                                           ; --                             ; --          ; --               ;
@@ -139,11 +139,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:16     ; 1.0                     ; 431 MB              ; 00:00:15                           ;
-; Fitter                    ; 00:00:26     ; 2.0                     ; 570 MB              ; 00:00:31                           ;
+; Analysis & Synthesis      ; 00:00:15     ; 1.0                     ; 431 MB              ; 00:00:15                           ;
+; Fitter                    ; 00:00:25     ; 1.4                     ; 571 MB              ; 00:00:31                           ;
 ; Assembler                 ; 00:00:01     ; 1.0                     ; 343 MB              ; 00:00:01                           ;
-; TimeQuest Timing Analyzer ; 00:00:01     ; 1.0                     ; 360 MB              ; 00:00:02                           ;
-; Total                     ; 00:00:44     ; --                      ; --                  ; 00:00:49                           ;
+; TimeQuest Timing Analyzer ; 00:00:02     ; 1.0                     ; 360 MB              ; 00:00:02                           ;
+; Total                     ; 00:00:43     ; --                      ; --                  ; 00:00:49                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

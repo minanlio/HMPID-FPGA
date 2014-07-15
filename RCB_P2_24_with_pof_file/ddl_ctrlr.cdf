@@ -3,10 +3,10 @@ JedecChain;
 	FileRevision(JESD32A);
 	DefaultMfr(6E);
 
-	P ActionCode(Ign)
-		Device PartName(EPC4) MfrSpec(OpMask(0) FullPath("C:/HMPID-FPGA/RCB_P2_24 - Copy/RCB_P2_24.pof"));
 	P ActionCode(Cfg)
-		Device PartName(EP2S15F484) Path("C:/HMPID-FPGA/RCB_P2_24 - Copy/") File("ddl_ctrlr.sof") MfrSpec(OpMask(1));
+		Device PartName(EPC4) Path("C:/HMPID-FPGA/RCB_P2_24 - Copy/") File("RCB_P2_24.pof") MfrSpec(OpMask(1));
+	P ActionCode(Ign)
+		Device PartName(EP2S15F484) MfrSpec(OpMask(0) FullPath("C:/HMPID-FPGA/RCB_P2_24 - Copy/ddl_ctrlr.sof"));
 
 ChainEnd;
 

@@ -1,17 +1,17 @@
-Fitter Status : Successful - Thu Jul 17 18:59:04 2014
-Quartus II 64-Bit Version : 10.1 Build 197 01/19/2011 SP 1.05 SJ Full Version
+Fitter Status : Successful - Fri Sep 05 10:02:26 2014
+Quartus II 64-Bit Version : 10.1 Build 197 01/19/2011 SP 1 SJ Full Version
 Revision Name : ddl_ctrlr
 Top-level Entity Name : ddl_ctrlr
 Family : Stratix II
 Device : EP2S15F484C5
 Timing Models : Final
-Logic utilization : 10 %
-    Combinational ALUTs : 991 / 12,480 ( 8 % )
-    Dedicated logic registers : 697 / 12,480 ( 6 % )
-Total registers : 697
+Logic utilization : 22 %
+    Combinational ALUTs : 1,393 / 12,480 ( 11 % )
+    Dedicated logic registers : 2,097 / 12,480 ( 17 % )
+Total registers : 2097
 Total pins : 109 / 343 ( 32 % )
 Total virtual pins : 0
-Total block memory bits : 32,768 / 419,328 ( 8 % )
+Total block memory bits : 121,856 / 419,328 ( 29 % )
 DSP block 9-bit elements : 0 / 96 ( 0 % )
 Total PLLs : 1 / 6 ( 17 % )
 Total DLLs : 0 / 2 ( 0 % )

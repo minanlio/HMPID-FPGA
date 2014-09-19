@@ -58,6 +58,7 @@ SUBDESIGN ddlctrlr
 		MAIN_STATE[7..0]: OUTPUT; -- STATO DELLA RCB_SM
 		-- GENERAL RESET MODULE
 		DDL_SOFT_RESET_MODULE: OUTPUT;
+		
 )
 		
 
@@ -95,7 +96,7 @@ CLR_BUSY_CNT[5..0]: DFFE; -- contatore di attesa prima di effettuare il CLEAR_BU
 ZERO_SUPP_MEMO: DFFE; -- mantiene memoria del fatto che la zero suppression sia stata attivata
 LOCAL_ZERO_SUPP: SRFF; -- avvio della LOCAL_SM per la zero suppression
 ZERO_SUPP_COLUMN_CNT[3..0]: DFFE; -- contatore dei column nella zero suppression routine
-
+ENA_REG: DFF; -- abilita i registri FE_REG[31..0], CMD_DEC_REG[7..0], ID_CODE[3..0]
 WR_ERR_FLAG: SRFF; -- flag che segnala un numero di parole diverso da 640 durante la scrittura piedistalli
 DDL_SOFT_RESET_MODULE: DFFE; 
 
@@ -342,9 +343,12 @@ READ_STATUS.clrn = RESETn;
 WR_ERR_FLAG.clk = CLOCK;
 WR_ERR_FLAG.clrn = RESETn;
 
+ENA_REG.d = !SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn;
+ENA_REG.clk = !CLOCK;
+ENA_REG.clrn = RESETn;
 
 FE_REG[31..0].d = fbD[31..0];
-FE_REG[31..0].ena = !SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn;
+FE_REG[31..0].ena = ENA_REG; --!SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn;
 FE_REG[31..0].clk = CLOCK; 
 FE_REG[31..0].clrn = RESETn;
 
@@ -352,7 +356,7 @@ CONFIG_REG[3..0].d = FE_REG[15..12];
 CONFIG_REG[3..0].clk = CLOCK;
 CONFIG_REG[3..0].clrn = RESETn;
 
-CMD_CLR[0].d = !SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn; 
+CMD_CLR[0].d = ENA_REG; --!SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn; 
 CMD_CLR[0].clk = CLOCK;
 
 CMD_CLR[1].d = CMD_CLR[0].q ;
@@ -360,12 +364,12 @@ CMD_CLR[1].clk = CLOCK;
 
 CMD_DEC_REG[7..0].d = fbD[7..0]; 
 CMD_DEC_REG[7..0].clk = CLOCK;
-CMD_DEC_REG[7..0].ena = !SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn ;
+CMD_DEC_REG[7..0].ena = ENA_REG; --!SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn ;
 CMD_DEC_REG[7..0].clrn = RESETn AND !CMD_CLR[1] AND !CLR_CMD_DEC_REG;
 
 ID_CODE[3..0].d = fbD[11..8];
 ID_CODE[3..0].clk = CLOCK;
-ID_CODE[3..0].ena = !SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn;
+ID_CODE[3..0].ena = ENA_REG; --!SIU_TRI_ctrl AND !fb_TENn AND !fb_CTRLn;
 ID_CODE[3..0].clrn = RESETn;
 
 LOCAL_SEGMENT_SEL.clk = CLOCK;				
@@ -1435,11 +1439,11 @@ CASE LOCAL_SM IS
 		DATABUS_ADD[7..4] = COLUMN_CNT[3..0]; -- ADDRESS FOR LOCAL CS DECODING ON SEGMENT
 		LOC_CSn = GND;
 		LOC_Rn/W = GND;
-		--IF SEGMENT_CNT[1..0] == B"10" OR SEGMENT_CNT[1..0] == B"11" THEN -- da debugger (perchè i segmenti 2 e 3 impiegano più tempo?)
+		IF SEGMENT_CNT[1..0] == B"10" OR SEGMENT_CNT[1..0] == B"11" THEN -- da debugger (perchè i segmenti 2 e 3 impiegano più tempo?)
 			LOCAL_SM = LOOP_DATA;
-		--ELSE
-			--LOCAL_SM = LOOP_DATA_1;
-		--END IF;
+		ELSE
+			LOCAL_SM = LOOP_DATA_1;
+		END IF;
 		
 	-- stato di lettura dati
 	WHEN LOOP_DATA =>		

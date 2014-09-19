@@ -6,10 +6,11 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:status_read_pointer_counter" CBX_FILE_NAME="cntr_ivi.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|COUNTER:inst10|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_d5i.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|LED_COUNTER:inst58|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_aqi.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|altdpram:\stp_non_zero_ram_gen:attribute_mem_gen:attribute_mem|lpm_mux:mux" CBX_FILE_NAME="mux_9pc.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:\adv_point_3_and_more:advance_pointer_counter" CBX_FILE_NAME="cntr_adi.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:read_pointer_counter" CBX_FILE_NAME="cntr_o5j.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram" CBX_FILE_NAME="altsyncram_oo14.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:status_advance_pointer_counter" CBX_FILE_NAME="cntr_sci.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|altdpram:\stp_non_zero_ram_gen:attribute_mem_gen:attribute_mem|lpm_mux:mux" CBX_FILE_NAME="mux_dpc.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:\adv_point_3_and_more:advance_pointer_counter" CBX_FILE_NAME="cntr_pdi.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:read_pointer_counter" CBX_FILE_NAME="cntr_66j.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|COUNTER:inst35|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_d5i.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|altsyncram:\stp_non_zero_ram_gen:stp_buffer_ram" CBX_FILE_NAME="altsyncram_3p14.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_counter:status_advance_pointer_counter" CBX_FILE_NAME="cntr_0di.tdf"/>
 	</PROJECT>
 </LOG_ROOT>

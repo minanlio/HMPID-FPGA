@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus II"
 ## VERSION "Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version"
 
-## DATE    "Tue Jun 17 17:19:37 2014"
+## DATE    "Tue Sep 16 10:52:23 2014"
 
 ##
 ## DEVICE  "EP2S15F484C5"
@@ -40,6 +40,7 @@ set_time_format -unit ns -decimal_places 3
 
 create_clock -name {CLK40DES1} -period 25.000 -waveform { 0.000 12.500 } [get_ports {CLK40DES1}]
 create_clock -name {inst85} -period 25.000 -waveform { 0.000 12.500 } [get_registers {inst85}]
+create_clock -name {TTC_READY} -period 25.000 -waveform { 0.000 12.500 } [get_ports {TTC_READY}]
 
 
 #**************************************************************
@@ -62,42 +63,6 @@ create_generated_clock -name {PLL0:inst2|altpll:altpll_component|_clk4} -source 
 # Set Clock Uncertainty
 #**************************************************************
 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.150 
-set_clock_uncertainty -rise_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -hold 0.190 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.150 
-set_clock_uncertainty -fall_from [get_clocks {inst85}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -hold 0.190 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {inst85}] -hold 0.150 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {inst85}] -hold 0.150 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.080 
@@ -105,11 +70,6 @@ set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {inst85}] -hold 0.150 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {inst85}] -hold 0.150 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.080 
@@ -117,11 +77,7 @@ set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {inst85}] -hold 0.150 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {inst85}] -hold 0.150 
+set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.080 
@@ -129,11 +85,7 @@ set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {inst85}] -hold 0.150 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {inst85}] -hold 0.150 
+set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.080 
@@ -142,10 +94,6 @@ set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {inst85}] -hold 0.150 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {inst85}] -hold 0.150 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.080 
@@ -154,10 +102,6 @@ set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
 set_clock_uncertainty -rise_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk4}] -setup 0.080 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {inst85}] -hold 0.150 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {inst85}] -setup 0.190 
-set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {inst85}] -hold 0.150 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -fall_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk0}] -setup 0.080 
 set_clock_uncertainty -fall_from [get_clocks {PLL0:inst2|altpll:altpll_component|_clk2}] -rise_to [get_clocks {PLL0:inst2|altpll:altpll_component|_clk1}] -setup 0.080 

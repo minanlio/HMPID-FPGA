@@ -4,7 +4,7 @@ editor if you plan to continue editing the block that represents it in
 the Block Editor! File corruption is VERY likely to occur.
 */
 /*
-Copyright (C) 1991-2012 Altera Corporation
+Copyright (C) 1991-2011 Altera Corporation
 Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
@@ -124,16 +124,23 @@ applicable agreement for further details.
 	(port
 		(pt 0 256)
 		(input)
-		(text "ERROR_BIT[15..0]" (rect 0 0 113 12)(font "Arial" ))
-		(text "ERROR_BIT[15..0]" (rect 21 251 134 263)(font "Arial" ))
+		(text "TTCRX_READY_COUNTER[31..0]" (rect 0 0 184 12)(font "Arial" ))
+		(text "TTCRX_READY_COUNTER[31..0]" (rect 21 251 205 263)(font "Arial" ))
 		(line (pt 0 256)(pt 16 256)(line_width 3))
 	)
 	(port
 		(pt 0 272)
 		(input)
+		(text "ERROR_BIT[15..0]" (rect 0 0 113 12)(font "Arial" ))
+		(text "ERROR_BIT[15..0]" (rect 21 267 134 279)(font "Arial" ))
+		(line (pt 0 272)(pt 16 272)(line_width 3))
+	)
+	(port
+		(pt 0 288)
+		(input)
 		(text "HMPID_CDH_ENA" (rect 0 0 92 12)(font "Arial" ))
-		(text "HMPID_CDH_ENA" (rect 21 267 113 279)(font "Arial" ))
-		(line (pt 0 272)(pt 16 272)(line_width 1))
+		(text "HMPID_CDH_ENA" (rect 21 283 113 295)(font "Arial" ))
+		(line (pt 0 288)(pt 16 288)(line_width 1))
 	)
 	(port
 		(pt 336 48)

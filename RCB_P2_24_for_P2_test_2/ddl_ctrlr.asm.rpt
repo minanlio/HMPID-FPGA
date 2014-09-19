@@ -1,5 +1,5 @@
 Assembler report for ddl_ctrlr
-Fri Sep 05 10:02:30 2014
+Tue Sep 16 16:20:02 2014
 Quartus II 64-Bit Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version
 
 
@@ -39,7 +39,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Fri Sep 05 10:02:30 2014 ;
+; Assembler Status      ; Successful - Tue Sep 16 16:20:02 2014 ;
 ; Revision Name         ; ddl_ctrlr                             ;
 ; Top-level Entity Name ; ddl_ctrlr                             ;
 ; Family                ; Stratix II                            ;
@@ -107,7 +107,7 @@ applicable agreement for further details.
 +----------------+--------------------------------------------------------------+
 ; Device         ; EP2S15F484C5                                                 ;
 ; JTAG usercode  ; 0xFFFFFFFF                                                   ;
-; Checksum       ; 0x00499D9E                                                   ;
+; Checksum       ; 0x004CC192                                                   ;
 +----------------+--------------------------------------------------------------+
 
 
@@ -118,7 +118,7 @@ applicable agreement for further details.
 +--------------------+----------------------------------------------------------+
 ; Device             ; EPC4                                                     ;
 ; JTAG usercode      ; 0xFFFFFFFF                                               ;
-; Checksum           ; 0x0551F6F9                                               ;
+; Checksum           ; 0x05550347                                               ;
 ; Compression Ratio  ; 1                                                        ;
 +--------------------+----------------------------------------------------------+
 
@@ -129,14 +129,14 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Assembler
     Info: Version 10.1 Build 197 01/19/2011 Service Pack 1 SJ Full Version
-    Info: Processing started: Fri Sep 05 10:02:29 2014
+    Info: Processing started: Tue Sep 16 16:20:00 2014
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off rcb_ctrlr -c ddl_ctrlr
 Info: Writing out detailed assembly data for power analysis
 Info: Assembler is generating device programming files
 Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 346 megabytes
-    Info: Processing ended: Fri Sep 05 10:02:30 2014
-    Info: Elapsed time: 00:00:01
+    Info: Processing ended: Tue Sep 16 16:20:02 2014
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:01
 
 

@@ -110,8 +110,8 @@ DATABUS_ADD[12]              : AA15      : output : 3.3-V LVTTL       :         
 DATABUS_ADD[1]               : AA16      : output : 3.3-V LVTTL       :         : 8         : Y              
 DATABUS_ADD[0]               : AA17      : output : 3.3-V LVTTL       :         : 8         : Y              
 DATABUS_ADD[10]              : AA18      : output : 3.3-V LVTTL       :         : 8         : Y              
-altera_reserved_tck          : AA19      : input  : 3.3-V LVTTL       :         : 8         : N              
-altera_reserved_tms          : AA20      : input  : 3.3-V LVTTL       :         : 8         : N              
+TCK                          : AA19      : input  :                   :         : 8         :                
+TMS                          : AA20      : input  :                   :         : 8         :                
 GND                          : AA21      : gnd    :                   :         :           :                
 VCCIO1                       : AA22      : power  :                   : 3.3V    : 1         :                
 GND                          : AB1       : gnd    :                   :         :           :                
@@ -132,13 +132,13 @@ DATABUS_ADD[8]               : AB15      : output : 3.3-V LVTTL       :         
 DATABUS_ADD[4]               : AB16      : output : 3.3-V LVTTL       :         : 8         : Y              
 LOC_CSn                      : AB17      : output : 3.3-V LVTTL       :         : 8         : Y              
 LOC_Rn/W                     : AB18      : output : 3.3-V LVTTL       :         : 8         : Y              
-altera_reserved_ntrst        : AB19      : input  : 3.3-V LVTTL       :         : 8         : N              
+TRST                         : AB19      : input  :                   :         : 8         :                
 VCCIO8                       : AB20      : power  :                   : 3.3V    : 8         :                
-altera_reserved_tdi          : AB21      : input  : 3.3-V LVTTL       :         : 8         : N              
+TDI                          : AB21      : input  :                   :         : 8         :                
 GND                          : AB22      : gnd    :                   :         :           :                
 VCCIO5                       : B1        : power  :                   : 3.3V    : 5         :                
 GND                          : B2        : gnd    :                   :         :           :                
-altera_reserved_tdo          : B3        : output : 3.3-V LVTTL       :         : 4         : N              
+TDO                          : B3        : output :                   :         : 4         :                
 MSEL2                        : B4        :        :                   :         : 4         :                
 D[3]                         : B5        : input  : 3.3-V LVTTL       :         : 4         : Y              
 D[4]                         : B6        : input  : 3.3-V LVTTL       :         : 4         : Y              

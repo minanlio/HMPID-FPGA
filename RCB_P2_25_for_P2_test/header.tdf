@@ -175,7 +175,7 @@ CASE HEADER_SM is
 		END IF;
 		
 	WHEN HMPID_WRD0 => -- PAROLA 1 CUSTOM HEADER: FIRMWARE VERSION
-		fbDtri[31..0] = H"00000018"; -- versione 24
+		fbDtri[31..0] = H"00000019"; -- versione 25
 		fbDTRI[31..0].oe = VCC;
 		int_fbTENn = GND; 
 		HEADER_SM = HMPID_WRD1;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
 <cof>
 	<eprom_name>EPC4</eprom_name>
-	<output_filename>RCB_P2_24.pof</output_filename>
+	<output_filename>RCB_P2_25.pof</output_filename>
 	<n_pages>2</n_pages>
 	<width>1</width>
 	<mode>6</mode>

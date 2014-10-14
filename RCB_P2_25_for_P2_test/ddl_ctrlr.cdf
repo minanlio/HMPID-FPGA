@@ -4,9 +4,9 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Ign)
-		Device PartName(EPC4) MfrSpec(OpMask(0) FullPath("C:/HMPID-FPGA/RCB_P2_25_for_P2_test/RCB_P2_24.pof"));
-	P ActionCode(Cfg)
-		Device PartName(EP2S15F484) Path("C:/HMPID-FPGA/RCB_P2_25_for_P2_test/") File("ddl_ctrlr.sof") MfrSpec(OpMask(1));
+		Device PartName(EPC4) MfrSpec(OpMask(0) FullPath("C:/HMPID-FPGA/RCB_P2_25_for_P2_test/RCB_P2_25.pof"));
+	P ActionCode(Ign)
+		Device PartName(EP2S15F484) MfrSpec(OpMask(0) FullPath("C:/HMPID-FPGA/RCB_P2_25_for_P2_test/ddl_ctrlr.sof"));
 
 ChainEnd;
 

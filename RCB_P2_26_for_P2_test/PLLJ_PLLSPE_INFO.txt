@@ -1,0 +1,5 @@
+PLL_Name	PLL:inst2|altpll:altpll_component|pll
+PLLJITTER	75
+PLLSPEmax	113
+PLLSPEmin	-77
+

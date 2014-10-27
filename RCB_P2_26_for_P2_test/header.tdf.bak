@@ -1,0 +1,175 @@
+--  
+-- CDH BUILDER
+--
+
+SUBDESIGN header
+(
+		CLOCK, RESETn: INPUT; 
+		CPT_L2A:INPUT; -- da ddlctrlr.tdf: segnale di enable a trasmettere l'HEADER sul bus
+		WORD0[31..0]: INPUT;
+		WORD1[31..0]: INPUT;
+		WORD2[31..0]: INPUT;
+		WORD3[31..0]: INPUT;
+		WORD4[31..0]: INPUT;
+		WORD5[31..0]: INPUT;
+		WORD6[31..0]: INPUT;
+		WORD7[31..0]: INPUT;
+		TTCRX_RESETn_COUNTER[31..0]: INPUT;
+		TTC_READY_COUNTER[31..0]: INPUT;
+		STATUS_ERROR_BIT_NEW[15..0]: INPUT; -- sono i bit di errore dal TTC_COMMUNICATION.tdf da inserire nella parola custom del CDH modificato  
+		CDH_NEW_ENA: INPUT; -- da ddlctrlr.tdf: se è 0 il CDH è quello tradizionale, se è 1 il CDH è modificato (5 parole in più HMPID)
+		
+		fbD[31..0]: BIDIR;
+		
+		int_fbTENn: OUTPUT; -- negato fuori, diventa il segnale fbTENn quando si invia l'header 
+		END_HEADER_WR: OUTPUT; -- diventa il segnale END_HEADER_WR che indica al blocco ddlctrlr.tdf che l'invio dell'header è terminato
+)		
+
+variable
+
+fbDtri[31..0] : TRI;
+
+	HEADER_SM :	MACHINE OF BITS (QB[3..0]) WITH STATES (
+
+					IDLE,
+					HEADER_WRD0,
+					HEADER_WRD1,
+					HEADER_WRD2,
+					HEADER_WRD3,
+					HEADER_WRD4,
+					HEADER_WRD5,
+					HEADER_WRD6,
+					HEADER_WRD7,
+					NOSTRA_WRD0,
+					NOSTRA_WRD1,
+					NOSTRA_WRD2,
+					NOSTRA_WRD3,
+					NOSTRA_WRD4,
+					HEADER_END
+					
+				);
+			
+			
+BEGIN		
+
+DEFAULTS
+
+	END_HEADER_WR = GND;
+	
+END DEFAULTS;
+
+fbD[31..0] = fbDtri[31..0].out;
+ 
+HEADER_SM.clk = !CLOCK;
+HEADER_SM.reset=  !RESETn;
+
+
+
+CASE HEADER_SM is 
+
+	WHEN IDLE => 
+		fbDTRI[31..0].oe = GND ;
+		int_fbTENn = GND;
+		END_HEADER_WR = GND;
+		IF CPT_L2A THEN  
+			HEADER_SM = HEADER_WRD0 ; 
+		ELSE
+			HEADER_SM = IDLE; 
+		END IF;
+			
+	WHEN HEADER_WRD0 =>   -- PAROLA 0 CDH
+		fbDtri[31..0].in = WORD0[31..0];
+		fbDTRI[31..0].oe = VCC ;
+		int_fbTENn = VCC;
+		HEADER_SM = HEADER_WRD1 ; 
+			
+	WHEN HEADER_WRD1 =>  -- PAROLA 1 CDH
+		fbDtri[31..0] = WORD1[31..0];
+		fbDTRI[31..0].oe = VCC ;
+		int_fbTENn = VCC;
+		HEADER_SM = HEADER_WRD2 ; 
+			
+	WHEN HEADER_WRD2 =>  -- PAROLA 2 CDH
+		fbDtri[31..0] = WORD2[31..0];
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC;
+		HEADER_SM = HEADER_WRD3; 
+			
+	WHEN HEADER_WRD3 =>  -- PAROLA 3 CDH
+		fbDtri[31..0] = WORD3[31..0];
+		fbDTRI[31..0].oe = VCC ;
+		int_fbTENn = VCC;
+		HEADER_SM = HEADER_WRD4; 
+			
+	WHEN HEADER_WRD4 =>  -- PAROLA 4 CDH	 	
+		fbDTRI[31..0] = WORD4[31..0];
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC;
+		HEADER_SM = HEADER_WRD5 ; 
+			
+	WHEN HEADER_WRD5 => -- PAROLA 5 CDH
+		fbDtri[31..0] = WORD5[31..0];
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC;
+		HEADER_SM = HEADER_WRD6 ;
+			
+	WHEN HEADER_WRD6 => -- PAROLA 6 CDH
+		fbDtri[31..0] = WORD6[31..0];
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC;
+		HEADER_SM = HEADER_WRD7 ; 
+			
+	WHEN HEADER_WRD7 => -- PAROLA 7 CDH
+		fbDtri[31..0] = WORD7[31..0];
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC; 
+		IF !CDH_NEW_ENA THEN  
+			HEADER_SM = HEADER_END; 
+		ELSE
+			HEADER_SM = NOSTRA_WRD0; 
+		END IF; 
+		
+	WHEN NOSTRA_WRD0 => -- PAROLA 0 CUSTOM HEADER: FIRMWARE VERSION
+		fbDtri[31..0] = H"00000017"; -- versione 23
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC; 
+		HEADER_SM = NOSTRA_WRD1;
+		
+	WHEN NOSTRA_WRD1 => -- PAROLA 1 CUSTOM HEADER: BIT DI ERRORE DELLA PAROLA 4 DEL CDH
+		fbDtri[31..0] = (H"0000", STATUS_ERROR_BIT_NEW[15..0]);
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC; 
+		HEADER_SM = NOSTRA_WRD2; 
+		
+	WHEN NOSTRA_WRD2 => -- PAROLA 2 CUSTOM HEADER: NUMERO DI FEE_RESET RICEVUTI DA TTCRX
+		fbDtri[31..0] = TTCRX_RESETn_COUNTER[31..0];
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC; 
+		HEADER_SM = NOSTRA_WRD3; 
+		
+	WHEN NOSTRA_WRD3 => -- PAROLA 3 CUSTOM HEADER: NUMERO VOLTE IN CUI IL TTC_READY E' ANDATO GIU'
+		fbDtri[31..0] = TTC_READY_COUNTER[31..0];
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC; 
+		HEADER_SM = NOSTRA_WRD4;
+		
+	WHEN NOSTRA_WRD4 => -- PAROLA 4 CUSTOM HEADER: SPARE
+		fbDtri[31..0] = H"00000000";
+		fbDTRI[31..0].oe = VCC;
+		int_fbTENn = VCC; 
+		HEADER_SM = HEADER_END; 	 	 	 		 	 	 	 	 	 	 		 	 	 		 	 	 		 	 	 
+			
+	WHEN HEADER_END =>
+		fbDTRI[31..0].oe = GND;
+		int_fbTENn = GND;
+		END_HEADER_WR = VCC;
+		HEADER_SM = IDLE ; 
+			
+	WHEN OTHERS =>
+		fbDTRI[31..0].oe = GND;
+		int_fbTENn = GND;
+		END_HEADER_WR = GND;
+
+	END CASE;
+
+END;

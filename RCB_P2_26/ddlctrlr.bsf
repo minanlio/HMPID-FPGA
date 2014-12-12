@@ -1,0 +1,330 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2011 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 392 496)
+	(text "ddlctrlr" (rect 5 0 61 12)(font "Arial" ))
+	(text "inst" (rect 8 464 36 476)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "RESETn" (rect 0 0 42 12)(font "Arial" ))
+		(text "RESETn" (rect 21 27 63 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "CLOCK" (rect 0 0 35 12)(font "Arial" ))
+		(text "CLOCK" (rect 21 43 56 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "CLOCK10" (rect 0 0 49 12)(font "Arial" ))
+		(text "CLOCK10" (rect 21 59 70 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "CLOCK20" (rect 0 0 49 12)(font "Arial" ))
+		(text "CLOCK20" (rect 21 75 70 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "SEQ_ERR_FLAG" (rect 0 0 84 12)(font "Arial" ))
+		(text "SEQ_ERR_FLAG" (rect 21 91 105 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "L2_EXT" (rect 0 0 42 12)(font "Arial" ))
+		(text "L2_EXT" (rect 21 107 63 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "fiDIR" (rect 0 0 35 12)(font "Arial" ))
+		(text "fiDIR" (rect 21 123 56 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 1))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "fiBENn" (rect 0 0 42 12)(font "Arial" ))
+		(text "fiBENn" (rect 21 139 63 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144)(line_width 1))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "fiLFn" (rect 0 0 35 12)(font "Arial" ))
+		(text "fiLFn" (rect 21 155 56 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 1))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "fb_CTRLn" (rect 0 0 56 12)(font "Arial" ))
+		(text "fb_CTRLn" (rect 21 171 77 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 1))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "fb_TENn" (rect 0 0 49 12)(font "Arial" ))
+		(text "fb_TENn" (rect 21 187 70 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192)(line_width 1))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "FIFO_NMBR[9..0]" (rect 0 0 106 12)(font "Arial" ))
+		(text "FIFO_NMBR[9..0]" (rect 21 203 127 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208)(line_width 3))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "EMPTY_FIFO" (rect 0 0 70 12)(font "Arial" ))
+		(text "EMPTY_FIFO" (rect 21 219 91 231)(font "Arial" ))
+		(line (pt 0 224)(pt 16 224)(line_width 1))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "END_HEADER_WR" (rect 0 0 92 12)(font "Arial" ))
+		(text "END_HEADER_WR" (rect 21 235 113 247)(font "Arial" ))
+		(line (pt 0 240)(pt 16 240)(line_width 1))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "CLR_DDL_SOFT_RESET_MODULE" (rect 0 0 177 12)(font "Arial" ))
+		(text "CLR_DDL_SOFT_RESET_MODULE" (rect 21 251 198 263)(font "Arial" ))
+		(line (pt 0 256)(pt 16 256)(line_width 1))
+	)
+	(port
+		(pt 0 272)
+		(input)
+		(text "FAST_SOR_CMD" (rect 0 0 84 12)(font "Arial" ))
+		(text "FAST_SOR_CMD" (rect 21 267 105 279)(font "Arial" ))
+		(line (pt 0 272)(pt 16 272)(line_width 1))
+	)
+	(port
+		(pt 376 48)
+		(output)
+		(text "fo_BSYn" (rect 0 0 49 12)(font "Arial" ))
+		(text "fo_BSYn" (rect 306 43 355 55)(font "Arial" ))
+		(line (pt 376 48)(pt 360 48)(line_width 1))
+	)
+	(port
+		(pt 376 64)
+		(output)
+		(text "SIU_TRI_ctrl" (rect 0 0 84 12)(font "Arial" ))
+		(text "SIU_TRI_ctrl" (rect 271 59 355 71)(font "Arial" ))
+		(line (pt 376 64)(pt 360 64)(line_width 1))
+	)
+	(port
+		(pt 376 80)
+		(output)
+		(text "int_fbCTRLn" (rect 0 0 77 12)(font "Arial" ))
+		(text "int_fbCTRLn" (rect 278 75 355 87)(font "Arial" ))
+		(line (pt 376 80)(pt 360 80)(line_width 1))
+	)
+	(port
+		(pt 376 96)
+		(output)
+		(text "int_fbTENn" (rect 0 0 70 12)(font "Arial" ))
+		(text "int_fbTENn" (rect 285 91 355 103)(font "Arial" ))
+		(line (pt 376 96)(pt 360 96)(line_width 1))
+	)
+	(port
+		(pt 376 112)
+		(output)
+		(text "LOC_CSn" (rect 0 0 49 12)(font "Arial" ))
+		(text "LOC_CSn" (rect 306 107 355 119)(font "Arial" ))
+		(line (pt 376 112)(pt 360 112)(line_width 1))
+	)
+	(port
+		(pt 376 128)
+		(output)
+		(text "LOC_Rn/W" (rect 0 0 56 12)(font "Arial" ))
+		(text "LOC_Rn/W" (rect 299 123 355 135)(font "Arial" ))
+		(line (pt 376 128)(pt 360 128)(line_width 1))
+	)
+	(port
+		(pt 376 144)
+		(output)
+		(text "DATABUS_ADD[12..0]" (rect 0 0 127 12)(font "Arial" ))
+		(text "DATABUS_ADD[12..0]" (rect 228 139 355 151)(font "Arial" ))
+		(line (pt 376 144)(pt 360 144)(line_width 3))
+	)
+	(port
+		(pt 376 160)
+		(output)
+		(text "DISABLE_CLOCK_20" (rect 0 0 113 12)(font "Arial" ))
+		(text "DISABLE_CLOCK_20" (rect 242 155 355 167)(font "Arial" ))
+		(line (pt 376 160)(pt 360 160)(line_width 1))
+	)
+	(port
+		(pt 376 176)
+		(output)
+		(text "WR_FIFO" (rect 0 0 49 12)(font "Arial" ))
+		(text "WR_FIFO" (rect 306 171 355 183)(font "Arial" ))
+		(line (pt 376 176)(pt 360 176)(line_width 1))
+	)
+	(port
+		(pt 376 192)
+		(output)
+		(text "RD_FIFO" (rect 0 0 49 12)(font "Arial" ))
+		(text "RD_FIFO" (rect 306 187 355 199)(font "Arial" ))
+		(line (pt 376 192)(pt 360 192)(line_width 1))
+	)
+	(port
+		(pt 376 208)
+		(output)
+		(text "FIFO_CLK" (rect 0 0 56 12)(font "Arial" ))
+		(text "FIFO_CLK" (rect 299 203 355 215)(font "Arial" ))
+		(line (pt 376 208)(pt 360 208)(line_width 1))
+	)
+	(port
+		(pt 376 224)
+		(output)
+		(text "FIFO_CLR" (rect 0 0 56 12)(font "Arial" ))
+		(text "FIFO_CLR" (rect 299 219 355 231)(font "Arial" ))
+		(line (pt 376 224)(pt 360 224)(line_width 1))
+	)
+	(port
+		(pt 376 240)
+		(output)
+		(text "FIFO_DATA_ENABLE" (rect 0 0 113 12)(font "Arial" ))
+		(text "FIFO_DATA_ENABLE" (rect 242 235 355 247)(font "Arial" ))
+		(line (pt 376 240)(pt 360 240)(line_width 1))
+	)
+	(port
+		(pt 376 256)
+		(output)
+		(text "HEADER_ENA" (rect 0 0 70 12)(font "Arial" ))
+		(text "HEADER_ENA" (rect 285 251 355 263)(font "Arial" ))
+		(line (pt 376 256)(pt 360 256)(line_width 1))
+	)
+	(port
+		(pt 376 272)
+		(output)
+		(text "HMPID_CDH_ENA" (rect 0 0 92 12)(font "Arial" ))
+		(text "HMPID_CDH_ENA" (rect 263 267 355 279)(font "Arial" ))
+		(line (pt 376 272)(pt 360 272)(line_width 1))
+	)
+	(port
+		(pt 376 288)
+		(output)
+		(text "CLEAR_BUSY" (rect 0 0 70 12)(font "Arial" ))
+		(text "CLEAR_BUSY" (rect 285 283 355 295)(font "Arial" ))
+		(line (pt 376 288)(pt 360 288)(line_width 1))
+	)
+	(port
+		(pt 376 304)
+		(output)
+		(text "FECTRL" (rect 0 0 42 12)(font "Arial" ))
+		(text "FECTRL" (rect 313 299 355 311)(font "Arial" ))
+		(line (pt 376 304)(pt 360 304)(line_width 1))
+	)
+	(port
+		(pt 376 320)
+		(output)
+		(text "DDL_SOFT_BUSY_RESET" (rect 0 0 134 12)(font "Arial" ))
+		(text "DDL_SOFT_BUSY_RESET" (rect 221 315 355 327)(font "Arial" ))
+		(line (pt 376 320)(pt 360 320)(line_width 1))
+	)
+	(port
+		(pt 376 336)
+		(output)
+		(text "RST_SEQ_ERR_FLAG" (rect 0 0 113 12)(font "Arial" ))
+		(text "RST_SEQ_ERR_FLAG" (rect 242 331 355 343)(font "Arial" ))
+		(line (pt 376 336)(pt 360 336)(line_width 1))
+	)
+	(port
+		(pt 376 352)
+		(output)
+		(text "L1A_LATENCY[7..0]" (rect 0 0 120 12)(font "Arial" ))
+		(text "L1A_LATENCY[7..0]" (rect 235 347 355 359)(font "Arial" ))
+		(line (pt 376 352)(pt 360 352)(line_width 3))
+	)
+	(port
+		(pt 376 368)
+		(output)
+		(text "ERROR_BIT_ENA" (rect 0 0 92 12)(font "Arial" ))
+		(text "ERROR_BIT_ENA" (rect 263 363 355 375)(font "Arial" ))
+		(line (pt 376 368)(pt 360 368)(line_width 1))
+	)
+	(port
+		(pt 376 384)
+		(output)
+		(text "ENA_L2LOOP" (rect 0 0 70 12)(font "Arial" ))
+		(text "ENA_L2LOOP" (rect 285 379 355 391)(font "Arial" ))
+		(line (pt 376 384)(pt 360 384)(line_width 1))
+	)
+	(port
+		(pt 376 400)
+		(output)
+		(text "L0_DELAY_VALUE[7..0]" (rect 0 0 141 12)(font "Arial" ))
+		(text "L0_DELAY_VALUE[7..0]" (rect 214 395 355 407)(font "Arial" ))
+		(line (pt 376 400)(pt 360 400)(line_width 3))
+	)
+	(port
+		(pt 376 416)
+		(output)
+		(text "LOCAL_STATE[7..0]" (rect 0 0 120 12)(font "Arial" ))
+		(text "LOCAL_STATE[7..0]" (rect 235 411 355 423)(font "Arial" ))
+		(line (pt 376 416)(pt 360 416)(line_width 3))
+	)
+	(port
+		(pt 376 432)
+		(output)
+		(text "MAIN_STATE[7..0]" (rect 0 0 113 12)(font "Arial" ))
+		(text "MAIN_STATE[7..0]" (rect 242 427 355 439)(font "Arial" ))
+		(line (pt 376 432)(pt 360 432)(line_width 3))
+	)
+	(port
+		(pt 376 448)
+		(output)
+		(text "DDL_SOFT_RESET_MODULE" (rect 0 0 148 12)(font "Arial" ))
+		(text "DDL_SOFT_RESET_MODULE" (rect 207 443 355 455)(font "Arial" ))
+		(line (pt 376 448)(pt 360 448)(line_width 1))
+	)
+	(port
+		(pt 376 32)
+		(bidir)
+		(text "fbD[31..0]" (rect 0 0 70 12)(font "Arial" ))
+		(text "fbD[31..0]" (rect 285 27 355 39)(font "Arial" ))
+		(line (pt 376 32)(pt 360 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 360 464)(line_width 1))
+	)
+)

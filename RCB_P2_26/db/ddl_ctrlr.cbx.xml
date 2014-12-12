@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="ddl_ctrlr">
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|COUNTER:inst10|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_d5i.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|COUNTER:inst35|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_d5i.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|FIFO:inst6|scfifo:scfifo_component" CBX_FILE_NAME="scfifo_uf31.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ddl_ctrlr|LED_COUNTER:inst58|lpm_counter:LPM_COUNTER_component" CBX_FILE_NAME="cntr_aqi.tdf"/>
+	</PROJECT>
+</LOG_ROOT>
